@@ -1,27 +1,25 @@
 <template>
   <div class="side_box">
-    <div class="logo">城墨聚搜</div>
-    <el-tree
-      class="site"
-      :data="data"
-      node-key="id"
-      default-expand-all
-      @node-drag-start="handleDragStart"
-      @node-drag-enter="handleDragEnter"
-      @node-drag-leave="handleDragLeave"
-      @node-drag-over="handleDragOver"
-      @node-drag-end="handleDragEnd"
-      @node-drop="handleDrop"
-      draggable
-      :allow-drop="allowDrop"
-      :allow-drag="allowDrag"
-    ></el-tree>
+    <a href="/" class="logo_container">
+      <div class="logo" v-if="!isCollapse">
+        <div class="name">城墨聚搜</div>
+        <div class="version">v1.0</div>
+      </div>
+      <div class="logo collapse" v-else>
+        <div class="name">城墨</div>
+      </div>
+    </a>
+    <NavBox :isCollapse="isCollapse"></NavBox>
   </div>
 </template>
 
 <script>
+import NavBox from './components/NavBox'
 export default {
   name: 'SideBox',
+  components: {
+    NavBox
+  },
   data() {
     return {
       data: [
@@ -94,6 +92,11 @@ export default {
       }
     }
   },
+  computed: {
+    isCollapse() {
+      return this.$store.state.isSideBoxCollapse
+    }
+  },
   methods: {
     handleDragStart(node, ev) {
       console.log('drag start', node)
@@ -129,12 +132,29 @@ export default {
 
 <style lang="scss" scoped>
 .side_box {
-  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  .logo {
+  color: $color-side-title;
+  background-color: $color-side-bg;
+  .logo_container {
+    width: 100%;
     height: $height-header;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-side-title;
+    .logo {
+      display: flex;
+      align-items: baseline;
+      .name {
+        font-size: 25px;
+        font-weight: 700;
+      }
+      .version {
+        margin-left: 5px;
+      }
+    }
   }
   .site {
     flex: 1;

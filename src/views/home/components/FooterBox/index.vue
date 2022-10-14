@@ -11,6 +11,9 @@ export default {
 <style lang="scss" scoped>
 .footer_box {
   height: 36px;
-  background-color: skyblue;
+  display: flex;
+  align-items: center;
+  color: $color-side-title;
+  background-color: $color-side-bg;
 }
 </style>

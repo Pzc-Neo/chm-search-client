@@ -1,9 +1,7 @@
 <template>
   <div class="home">
     <el-container>
-      <el-aside width="200px">
-        <SideBox />
-      </el-aside>
+      <SideBox />
       <el-container>
         <el-header><HeaderBox /></el-header>
         <el-main><MainBox /></el-main>
@@ -33,6 +31,17 @@ export default {
   .el-container {
     width: 100%;
     height: 100%;
+  }
+
+  .el-header {
+    height: $height-header !important;
+  }
+  .el-footer {
+    height: $height-footer !important;
+  }
+  .el-main {
+    width: 100%;
+    overflow: hidden;
   }
   .el-side,
   .el-header,

@@ -11,13 +11,48 @@ import {
   Header,
   Main,
   Footer,
+  Menu,
+  MenuItem,
+  Submenu,
+  MenuItemGroup,
+  RadioGroup,
+  RadioButton,
+  Autocomplete,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Form,
+  FormItem,
+  Input,
+  Avatar,
   Tree
 } from 'element-ui'
-;[Button, Select, Container, Aside, Header, Main, Footer, Tree].forEach(
-  (item) => {
-    Vue.component(item.name, item)
-  }
-)
+;[
+  Button,
+  Select,
+  Container,
+  Aside,
+  Header,
+  Main,
+  Footer,
+  Menu,
+  MenuItem,
+  Submenu,
+  MenuItemGroup,
+  RadioGroup,
+  RadioButton,
+  Autocomplete,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Form,
+  FormItem,
+  Input,
+  Avatar,
+  Tree
+].forEach((item) => {
+  Vue.component(item.name, item)
+})
 
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
