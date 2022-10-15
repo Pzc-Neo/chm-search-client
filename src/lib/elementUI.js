@@ -25,6 +25,9 @@ import {
   FormItem,
   Input,
   Avatar,
+  Popover,
+  Dialog,
+  Option,
   Tree
 } from 'element-ui'
 ;[
@@ -49,6 +52,9 @@ import {
   FormItem,
   Input,
   Avatar,
+  Popover,
+  Dialog,
+  Option,
   Tree
 ].forEach((item) => {
   Vue.component(item.name, item)

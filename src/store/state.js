@@ -44,5 +44,6 @@ export default {
     engineId1: 0,
     engineId2: 1,
     engineId3: 2
-  }
+  },
+  userInfo: null // 用户信息
 }

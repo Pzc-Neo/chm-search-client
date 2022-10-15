@@ -3,19 +3,20 @@
     <el-autocomplete
       class="inline-input"
       size="small"
-      v-model="searchValue"
+      v-model="searchValueLocal"
       :fetch-suggestions="querySearch"
       placeholder="请输入内容"
       :trigger-on-focus="false"
       @select="handleSelect"
       @change="handleSearch"
     ></el-autocomplete>
+    <!-- 选择搜索类型 -->
     <el-dropdown
       split-button
       type="primary"
       size="small"
       trigger="click"
-      @click="handleClick"
+      @click="handleSearch"
       @command="handleMenuClick"
     >
       {{ searchType && searchType.title }}
@@ -54,6 +55,7 @@ import SearchEngineSelector from './components/SearchEngineSelector'
 export default {
   data() {
     return {
+      searchValueLocal: '',
       restaurants: [],
       state1: '',
       state2: ''
@@ -139,9 +141,7 @@ export default {
     },
     handleSearch() {
       this.$store.commit('SET_MODE', 'search')
-    },
-    handleClick(e) {
-      this.$store.commit('SET_MODE', 'search')
+      this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
     },
     handleMenuClick(command) {
       console.log('123')

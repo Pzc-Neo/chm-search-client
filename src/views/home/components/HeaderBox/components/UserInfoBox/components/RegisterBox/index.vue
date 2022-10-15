@@ -1,0 +1,72 @@
+<template>
+  <div class="register_box">
+    <el-form :model="form">
+      <el-form-item label="用户名" :label-width="formLabelWidth">
+        <el-input v-model="form.name" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="昵称" :label-width="formLabelWidth">
+        <el-input v-model="form.nickname" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" :label-width="formLabelWidth">
+        <el-input
+          type="password"
+          v-model="form.password"
+          autocomplete="off"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="确认密码" :label-width="formLabelWidth">
+        <el-input
+          type="password"
+          v-model="form.passwordConfirm"
+          autocomplete="off"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="性别" :label-width="formLabelWidth">
+        <el-select v-model="form.sex" placeholder="请选择活动区域">
+          <el-option label="男" :value="1"></el-option>
+          <el-option label="女" :value="0"></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog_footer">
+      <el-button @click="registerFormVisible = false">取 消</el-button>
+      <el-button type="primary" @click="handleRegister">确 定</el-button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'RegisterBox',
+  data() {
+    return {
+      form: {
+        name: '',
+        nickname: '',
+        sex: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      },
+      formLabelWidth: '70px'
+    }
+  },
+  methods: {
+    // 注册
+    handleRegister() {
+      console.log('handleRegister')
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.register_box {
+  .dialog_footer {
+    text-align: right;
+  }
+}
+</style>
