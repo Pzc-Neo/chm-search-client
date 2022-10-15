@@ -12,8 +12,8 @@
       </el-avatar>
       <div class="name">{{ (userInfo && userInfo.name) || '未登陆' }}</div>
       <div class="command_btns" v-if="!userInfo">
-        <el-button @click="registerFormVisible = true">注册</el-button>
-        <el-button @click="loginFormVisible = true">登录</el-button>
+        <el-button @click="showRegisterBox">注册</el-button>
+        <el-button @click="showLoginBox">登录</el-button>
       </div>
       <div class="command_btns" v-else>
         <el-button @click="logout">退出登录</el-button>
@@ -26,13 +26,22 @@
       :append-to-body="true"
     >
       <RegisterBox
+        ref="registerBox"
         v-if="registerFormVisible"
         :is-show.sync="registerFormVisible"
       />
-      <LoginBox v-if="loginFormVisible" :is-show.sync="loginFormVisible" />
+      <LoginBox
+        ref="loginBox"
+        v-if="loginFormVisible"
+        :is-show.sync="loginFormVisible"
+      />
     </el-dialog>
 
-    <div slot="reference" class="avatar_area" @click.stop="toggleUserInfoVisible">
+    <div
+      slot="reference"
+      class="avatar_area"
+      @click.stop="toggleUserInfoVisible"
+    >
       <el-avatar :src="(userInfo && userInfo.avatar) || null"
         ><i class="el-icon-user-solid"></i
       ></el-avatar>
@@ -89,6 +98,20 @@ export default {
     }
   },
   methods: {
+    showRegisterBox() {
+      this.registerFormVisible = true
+      // 聚焦"用户名"输入框
+      this.$nextTick(() => {
+        this.$refs.registerBox.$refs.refName.focus()
+      })
+    },
+    showLoginBox() {
+      this.loginFormVisible = true
+      // 聚焦"用户名"输入框
+      this.$nextTick(() => {
+        this.$refs.loginBox.$refs.refName.focus()
+      })
+    },
     toggleUserInfoVisible() {
       this._isShowUserInfoBox = !this._isShowUserInfoBox
     },

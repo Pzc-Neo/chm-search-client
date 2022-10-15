@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import { serverUserRegister } from '@/api/user'
+
 export default {
   name: 'RegisterBox',
   data() {
@@ -60,7 +62,6 @@ export default {
         password: '',
         passwordConfirm: '', // 密码确认
         sex: 1,
-        type: [],
         email: ''
       },
       formLabelWidth: '70px'
@@ -69,7 +70,20 @@ export default {
   methods: {
     // 注册
     handleRegister() {
-      console.log('handleRegister')
+      serverUserRegister({ data: this.form }).then((res) => {
+        const { code, data } = res
+        if (code === 0) {
+          this.$message({
+            message: data?.msg,
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: data?.msg,
+            type: 'error'
+          })
+        }
+      })
     },
     // 关闭面板
     hideBox() {
