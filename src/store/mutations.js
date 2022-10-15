@@ -28,5 +28,12 @@ export default {
   },
   SET_IS_SIDE_BOX_COLLAPSE(state, value) {
     state.isSideBoxCollapse = value
+  },
+  SHOW_CONTEXTMENU(state, prama) {
+    state.contextmenu.isShow = true
+    state.contextmenu.prama = prama
+  },
+  HIDE_CONTEXTMENU(state) {
+    state.contextmenu.isShow = false
   }
 }

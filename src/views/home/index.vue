@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <ContextMenuBar />
     <el-container>
       <SideBox />
       <el-container>
@@ -11,6 +12,7 @@
   </div>
 </template>
 <script>
+import ContextMenuBar from '@/components/ContextMenuBar'
 import SideBox from './components/SideBox'
 import HeaderBox from './components/HeaderBox'
 import FooterBox from './components/FooterBox'
@@ -23,7 +25,11 @@ export default {
     SideBox,
     HeaderBox,
     FooterBox,
-    MainBox
+    MainBox,
+    ContextMenuBar
+  },
+  data() {
+    return {}
   },
   async created() {
     // 有token的时候才获取用户信息

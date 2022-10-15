@@ -1,45 +1,60 @@
 <template>
-  <draggable
-    tag="div"
-    class="website_list"
-    v-model="websiteList"
-    v-bind="dragOptions"
-    @start="drag = true"
-    @end="drag = false"
-  >
-    <transition-group
-      type="transition"
-      :name="!drag ? 'flip-websites' : null"
-      class="website_group"
+  <div class="website_list">
+    <draggable
+      tag="div"
+      v-model="websiteList"
+      v-bind="dragOptions"
+      @start="drag = true"
+      @end="drag = false"
     >
-      <a
-        class="website"
-        target="_blank"
-        v-for="website in websiteList"
-        :href="website.url"
-        :key="website.id"
+      <transition-group
+        type="transition"
+        :name="!drag ? 'flip-websites' : null"
+        class="website_group"
+        ref="websiteGroup"
       >
-        <div class="title">
-          {{ website.title }}
-        </div>
-        <div class="description">
-          {{ website.description }}
-        </div>
-      </a>
-    </transition-group>
-  </draggable>
+        <a
+          class="website"
+          ref="website"
+          target="_blank"
+          v-for="website in websiteList"
+          :href="website.url"
+          :key="website.id"
+          @contextmenu.prevent="showContextmenu($event, website.id)"
+        >
+          <div class="title">
+            {{ website.title }}
+          </div>
+          <div class="description">
+            {{ website.description }}
+          </div>
+        </a>
+      </transition-group>
+    </draggable>
 
-  <!-- <rawDisplayer class="col-3" :value="websites" title="List" /> -->
+    <el-dialog
+      title="新增网址"
+      :visible.sync="isShowDialog"
+      :append-to-body="true"
+    >
+      <NewWebsiteBox :is-show.sync="isShowDialog" />
+      <!-- <NewWebsiteBox /> -->
+    </el-dialog>
+    <!-- <rawDisplayer class="col-3" :value="websites" title="List" /> -->
+  </div>
 </template>
 
 <script>
+import { menuListFactory } from '@/views/home/menuList'
 import draggable from 'vuedraggable'
+import NewWebsiteBox from './components/NewWebsiteBox'
 export default {
   name: 'WebsiteBox',
   display: 'Transitions',
   order: 7,
   components: {
-    draggable
+    draggable,
+    NewWebsiteBox
   },
   model: {
     prop: 'websites',
@@ -56,20 +71,56 @@ export default {
   data() {
     return {
       websiteList: [],
-      drag: false
+      drag: false,
+      isShowDialog: false,
+      menuList: menuListFactory.call(this, 'website')
     }
   },
   methods: {
     // sort() {
     //   this.websites = this.websites.sort((a, b) => a.order - b.order)
     // }
+    // 显示右键菜单
+    showContextmenu(event, websiteId) {
+      let target = event.target
+      if (target === this.$refs.websiteGroup) {
+        this.showBarMenu(event)
+      } else {
+        while (target !== this.$refs.websiteGroup) {
+          if (target.tagName.toLowerCase() === 'a') {
+            this.showItemMenu(event, websiteId)
+            break
+          }
+          target = target.parentNode
+        }
+      }
+    },
+    showBarMenu(event) {
+      const param = {
+        event,
+        targetItem: {},
+        menuList: this.menuListBar
+      }
+      this.$store.commit('SHOW_CONTEXTMENU', param)
+    },
+    showItemMenu(event, targetItemId) {
+      const index = this.websites.findIndex((item) => {
+        return item.id === targetItemId
+      })
+      const param = {
+        event,
+        targetItem: this.websites[index],
+        menuList: this.menuList
+      }
+      this.$store.commit('SHOW_CONTEXTMENU', param)
+    }
   },
   created() {
     this.websiteList = this.websites
   },
   watch: {
-    websites() {
-      this.websitesList = this.websites
+    websites(newValue) {
+      this.websiteList = newValue
     }
   },
   computed: {
@@ -86,6 +137,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+:deep(.el-dialog) {
+  width: 350px;
+}
 .website_list {
   .website_group {
     position: relative;

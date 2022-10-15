@@ -41,12 +41,18 @@ export default {
     url: 'https://www.baidu.com/s?wd='
   },
   searchEngine: {
-    engineId1: 0,
-    engineId2: 1,
-    engineId3: 2
+    engineId1: 1,
+    engineId2: 2,
+    engineId3: 3
   },
   isShowUserInfoBox: false, // 是否显示用户信息框
   userInfo: null, // 用户信息
   engineGroups: null, // 搜索引擎资料
-  websiteGroups: null // 网站资料
+  websiteGroups: null, // 网站资料
+  // 右键菜单
+  contextmenu: {
+    isShow: false,
+    type: null,
+    prama: {}
+  }
 }
