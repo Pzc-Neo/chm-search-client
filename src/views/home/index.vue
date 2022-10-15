@@ -15,6 +15,8 @@ import SideBox from './components/SideBox'
 import HeaderBox from './components/HeaderBox'
 import FooterBox from './components/FooterBox'
 import MainBox from './components/MainBox'
+import { serverUserGetInfo } from '@/api/user'
+import { getHomeData } from '@/util'
 export default {
   name: 'home',
   components: {
@@ -22,6 +24,24 @@ export default {
     HeaderBox,
     FooterBox,
     MainBox
+  },
+  async created() {
+    // 有token的时候才获取用户信息
+    const token = localStorage.getItem('token')
+    if (token) {
+      serverUserGetInfo().then((res) => {
+        const { code, data } = res
+        if (code === 0) {
+          this.$store.commit('SET_USER_INFO', data.userInfo)
+        } else {
+          this.$message({
+            message: data?.msg,
+            type: 'error'
+          })
+        }
+      })
+    }
+    await getHomeData.call(this)
   }
 }
 </script>

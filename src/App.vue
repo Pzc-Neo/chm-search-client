@@ -4,6 +4,17 @@
   </div>
 </template>
 
+<script>
+export default {
+  mounted() {
+    // 隐藏用户信息面板
+    document.getElementById('app').addEventListener('click', () => {
+      this.$store.commit('SET_IS_SHOW_USER_INFO_BOX', false)
+    })
+  }
+}
+</script>
+
 <style lang="scss">
 #app {
   width: 100vw;

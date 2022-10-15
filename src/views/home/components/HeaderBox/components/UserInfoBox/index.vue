@@ -4,7 +4,7 @@
     width="200"
     trigger="manual"
     content="默认内容"
-    v-model="userInfoVisible"
+    v-model="_isShowUserInfoBox"
   >
     <div class="user_info_box">
       <el-avatar class="avatar" :size="80" :src="userInfo && userInfo.avatar">
@@ -32,7 +32,7 @@
       <LoginBox v-if="loginFormVisible" :is-show.sync="loginFormVisible" />
     </el-dialog>
 
-    <div slot="reference" class="avatar_area" @click="toggleUserInfoVisible">
+    <div slot="reference" class="avatar_area" @click.stop="toggleUserInfoVisible">
       <el-avatar :src="(userInfo && userInfo.avatar) || null"
         ><i class="el-icon-user-solid"></i
       ></el-avatar>
@@ -44,6 +44,7 @@
 import { mapState } from 'vuex'
 import RegisterBox from './components/RegisterBox'
 import LoginBox from './components/LoginBox'
+import { getHomeData } from '@/util'
 
 export default {
   name: 'UserInfoBox',
@@ -53,15 +54,23 @@ export default {
   },
   data() {
     return {
-      userInfoVisible: false,
       registerFormVisible: false,
       loginFormVisible: false
     }
   },
   computed: {
     ...mapState({
-      userInfo: (state) => state.userInfo
+      userInfo: (state) => state.userInfo,
+      isShowUserInfoBox: (state) => state.isShowUserInfoBox
     }),
+    _isShowUserInfoBox: {
+      get() {
+        return this.isShowUserInfoBox
+      },
+      set(newValue) {
+        this.$store.commit('SET_IS_SHOW_USER_INFO_BOX', newValue)
+      }
+    },
     isShowDialog: {
       get() {
         return this.registerFormVisible || this.loginFormVisible
@@ -81,11 +90,12 @@ export default {
   },
   methods: {
     toggleUserInfoVisible() {
-      this.userInfoVisible = !this.userInfoVisible
+      this._isShowUserInfoBox = !this._isShowUserInfoBox
     },
     logout() {
       this.$store.commit('SET_USER_INFO', null)
       localStorage.removeItem('token')
+      getHomeData.call(this)
     }
   }
 }

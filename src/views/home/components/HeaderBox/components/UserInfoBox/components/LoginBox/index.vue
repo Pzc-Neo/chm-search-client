@@ -26,6 +26,7 @@
 
 <script>
 import { serverUserLogin } from '@/api/user'
+import { getHomeData } from '@/util'
 export default {
   name: 'LoginBox',
   data() {
@@ -40,10 +41,12 @@ export default {
   methods: {
     // 注册
     handleLogin() {
-      serverUserLogin({ data: this.form }).then((res) => {
+      serverUserLogin({ data: this.form }).then(async (res) => {
         const { code, data } = res
         if (code === 0) {
+          localStorage.setItem('token', data?.token)
           this.$store.commit('SET_USER_INFO', data.userInfo)
+          await getHomeData.call(this)
           this.hideBox()
         } else {
           this.$message({

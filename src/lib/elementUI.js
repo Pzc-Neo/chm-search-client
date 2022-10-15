@@ -28,6 +28,7 @@ import {
   Popover,
   Dialog,
   Option,
+  Empty,
   Tree
 } from 'element-ui'
 ;[
@@ -55,6 +56,7 @@ import {
   Popover,
   Dialog,
   Option,
+  Empty,
   Tree
 ].forEach((item) => {
   Vue.component(item.name, item)
