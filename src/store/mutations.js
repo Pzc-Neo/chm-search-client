@@ -11,6 +11,9 @@ export default {
   SET_MODE(state, value) {
     state.mode = value
   },
+  SET_USER_INFO(state, value) {
+    state.userInfo = value
+  },
   SET_IS_SIDE_BOX_COLLAPSE(state, value) {
     state.isSideBoxCollapse = value
   }

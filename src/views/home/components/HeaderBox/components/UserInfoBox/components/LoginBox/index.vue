@@ -13,6 +13,7 @@
           type="password"
           v-model="form.password"
           autocomplete="off"
+          @keyup.enter.native="handleLogin"
         ></el-input>
       </el-form-item>
     </el-form>
@@ -24,20 +25,14 @@
 </template>
 
 <script>
+import { serverUserLogin } from '@/api/user'
 export default {
   name: 'LoginBox',
   data() {
     return {
       form: {
         name: '',
-        nickname: '',
-        sex: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        password: ''
       },
       formLabelWidth: '70px'
     }
@@ -45,7 +40,18 @@ export default {
   methods: {
     // 注册
     handleLogin() {
-      console.log('handleLogin')
+      serverUserLogin({ data: this.form }).then((res) => {
+        const { code, data } = res
+        if (code === 0) {
+          this.$store.commit('SET_USER_INFO', data.userInfo)
+          this.hideBox()
+        } else {
+          this.$message({
+            message: data?.msg,
+            type: 'error'
+          })
+        }
+      })
     },
     // 关闭面板
     hideBox() {

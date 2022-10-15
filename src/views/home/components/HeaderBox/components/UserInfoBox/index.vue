@@ -16,7 +16,7 @@
         <el-button @click="loginFormVisible = true">登录</el-button>
       </div>
       <div class="command_btns" v-else>
-        <el-button>退出登录</el-button>
+        <el-button @click="logout">退出登录</el-button>
       </div>
     </div>
 
@@ -82,6 +82,10 @@ export default {
   methods: {
     toggleUserInfoVisible() {
       this.userInfoVisible = !this.userInfoVisible
+    },
+    logout() {
+      this.$store.commit('SET_USER_INFO', null)
+      localStorage.removeItem('token')
     }
   }
 }
@@ -94,7 +98,7 @@ export default {
 .el-avatar {
   background-color: $color-side-title;
 }
-::v-deep .el-dialog {
+:deep(.el-dialog) {
   width: 340px;
 }
 .user_info_box {
