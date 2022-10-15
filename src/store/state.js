@@ -46,4 +46,8 @@ export default {
     engineId3: 2
   },
   userInfo: null // 用户信息
+  // userInfo: {
+  //   name: 'neo',
+  //   avatar: 'http://p1.qhmsg.com/dm/180_180_100/t018ed4b570373f8ce0.jpg'
+  // } // 用户信息
 }

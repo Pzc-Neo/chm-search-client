@@ -2,10 +2,21 @@
   <div class="register_box">
     <el-form :model="form">
       <el-form-item label="用户名" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off"></el-input>
+        <el-input
+          ref="refName"
+          v-model="form.name"
+          autocomplete="off"
+          maxlength="16"
+          show-word-limit
+        ></el-input>
       </el-form-item>
       <el-form-item label="昵称" :label-width="formLabelWidth">
-        <el-input v-model="form.nickname" autocomplete="off"></el-input>
+        <el-input
+          v-model="form.nickname"
+          autocomplete="off"
+          maxlength="16"
+          show-word-limit
+        ></el-input>
       </el-form-item>
       <el-form-item label="密码" :label-width="formLabelWidth">
         <el-input
@@ -21,6 +32,9 @@
           autocomplete="off"
         ></el-input>
       </el-form-item>
+      <el-form-item label="邮箱" :label-width="formLabelWidth">
+        <el-input v-model="form.email" autocomplete="off"></el-input>
+      </el-form-item>
       <el-form-item label="性别" :label-width="formLabelWidth">
         <el-select v-model="form.sex" placeholder="请选择活动区域">
           <el-option label="男" :value="1"></el-option>
@@ -29,7 +43,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog_footer">
-      <el-button @click="registerFormVisible = false">取 消</el-button>
+      <el-button @click="hideBox">取 消</el-button>
       <el-button type="primary" @click="handleRegister">确 定</el-button>
     </div>
   </div>
@@ -43,13 +57,11 @@ export default {
       form: {
         name: '',
         nickname: '',
-        sex: '',
-        date1: '',
-        date2: '',
-        delivery: false,
+        password: '',
+        passwordConfirm: '', // 密码确认
+        sex: 1,
         type: [],
-        resource: '',
-        desc: ''
+        email: ''
       },
       formLabelWidth: '70px'
     }
@@ -58,6 +70,10 @@ export default {
     // 注册
     handleRegister() {
       console.log('handleRegister')
+    },
+    // 关闭面板
+    hideBox() {
+      this.$emit('update:is-show', false)
     }
   }
 }
@@ -65,6 +81,13 @@ export default {
 
 <style lang="scss" scoped>
 .register_box {
+  .el-form {
+    .el-form-item {
+      ::v-deep .el-form-item__content {
+        width: 200px;
+      }
+    }
+  }
   .dialog_footer {
     text-align: right;
   }

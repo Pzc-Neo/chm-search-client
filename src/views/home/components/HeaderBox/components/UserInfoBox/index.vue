@@ -7,11 +7,9 @@
     v-model="userInfoVisible"
   >
     <div class="user_info_box">
-      <el-avatar
-        class="avatar"
-        :size="80"
-        :src="userInfo && userInfo.avatar"
-      ></el-avatar>
+      <el-avatar class="avatar" :size="80" :src="userInfo && userInfo.avatar">
+        <i class="el-icon-user-solid"></i>
+      </el-avatar>
       <div class="name">{{ (userInfo && userInfo.name) || '未登陆' }}</div>
       <div class="command_btns" v-if="!userInfo">
         <el-button @click="registerFormVisible = true">注册</el-button>
@@ -22,13 +20,22 @@
       </div>
     </div>
 
-    <el-dialog :visible.sync="isShowDialog" :append-to-body="true">
-      <RegisterBox v-if="registerFormVisible" />
-      <LoginBox v-if="loginFormVisible" />
+    <el-dialog
+      :title="dialogTitle"
+      :visible.sync="isShowDialog"
+      :append-to-body="true"
+    >
+      <RegisterBox
+        v-if="registerFormVisible"
+        :is-show.sync="registerFormVisible"
+      />
+      <LoginBox v-if="loginFormVisible" :is-show.sync="loginFormVisible" />
     </el-dialog>
 
     <div slot="reference" class="avatar_area" @click="toggleUserInfoVisible">
-      <el-avatar :src="(userInfo && userInfo.avatar) || null"></el-avatar>
+      <el-avatar :src="(userInfo && userInfo.avatar) || null"
+        ><i class="el-icon-user-solid"></i
+      ></el-avatar>
     </div>
   </el-popover>
 </template>
@@ -63,6 +70,13 @@ export default {
         this.registerFormVisible = false
         this.loginFormVisible = false
       }
+    },
+    dialogTitle() {
+      if (this.registerFormVisible) {
+        return '注册'
+      } else {
+        return '登录'
+      }
     }
   },
   methods: {
@@ -76,6 +90,12 @@ export default {
 <style lang="scss" scoped>
 .avatar_area {
   cursor: pointer;
+}
+.el-avatar {
+  background-color: $color-side-title;
+}
+::v-deep .el-dialog {
+  width: 340px;
 }
 .user_info_box {
   display: flex;
