@@ -20,7 +20,7 @@
           v-for="website in websiteList"
           :href="website.url"
           :key="website.id"
-          @contextmenu.prevent="showContextmenu($event, website.id)"
+          @contextmenu.prevent="showContextmenu($event, website)"
         >
           <div class="title">
             {{ website.title }}
@@ -32,14 +32,12 @@
       </transition-group>
     </draggable>
 
-    <el-dialog
-      title="新增网址"
-      :visible.sync="isShowDialog"
-      :append-to-body="true"
-    >
-      <NewWebsiteBox :is-show.sync="isShowDialog" />
-      <!-- <NewWebsiteBox /> -->
-    </el-dialog>
+    <EditWebsiteBox
+      :is-show.sync="isShowDialog"
+      :type="editWebsiteBoxType"
+      :website-for-contextmenu="websiteForContextmenu"
+    />
+    <!-- <EditWebsiteBox /> -->
     <!-- <rawDisplayer class="col-3" :value="websites" title="List" /> -->
   </div>
 </template>
@@ -47,14 +45,14 @@
 <script>
 import { menuListFactory } from '@/views/home/menuList'
 import draggable from 'vuedraggable'
-import NewWebsiteBox from './components/NewWebsiteBox'
+import EditWebsiteBox from './components/EditWebsiteBox'
 export default {
   name: 'WebsiteBox',
   display: 'Transitions',
   order: 7,
   components: {
     draggable,
-    NewWebsiteBox
+    EditWebsiteBox
   },
   model: {
     prop: 'websites',
@@ -73,7 +71,9 @@ export default {
       websiteList: [],
       drag: false,
       isShowDialog: false,
-      menuList: menuListFactory.call(this, 'website')
+      editWebsiteBoxType: 'add', // 网址框的模式：add：新建  edit: 编辑
+      menuList: menuListFactory.call(this, 'website'),
+      websiteForContextmenu: null // 点击右键菜单时，鼠标所指向的网址
     }
   },
   methods: {
@@ -81,14 +81,15 @@ export default {
     //   this.websites = this.websites.sort((a, b) => a.order - b.order)
     // }
     // 显示右键菜单
-    showContextmenu(event, websiteId) {
+    showContextmenu(event, website) {
       let target = event.target
+      this.websiteForContextmenu = website
       if (target === this.$refs.websiteGroup) {
         this.showBarMenu(event)
       } else {
         while (target !== this.$refs.websiteGroup) {
           if (target.tagName.toLowerCase() === 'a') {
-            this.showItemMenu(event, websiteId)
+            this.showItemMenu(event, website.id)
             break
           }
           target = target.parentNode

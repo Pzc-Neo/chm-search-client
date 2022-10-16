@@ -9,6 +9,14 @@ export const serverWebsiteAdd = async function (data) {
   return await apiWebsitePost(dataForServe)
 }
 
+export const serverWebsiteUpdate = async function (data) {
+  const dataForServe = {
+    type: 'update',
+    data
+  }
+  return await apiWebsitePost(dataForServe)
+}
+
 // 删除网址
 export const serverWebsiteDelete = async function (data) {
   const dataForServe = {

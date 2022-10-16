@@ -31,29 +31,23 @@ export const website = function () {
         title: '新增网址',
         icon: 'el-icon-document-add',
         func: (targetWebsite) => {
+          this.editWebsiteBoxType = 'add'
           this.isShowDialog = true
         }
       }
     },
-    // {
-    //   type: 'item',
-    //   menuItem: {
-    //     id: 'edit',
-    //     title: '编辑网址',
-    //     icon: 'el-icon-edit',
-    //     func: (targetWebsite) => {
-    //       this.$prompt((newTitle) => {
-    //         this.$db.update(
-    //           this.websiteTableName,
-    //           'title',
-    //           newTitle,
-    //           targetWebsite.id
-    //         )
-    //         targetWebsite.title = newTitle
-    //       }, targetWebsite.title)
-    //     }
-    //   }
-    // },
+    {
+      type: 'item',
+      menuItem: {
+        id: 'edit',
+        title: '编辑网址',
+        icon: 'el-icon-edit',
+        func: (targetWebsite) => {
+          this.editWebsiteBoxType = 'edit'
+          this.isShowDialog = true
+        }
+      }
+    },
     {
       type: 'item',
       menuItem: {
