@@ -153,6 +153,7 @@ export default {
       transition: all 0.3s ease-in-out;
       &:hover {
         top: -5px;
+        box-shadow: $box-shadow-main;
       }
       .title {
         font-size: 13px;

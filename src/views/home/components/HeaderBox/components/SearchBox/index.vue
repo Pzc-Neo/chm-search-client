@@ -9,6 +9,7 @@
       placeholder="请输入内容"
       :trigger-on-focus="false"
       @select="handleSelect"
+      @change="handleSearch"
       @keyup.enter.native="handleSearch"
     ></el-autocomplete>
     <!-- 选择搜索类型 -->
@@ -145,7 +146,6 @@ export default {
       this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
     },
     handleMenuClick(command) {
-      console.log('123')
       this.setSearchType(command - 1)
     }
   },

@@ -32,7 +32,23 @@ export default {
     height: 100%;
   }
 }
-
+.el-loading-mask {
+  display: flex;
+  justify-content: center;
+  .el-loading-spinner {
+    width: 100px;
+    text-align: center;
+    position: absolute;
+    background: $color-side-bg-transparent;
+    border: 1px solid $color-side-border;
+    padding: 10px;
+    border-radius: 15px;
+    .el-loading-text,
+    i {
+      color: $color-side-title;
+    }
+  }
+}
 * {
   box-sizing: border-box;
 }

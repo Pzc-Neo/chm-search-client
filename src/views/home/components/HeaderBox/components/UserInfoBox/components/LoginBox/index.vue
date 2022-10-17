@@ -41,8 +41,15 @@ export default {
   methods: {
     // 注册
     handleLogin() {
+      const loading = this.$loading({
+        lock: true,
+        text: '正在登录...',
+        spinner: 'el-icon-loading',
+        background: 'transparent'
+      })
       serverUserLogin({ data: this.form }).then(async (res) => {
         const { code, data } = res
+        loading.close()
         if (code === 0) {
           localStorage.setItem('token', data?.token)
           this.$store.commit('SET_USER_INFO', data.userInfo)
@@ -68,7 +75,7 @@ export default {
 .login_box {
   .el-form {
     .el-form-item {
-      ::v-deep .el-form-item__content {
+      :deep(.el-form-item__content) {
         width: 200px;
       }
     }

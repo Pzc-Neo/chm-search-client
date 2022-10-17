@@ -97,7 +97,7 @@ export default {
 .register_box {
   .el-form {
     .el-form-item {
-      ::v-deep .el-form-item__content {
+      :deep(.el-form-item__content) {
         width: 200px;
       }
     }

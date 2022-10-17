@@ -2,7 +2,7 @@
   <div class="nav_box">
     <el-menu
       default-active="0"
-      :default-openeds="['0', '1', '2', '3', '4', '5', '6']"
+      :default-openeds="engineGroupIds"
       class="nav_bar"
       @open="handleOpen"
       @close="handleClose"
@@ -48,7 +48,16 @@ export default {
   computed: {
     ...mapState({
       engineGroups: (state) => state.engineGroups
-    })
+    }),
+    engineGroupIds() {
+      const result = []
+      if (this.engineGroups) {
+        this.engineGroups.forEach((engine) => {
+          result.push(engine.id + '')
+        })
+      }
+      return result
+    }
   },
   methods: {
     handleOpen(key, keyPath) {
@@ -58,7 +67,6 @@ export default {
       console.log(key, keyPath)
     },
     handleWebsiteClick(engine) {
-      console.log(engine)
       // 搜索模式
       this.$store.commit('SET_MODE', 'search')
       // 设置单搜
@@ -81,6 +89,14 @@ export default {
   a {
     color: $color-side-title;
   }
+  .nav_bar {
+    flex: 1;
+    width: 100%;
+    &:not(.el-menu--collapse) {
+      width: 180px;
+      min-height: 400px;
+    }
+  }
   .el-menu {
     border-right: 0;
     color: $color-side-title;
@@ -89,18 +105,16 @@ export default {
       color: $color-side-title;
       background-color: $color-side-bg-dark;
     }
-    .el-menu-item {
-      color: $color-side-title;
-      background-color: $color-side-bg-dark;
-      &:hover {
-        background-color: red;
-      }
-    }
     .el-submenu {
+      :deep(.el-submenu__title) {
+        padding-left: 10px !important;
+      }
       .el-menu-item {
+        min-width: 50px;
         text-align: left;
         color: $color-side-title;
         background-color: $color-side-bg-dark;
+        padding-left: 30px !important;
         &:hover {
           background-color: $color-side-bg-darker;
         }
@@ -109,24 +123,13 @@ export default {
         }
       }
     }
-    // ::v-deep &.el-menu--inline {
-    //   background-color: $color-side-bg-dark;
-    // }
-    ::v-deep .el-submenu__title {
+    :deep(.el-submenu__title) {
       text-align: left;
       color: $color-side-title;
       &:hover {
         background-color: $color-side-bg-dark1;
       }
     }
-  }
-  .nav_bar {
-    flex: 1;
-    width: 100%;
-  }
-  .nav_bar:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
   }
 }
 </style>

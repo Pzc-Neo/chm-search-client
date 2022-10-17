@@ -70,6 +70,7 @@ export const websiteGroup = function () {
               id: targetWebsite.id
             }).then(async (res) => {
               const { code, data } = res
+              loading.close()
               if (code === 0) {
                 this.$message({
                   type: 'success',
@@ -82,7 +83,6 @@ export const websiteGroup = function () {
                   type: 'error'
                 })
               }
-              loading.close()
             })
           }
         }
@@ -153,7 +153,6 @@ export const website = function () {
               delectWebsite.call(this)
             })
             .catch((e) => {
-              console.log(e)
               this.$message({
                 type: 'info',
                 message: '已取消删除'
@@ -170,6 +169,7 @@ export const website = function () {
             })
             serverWebsiteDelete({ id: targetWebsite.id }).then(async (res) => {
               const { code, data } = res
+              loading.close()
               if (code === 0) {
                 this.$message({
                   type: 'success',
@@ -182,7 +182,6 @@ export const website = function () {
                   type: 'error'
                 })
               }
-              loading.close()
             })
           }
         }
