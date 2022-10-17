@@ -31,26 +31,18 @@
         </a>
       </transition-group>
     </draggable>
-
-    <EditWebsiteBox
-      :is-show.sync="isShowDialog"
-      :type="editWebsiteBoxType"
-      :website-for-contextmenu="websiteForContextmenu"
-    />
   </div>
 </template>
 
 <script>
 import { menuListFactory } from '@/views/home/menuList'
 import draggable from 'vuedraggable'
-import EditWebsiteBox from './components/EditWebsiteBox'
 export default {
   name: 'WebsiteBox',
   display: 'Transitions',
   order: 7,
   components: {
-    draggable,
-    EditWebsiteBox
+    draggable
   },
   model: {
     prop: 'websites',
@@ -67,17 +59,15 @@ export default {
   data() {
     return {
       websiteList: [],
-      drag: false,
-      websiteForContextmenu: null // 点击右键菜单时，鼠标所指向的网址
+      drag: false
     }
   },
   methods: {
     // 显示右键菜单
     showContextmenu(event, website) {
-      this.websiteForContextmenu = website
-
       this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
-        groupId: website.group_id
+        groupId: website.group_id,
+        info: website
       })
 
       const param = {
@@ -97,27 +87,6 @@ export default {
     }
   },
   computed: {
-    isShowDialog: {
-      get() {
-        return this.$store.state.editWebsiteBoxData.isShow
-      },
-      set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
-          isShow: newValue
-        })
-      }
-    },
-    // 网址框的模式：add：新建  edit: 编辑
-    editWebsiteBoxType: {
-      get() {
-        return this.$store.state.editWebsiteBoxData.type
-      },
-      set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
-          type: newValue
-        })
-      }
-    },
     dragOptions() {
       return {
         animation: 200,

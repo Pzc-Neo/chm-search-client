@@ -12,8 +12,10 @@ export const websiteGroup = function () {
         title: '新建分组',
         icon: 'el-icon-document-add',
         func: (targetWebsite) => {
-          this.editWebsiteGroupBoxType = 'add'
-          this.isShowDialog = true
+          this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+            isShow: true,
+            type: 'add'
+          })
         }
       }
     },
@@ -24,8 +26,10 @@ export const websiteGroup = function () {
         title: '编辑分组',
         icon: 'el-icon-edit',
         func: (targetWebsite) => {
-          this.editWebsiteGroupBoxType = 'edit'
-          this.isShowDialog = true
+          this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+            isShow: true,
+            type: 'edit'
+          })
         }
       }
     },

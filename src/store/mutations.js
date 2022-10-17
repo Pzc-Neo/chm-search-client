@@ -36,7 +36,7 @@ export default {
   HIDE_CONTEXTMENU(state) {
     state.contextmenu.isShow = false
   },
-  SET_EDIT_WEBSITE_BOX_DATA(state, { isShow, type, groupId }) {
+  SET_EDIT_WEBSITE_BOX_DATA(state, { isShow, type, groupId, info }) {
     if (isShow !== undefined) {
       state.editWebsiteBoxData.isShow = isShow
     }
@@ -45,6 +45,20 @@ export default {
     }
     if (groupId !== undefined) {
       state.editWebsiteBoxData.groupId = groupId
+    }
+    if (info !== undefined) {
+      state.editWebsiteBoxData.info = info
+    }
+  },
+  SET_EDIT_WEBSITE_GROUP_BOX_DATA(state, { isShow, type, info }) {
+    if (isShow !== undefined) {
+      state.editWebsiteGroupBoxData.isShow = isShow
+    }
+    if (type !== undefined) {
+      state.editWebsiteGroupBoxData.type = type
+    }
+    if (info !== undefined) {
+      state.editWebsiteGroupBoxData.info = info
     }
   }
 }

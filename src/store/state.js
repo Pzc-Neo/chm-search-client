@@ -59,6 +59,13 @@ export default {
   editWebsiteBoxData: {
     isShow: false, // 是否显示
     type: 'add', // 模式：add：新建  edit: 编辑
-    groupId: 0 // 网址分组id
+    groupId: 0, // 网址分组id
+    info: null // 网址信息
+  },
+  // 网址分组框属性(编辑、新建网址)
+  editWebsiteGroupBoxData: {
+    isShow: false, // 是否显示
+    type: 'add', // 模式：add：新建  edit: 编辑
+    info: null // 网址分组信息
   }
 }

@@ -9,24 +9,16 @@
     </div>
 
     <WebsiteList :websites="websiteGroup.websites"></WebsiteList>
-
-    <EditWebsiteGroupBox
-      :is-show.sync="isShowDialog"
-      :type="editWebsiteGroupBoxType"
-      :website-group-for-contextmenu="websiteGroup"
-    />
   </div>
 </template>
 
 <script>
 import { menuListFactory } from '@/views/home/menuList'
-import EditWebsiteGroupBox from './components/EditWebsiteGroupBox'
 import WebsiteList from '../WebsiteList'
 export default {
   name: 'WebsiteGroup',
   components: {
-    WebsiteList,
-    EditWebsiteGroupBox
+    WebsiteList
   },
   props: {
     websiteGroup: {
@@ -51,6 +43,10 @@ export default {
     showContextmenu(event) {
       this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
         groupId: this.websiteGroup.id
+      })
+
+      this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+        info: this.websiteGroup
       })
 
       const param = {
