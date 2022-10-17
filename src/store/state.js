@@ -54,5 +54,11 @@ export default {
     isShow: false,
     type: null,
     prama: {}
+  },
+  // 网址框属性(编辑、新建网址)
+  editWebsiteBoxData: {
+    isShow: false, // 是否显示
+    type: 'add', // 模式：add：新建  edit: 编辑
+    groupId: 0 // 网址分组id
   }
 }

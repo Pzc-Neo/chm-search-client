@@ -35,5 +35,16 @@ export default {
   },
   HIDE_CONTEXTMENU(state) {
     state.contextmenu.isShow = false
+  },
+  SET_EDIT_WEBSITE_BOX_DATA(state, { isShow, type, groupId }) {
+    if (isShow !== undefined) {
+      state.editWebsiteBoxData.isShow = isShow
+    }
+    if (type !== undefined) {
+      state.editWebsiteBoxData.type = type
+    }
+    if (groupId !== undefined) {
+      state.editWebsiteBoxData.groupId = groupId
+    }
   }
 }

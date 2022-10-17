@@ -20,7 +20,7 @@
           v-for="website in websiteList"
           :href="website.url"
           :key="website.id"
-          @contextmenu.prevent="showContextmenu($event, website)"
+          @contextmenu.prevent.stop="showContextmenu($event, website)"
         >
           <div class="title">
             {{ website.title }}
@@ -37,8 +37,6 @@
       :type="editWebsiteBoxType"
       :website-for-contextmenu="websiteForContextmenu"
     />
-    <!-- <EditWebsiteBox /> -->
-    <!-- <rawDisplayer class="col-3" :value="websites" title="List" /> -->
   </div>
 </template>
 
@@ -70,48 +68,22 @@ export default {
     return {
       websiteList: [],
       drag: false,
-      isShowDialog: false,
-      editWebsiteBoxType: 'add', // 网址框的模式：add：新建  edit: 编辑
-      menuList: menuListFactory.call(this, 'website'),
       websiteForContextmenu: null // 点击右键菜单时，鼠标所指向的网址
     }
   },
   methods: {
-    // sort() {
-    //   this.websites = this.websites.sort((a, b) => a.order - b.order)
-    // }
     // 显示右键菜单
     showContextmenu(event, website) {
-      let target = event.target
       this.websiteForContextmenu = website
-      if (target === this.$refs.websiteGroup) {
-        this.showBarMenu(event)
-      } else {
-        while (target !== this.$refs.websiteGroup) {
-          if (target.tagName.toLowerCase() === 'a') {
-            this.showItemMenu(event, website.id)
-            break
-          }
-          target = target.parentNode
-        }
-      }
-    },
-    showBarMenu(event) {
-      const param = {
-        event,
-        targetItem: {},
-        menuList: this.menuListBar
-      }
-      this.$store.commit('SHOW_CONTEXTMENU', param)
-    },
-    showItemMenu(event, targetItemId) {
-      const index = this.websites.findIndex((item) => {
-        return item.id === targetItemId
+
+      this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+        groupId: website.group_id
       })
+
       const param = {
         event,
-        targetItem: this.websites[index],
-        menuList: this.menuList
+        targetItem: website,
+        menuList: menuListFactory.call(this, 'website')
       }
       this.$store.commit('SHOW_CONTEXTMENU', param)
     }
@@ -125,6 +97,27 @@ export default {
     }
   },
   computed: {
+    isShowDialog: {
+      get() {
+        return this.$store.state.editWebsiteBoxData.isShow
+      },
+      set(newValue) {
+        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+          isShow: newValue
+        })
+      }
+    },
+    // 网址框的模式：add：新建  edit: 编辑
+    editWebsiteBoxType: {
+      get() {
+        return this.$store.state.editWebsiteBoxData.type
+      },
+      set(newValue) {
+        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+          type: newValue
+        })
+      }
+    },
     dragOptions() {
       return {
         animation: 200,
@@ -138,9 +131,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:deep(.el-dialog) {
-  width: 350px;
-}
 .website_list {
   .website_group {
     position: relative;
@@ -150,11 +140,12 @@ export default {
     .website {
       position: relative;
       top: 0px;
-      min-width: 200px;
+      width: 200px;
       border-radius: 5px;
       margin: 8px 5px;
       margin-bottom: 0;
-      padding: 10px;
+      padding: 12px;
+      padding-bottom: 9px;
       border: 1px solid $color-label-border;
       background-color: $color-label-bg;
       transition: all 0.3s ease-in-out;
@@ -162,14 +153,18 @@ export default {
         top: -5px;
       }
       .title {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 700;
         color: $color-label-title;
       }
       .description {
-        padding-top: 5px;
-        font-size: 0.8em;
+        padding-top: 6px;
+        font-size: 0.5em;
         color: $color-label-subtitle;
+        // 文字溢出隐藏
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
