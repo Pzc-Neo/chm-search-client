@@ -67,5 +67,18 @@ export default {
     isShow: false, // 是否显示
     type: 'add', // 模式：add：新建  edit: 编辑
     info: null // 网址分组信息
+  },
+  // 引擎框属性(编辑、新建引擎)
+  editEngineBoxData: {
+    isShow: false, // 是否显示
+    type: 'add', // 模式：add：新建  edit: 编辑
+    groupId: 0, // 引擎分组id
+    info: null // 引擎信息
+  },
+  // 引擎分组框属性(编辑、新建引擎)
+  editEngineGroupBoxData: {
+    isShow: false, // 是否显示
+    type: 'add', // 模式：add：新建  edit: 编辑
+    info: null // 引擎分组信息
   }
 }
