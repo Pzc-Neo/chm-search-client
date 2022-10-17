@@ -41,12 +41,31 @@ export default {
     url: 'https://www.baidu.com/s?wd='
   },
   searchEngine: {
-    engineId1: 0,
-    engineId2: 1,
-    engineId3: 2
+    engineId1: 1,
+    engineId2: 2,
+    engineId3: 3
   },
   isShowUserInfoBox: false, // 是否显示用户信息框
   userInfo: null, // 用户信息
   engineGroups: null, // 搜索引擎资料
-  websiteGroups: null // 网站资料
+  websiteGroups: null, // 网站资料
+  // 右键菜单
+  contextmenu: {
+    isShow: false,
+    type: null,
+    prama: {}
+  },
+  // 网址框属性(编辑、新建网址)
+  editWebsiteBoxData: {
+    isShow: false, // 是否显示
+    type: 'add', // 模式：add：新建  edit: 编辑
+    groupId: 0, // 网址分组id
+    info: null // 网址信息
+  },
+  // 网址分组框属性(编辑、新建网址)
+  editWebsiteGroupBoxData: {
+    isShow: false, // 是否显示
+    type: 'add', // 模式：add：新建  edit: 编辑
+    info: null // 网址分组信息
+  }
 }

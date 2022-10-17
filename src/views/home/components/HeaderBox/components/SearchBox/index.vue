@@ -3,12 +3,13 @@
     <el-autocomplete
       class="inline-input"
       size="small"
+      autofocus
       v-model="searchValueLocal"
       :fetch-suggestions="querySearch"
       placeholder="请输入内容"
       :trigger-on-focus="false"
       @select="handleSelect"
-      @change="handleSearch"
+      @keyup.enter.native="handleSearch"
     ></el-autocomplete>
     <!-- 选择搜索类型 -->
     <el-dropdown

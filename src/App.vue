@@ -10,6 +10,8 @@ export default {
     // 隐藏用户信息面板
     document.getElementById('app').addEventListener('click', () => {
       this.$store.commit('SET_IS_SHOW_USER_INFO_BOX', false)
+      // 隐藏右键菜单
+      this.$store.commit('HIDE_CONTEXTMENU', false)
     })
   }
 }

@@ -28,5 +28,37 @@ export default {
   },
   SET_IS_SIDE_BOX_COLLAPSE(state, value) {
     state.isSideBoxCollapse = value
+  },
+  SHOW_CONTEXTMENU(state, prama) {
+    state.contextmenu.isShow = true
+    state.contextmenu.prama = prama
+  },
+  HIDE_CONTEXTMENU(state) {
+    state.contextmenu.isShow = false
+  },
+  SET_EDIT_WEBSITE_BOX_DATA(state, { isShow, type, groupId, info }) {
+    if (isShow !== undefined) {
+      state.editWebsiteBoxData.isShow = isShow
+    }
+    if (type !== undefined) {
+      state.editWebsiteBoxData.type = type
+    }
+    if (groupId !== undefined) {
+      state.editWebsiteBoxData.groupId = groupId
+    }
+    if (info !== undefined) {
+      state.editWebsiteBoxData.info = info
+    }
+  },
+  SET_EDIT_WEBSITE_GROUP_BOX_DATA(state, { isShow, type, info }) {
+    if (isShow !== undefined) {
+      state.editWebsiteGroupBoxData.isShow = isShow
+    }
+    if (type !== undefined) {
+      state.editWebsiteGroupBoxData.type = type
+    }
+    if (info !== undefined) {
+      state.editWebsiteGroupBoxData.info = info
+    }
   }
 }

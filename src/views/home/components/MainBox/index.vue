@@ -14,6 +14,10 @@
     <div class="wrapper" v-if="mode === 'search'">
       <SearchPanel />
     </div>
+    <!-- 新增、编辑网址 -->
+    <EditWebsiteBox />
+    <!-- 新增、编辑网址分组 -->
+    <EditWebsiteGroupBox />
   </div>
 </template>
 
@@ -21,63 +25,18 @@
 import { mapState } from 'vuex'
 import WebsiteGroup from './components/WebsiteGroup'
 import SearchPanel from './components/SearchPanel'
+import EditWebsiteBox from './components/EditWebsiteBox'
+import EditWebsiteGroupBox from './components/EditWebsiteGroupBox'
 export default {
   name: 'MainBox',
   components: {
     WebsiteGroup,
-    SearchPanel
+    SearchPanel,
+    EditWebsiteBox,
+    EditWebsiteGroupBox
   },
   data() {
-    return {
-      websiteGroups1: [
-        {
-          title: '分组01',
-          websites: [
-            {
-              id: '01',
-              title: '分组1',
-              description: '描述描述描述描述描述',
-              url: 'https://www.baidu.com'
-            },
-            {
-              id: '02',
-              title: '分组2',
-              description: '描述描述描述描述描述',
-              url: 'https://www.baidu.com'
-            }
-          ]
-        },
-        {
-          title: '分组02',
-          websites: [
-            {
-              id: '01',
-              title: '分组1',
-              description: '描述描述描述描述描述',
-              url: 'https://www.baidu.com'
-            },
-            {
-              id: '02',
-              title: '分组2',
-              description: '描述描述描述描述描述',
-              url: 'https://www.baidu.com'
-            },
-            {
-              id: '03',
-              title: '分组3',
-              description: '描述描述描述描述描述',
-              url: 'https://www.baidu.com'
-            },
-            {
-              id: '04',
-              title: '分组4',
-              description: '描述描述描述描述描述',
-              url: 'https://www.baidu.com'
-            }
-          ]
-        }
-      ]
-    }
+    return {}
   },
   computed: {
     ...mapState({

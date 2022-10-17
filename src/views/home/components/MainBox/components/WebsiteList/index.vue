@@ -1,38 +1,41 @@
 <template>
-  <draggable
-    tag="div"
-    class="website_list"
-    v-model="websiteList"
-    v-bind="dragOptions"
-    @start="drag = true"
-    @end="drag = false"
-  >
-    <transition-group
-      type="transition"
-      :name="!drag ? 'flip-websites' : null"
-      class="website_group"
+  <div class="website_list">
+    <draggable
+      tag="div"
+      v-model="websiteList"
+      v-bind="dragOptions"
+      @start="drag = true"
+      @end="drag = false"
     >
-      <a
-        class="website"
-        target="_blank"
-        v-for="website in websiteList"
-        :href="website.url"
-        :key="website.id"
+      <transition-group
+        type="transition"
+        :name="!drag ? 'flip-websites' : null"
+        class="website_group"
+        ref="websiteGroup"
       >
-        <div class="title">
-          {{ website.title }}
-        </div>
-        <div class="description">
-          {{ website.description }}
-        </div>
-      </a>
-    </transition-group>
-  </draggable>
-
-  <!-- <rawDisplayer class="col-3" :value="websites" title="List" /> -->
+        <a
+          class="website"
+          ref="website"
+          target="_blank"
+          v-for="website in websiteList"
+          :href="website.url"
+          :key="website.id"
+          @contextmenu.prevent.stop="showContextmenu($event, website)"
+        >
+          <div class="title">
+            {{ website.title }}
+          </div>
+          <div class="description">
+            {{ website.description }}
+          </div>
+        </a>
+      </transition-group>
+    </draggable>
+  </div>
 </template>
 
 <script>
+import { menuListFactory } from '@/views/home/menuList'
 import draggable from 'vuedraggable'
 export default {
   name: 'WebsiteBox',
@@ -60,16 +63,27 @@ export default {
     }
   },
   methods: {
-    // sort() {
-    //   this.websites = this.websites.sort((a, b) => a.order - b.order)
-    // }
+    // 显示右键菜单
+    showContextmenu(event, website) {
+      this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+        groupId: website.group_id,
+        info: website
+      })
+
+      const param = {
+        event,
+        targetItem: website,
+        menuList: menuListFactory.call(this, 'website')
+      }
+      this.$store.commit('SHOW_CONTEXTMENU', param)
+    }
   },
   created() {
     this.websiteList = this.websites
   },
   watch: {
-    websites() {
-      this.websitesList = this.websites
+    websites(newValue) {
+      this.websiteList = newValue
     }
   },
   computed: {
@@ -95,11 +109,12 @@ export default {
     .website {
       position: relative;
       top: 0px;
-      min-width: 200px;
+      width: 200px;
       border-radius: 5px;
       margin: 8px 5px;
       margin-bottom: 0;
-      padding: 10px;
+      padding: 12px;
+      padding-bottom: 9px;
       border: 1px solid $color-label-border;
       background-color: $color-label-bg;
       transition: all 0.3s ease-in-out;
@@ -107,14 +122,18 @@ export default {
         top: -5px;
       }
       .title {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 700;
         color: $color-label-title;
       }
       .description {
-        padding-top: 5px;
-        font-size: 0.8em;
+        padding-top: 6px;
+        font-size: 0.5em;
         color: $color-label-subtitle;
+        // 文字溢出隐藏
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

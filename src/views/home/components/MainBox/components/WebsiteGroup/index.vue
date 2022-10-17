@@ -1,13 +1,19 @@
 <template>
-  <div class="website_group">
+  <div
+    class="website_group"
+    ref="websiteGroup"
+    @contextmenu.prevent="showContextmenu($event)"
+  >
     <div class="title">
       {{ websiteGroup.title }}
     </div>
+
     <WebsiteList :websites="websiteGroup.websites"></WebsiteList>
   </div>
 </template>
 
 <script>
+import { menuListFactory } from '@/views/home/menuList'
 import WebsiteList from '../WebsiteList'
 export default {
   name: 'WebsiteGroup',
@@ -23,6 +29,33 @@ export default {
         }
       }
     }
+  },
+  data() {
+    return {
+      isShowDialog: false,
+      editWebsiteGroupBoxType: 'add', // 网址框的模式：add：新建  edit: 编辑
+      websiteGroupForContextmenu: null, // 点击右键菜单时，鼠标所指向的网址
+      menuList: menuListFactory.call(this, 'websiteGroup')
+    }
+  },
+  methods: {
+    // 显示右键菜单
+    showContextmenu(event) {
+      this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+        groupId: this.websiteGroup.id
+      })
+
+      this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+        info: this.websiteGroup
+      })
+
+      const param = {
+        event,
+        targetItem: this.websiteGroup,
+        menuList: this.menuList
+      }
+      this.$store.commit('SHOW_CONTEXTMENU', param)
+    }
   }
 }
 </script>
@@ -32,8 +65,10 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  padding-bottom: 0;
   .title {
     margin-left: 6px;
+    cursor: default;
   }
 }
 </style>
