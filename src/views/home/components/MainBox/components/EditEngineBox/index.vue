@@ -1,6 +1,6 @@
 <template>
   <el-dialog :title="dialogTitle" :visible.sync="isShow" :append-to-body="true">
-    <div class="new_website_box">
+    <div class="new_engine_box">
       <el-form :model="form">
         <el-form-item label="标题" :label-width="formLabelWidth">
           <el-input
@@ -17,7 +17,7 @@
             @keyup.enter.native="handleConfirm"
           ></el-input>
         </el-form-item>
-        <el-form-item label="网址" :label-width="formLabelWidth">
+        <el-form-item label="引擎" :label-width="formLabelWidth">
           <el-input
             v-model="form.url"
             autocomplete="off"
@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import { serverWebsiteAdd, serverWebsiteUpdate } from '@/api/website'
+import { serverEngineAdd, serverEngineUpdate } from '@/api/engine'
 import { getHomeData } from '@/util'
 
 export default {
-  name: 'EditWebsiteBox',
+  name: 'EditEngineBox',
   data() {
     return {
       form: {
@@ -57,7 +57,7 @@ export default {
   watch: {
     isShow(newValue) {
       if (this.type === 'edit') {
-        this.form = { ...this.websiteForContextmenu }
+        this.form = { ...this.engineForContextmenu }
       } else {
         this.form = { ...this.formDefault }
       }
@@ -69,41 +69,41 @@ export default {
   computed: {
     type: {
       get() {
-        return this.$store.state.editWebsiteBoxData.type
+        return this.$store.state.editEngineBoxData.type
       },
       set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+        this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
           type: newValue
         })
       }
     },
-    websiteForContextmenu: {
+    engineForContextmenu: {
       get() {
-        return this.$store.state.editWebsiteBoxData.info
+        return this.$store.state.editEngineBoxData.info
       },
       set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+        this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
           info: newValue
         })
       }
     },
     isShow: {
       get() {
-        return this.$store.state.editWebsiteBoxData.isShow
+        return this.$store.state.editEngineBoxData.isShow
       },
       set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+        this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
           isShow: newValue
         })
       }
     },
     dialogTitle() {
       if (this.type === 'add') {
-        return '新增网址'
+        return '新增引擎'
       } else if (this.type === 'edit') {
-        return '编辑网址'
+        return '编辑引擎'
       } else {
-        return '新增网址'
+        return '新增引擎'
       }
     }
   },
@@ -112,19 +112,19 @@ export default {
     handleConfirm() {
       switch (this.type) {
         case 'add':
-          this.websiteAdd()
+          this.engineAdd()
           break
         case 'edit':
-          this.websiteUpdate()
+          this.engineUpdate()
           break
 
         default:
           break
       }
     },
-    websiteAdd() {
+    engineAdd() {
       const data = { ...this.form }
-      data.groupId = this.$store.state.editWebsiteBoxData.groupId
+      data.groupId = this.$store.state.editEngineBoxData.groupId
 
       const loading = this.$loading({
         lock: true,
@@ -132,7 +132,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'transparent'
       })
-      serverWebsiteAdd(data).then(async (res) => {
+      serverEngineAdd(data).then(async (res) => {
         const { code, data } = res
         loading.close()
         if (code === 0) {
@@ -150,9 +150,9 @@ export default {
         }
       })
     },
-    websiteUpdate() {
+    engineUpdate() {
       const data = { ...this.form }
-      data.id = this.websiteForContextmenu.id
+      data.id = this.engineForContextmenu.id
 
       const loading = this.$loading({
         lock: true,
@@ -160,7 +160,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'transparent'
       })
-      serverWebsiteUpdate(data).then(async (res) => {
+      serverEngineUpdate(data).then(async (res) => {
         const { code, data } = res
         loading.close()
         if (code === 0) {
@@ -180,7 +180,7 @@ export default {
     },
     // 关闭面板
     hideBox() {
-      this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+      this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
         isShow: false
       })
     }
@@ -192,7 +192,7 @@ export default {
 :deep(.el-dialog) {
   width: 350px;
 }
-.new_website_box {
+.new_engine_box {
   .el-form {
     .el-form-item {
       :deep(.el-form-item__content) {

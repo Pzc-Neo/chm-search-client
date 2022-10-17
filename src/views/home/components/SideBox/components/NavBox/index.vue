@@ -2,7 +2,7 @@
   <div class="nav_box">
     <el-menu
       default-active="0"
-      :default-openeds="['0', '1', '2', '3', '4', '5', '6']"
+      :default-openeds="engineGroupIds"
       class="nav_bar"
       @open="handleOpen"
       @close="handleClose"
@@ -14,15 +14,25 @@
         :key="engineGroup.id"
       >
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">{{ engineGroup.title }}</span>
+          <div
+            @contextmenu.prevent="
+              showEngineGroupContextmenu($event, engineGroup)
+            "
+          >
+            <i class="el-icon-location"></i>
+            <span slot="title">{{ engineGroup.title }}</span>
+          </div>
         </template>
         <el-menu-item
           v-for="engine in engineGroup.engines"
           :index="engine.id + ''"
           :key="engine.id"
         >
-          <div :href="engine.url" @click.prevent="handleWebsiteClick(engine)">
+          <div
+            :href="engine.url"
+            @click.prevent="handleWebsiteClick(engine)"
+            @contextmenu.prevent.stop="showEngineContextmenu($event, engine)"
+          >
             {{ engine.title }}
           </div>
         </el-menu-item>
@@ -32,6 +42,7 @@
 </template>
 
 <script>
+import { menuListFactory } from '@/views/home/menuList'
 import { mapState } from 'vuex'
 
 export default {
@@ -48,9 +59,49 @@ export default {
   computed: {
     ...mapState({
       engineGroups: (state) => state.engineGroups
-    })
+    }),
+    engineGroupIds() {
+      const result = []
+      if (this.engineGroups) {
+        this.engineGroups.forEach((engine) => {
+          result.push(engine.id + '')
+        })
+      }
+      return result
+    }
   },
   methods: {
+    // 显示右键菜单
+    showEngineGroupContextmenu(event, engineGroup) {
+      this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
+        groupId: engineGroup.id
+      })
+
+      this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
+        info: engineGroup
+      })
+
+      const param = {
+        event,
+        targetItem: engineGroup,
+        menuList: menuListFactory.call(this, 'engineGroup')
+      }
+      this.$store.commit('SHOW_CONTEXTMENU', param)
+    },
+    // 显示右键菜单
+    showEngineContextmenu(event, engine) {
+      this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
+        groupId: engine.group_id,
+        info: engine
+      })
+
+      const param = {
+        event,
+        targetItem: engine,
+        menuList: menuListFactory.call(this, 'engine')
+      }
+      this.$store.commit('SHOW_CONTEXTMENU', param)
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },
@@ -58,7 +109,6 @@ export default {
       console.log(key, keyPath)
     },
     handleWebsiteClick(engine) {
-      console.log(engine)
       // 搜索模式
       this.$store.commit('SET_MODE', 'search')
       // 设置单搜
@@ -81,6 +131,14 @@ export default {
   a {
     color: $color-side-title;
   }
+  .nav_bar {
+    flex: 1;
+    width: 100%;
+    &:not(.el-menu--collapse) {
+      width: 180px;
+      min-height: 400px;
+    }
+  }
   .el-menu {
     border-right: 0;
     color: $color-side-title;
@@ -89,18 +147,16 @@ export default {
       color: $color-side-title;
       background-color: $color-side-bg-dark;
     }
-    .el-menu-item {
-      color: $color-side-title;
-      background-color: $color-side-bg-dark;
-      &:hover {
-        background-color: red;
-      }
-    }
     .el-submenu {
+      :deep(.el-submenu__title) {
+        padding-left: 10px !important;
+      }
       .el-menu-item {
+        min-width: 50px;
         text-align: left;
         color: $color-side-title;
         background-color: $color-side-bg-dark;
+        padding-left: 30px !important;
         &:hover {
           background-color: $color-side-bg-darker;
         }
@@ -109,24 +165,13 @@ export default {
         }
       }
     }
-    // ::v-deep &.el-menu--inline {
-    //   background-color: $color-side-bg-dark;
-    // }
-    ::v-deep .el-submenu__title {
+    :deep(.el-submenu__title) {
       text-align: left;
       color: $color-side-title;
       &:hover {
         background-color: $color-side-bg-dark1;
       }
     }
-  }
-  .nav_bar {
-    flex: 1;
-    width: 100%;
-  }
-  .nav_bar:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
   }
 }
 </style>

@@ -124,6 +124,7 @@ export default {
       })
       serverWebsiteGroupAdd(data).then(async (res) => {
         const { code, data } = res
+        loading.close()
         if (code === 0) {
           this.$message({
             message: data?.msg,
@@ -137,7 +138,6 @@ export default {
             type: 'error'
           })
         }
-        loading.close()
       })
     },
     websiteGroupUpdate() {
@@ -153,6 +153,7 @@ export default {
       })
       serverWebsiteGroupUpdate(data).then(async (res) => {
         const { code, data } = res
+        loading.close()
         if (code === 0) {
           this.$message({
             message: data?.msg,
@@ -166,7 +167,6 @@ export default {
             type: 'error'
           })
         }
-        loading.close()
       })
     },
     websiteGroupDelete() {
@@ -180,6 +180,7 @@ export default {
       serverWebsiteGroupDelete({ id: this.websiteGroupForContextmenu.id }).then(
         async (res) => {
           const { code, data } = res
+          loading.close()
           if (code === 0) {
             await getHomeData.call(this)
           } else {
@@ -188,7 +189,6 @@ export default {
               type: 'error'
             })
           }
-          loading.close()
         }
       )
     },
@@ -209,7 +209,7 @@ export default {
 .edit_website_group_box {
   .el-form {
     .el-form-item {
-      ::v-deep .el-form-item__content {
+      :deep(.el-form-item__content) {
         width: 200px;
       }
     }

@@ -1,25 +1,11 @@
 <template>
   <el-dialog :title="dialogTitle" :visible.sync="isShow" :append-to-body="true">
-    <div class="new_website_box">
-      <el-form :model="form">
+    <div class="edit_engine_group_box">
+      <el-form :model="form" @submit.native.prevent>
         <el-form-item label="标题" :label-width="formLabelWidth">
           <el-input
             ref="refTitle"
             v-model="form.title"
-            autocomplete="off"
-            @keyup.enter.native="handleConfirm"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="描述" :label-width="formLabelWidth">
-          <el-input
-            v-model="form.description"
-            autocomplete="off"
-            @keyup.enter.native="handleConfirm"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="网址" :label-width="formLabelWidth">
-          <el-input
-            v-model="form.url"
             autocomplete="off"
             @keyup.enter.native="handleConfirm"
           ></el-input>
@@ -34,30 +20,33 @@
 </template>
 
 <script>
-import { serverWebsiteAdd, serverWebsiteUpdate } from '@/api/website'
+import {
+  serverEngineGroupAdd,
+  serverEngineGroupDelete,
+  serverEngineGroupUpdate
+} from '@/api/engine'
 import { getHomeData } from '@/util'
 
 export default {
-  name: 'EditWebsiteBox',
+  name: 'EditEngineGroupBox',
   data() {
     return {
       form: {
-        title: '',
-        description: '',
-        url: ''
+        title: ''
       },
       formDefault: {
-        title: '',
-        description: '',
-        url: ''
+        title: ''
       },
       formLabelWidth: '70px'
     }
   },
   watch: {
-    isShow(newValue) {
+    isShow() {
       if (this.type === 'edit') {
-        this.form = { ...this.websiteForContextmenu }
+        this.form = {
+          id: this.engineGroupForContextmenu.id,
+          title: this.engineGroupForContextmenu.title
+        }
       } else {
         this.form = { ...this.formDefault }
       }
@@ -67,64 +56,65 @@ export default {
     }
   },
   computed: {
-    type: {
+    isShow: {
       get() {
-        return this.$store.state.editWebsiteBoxData.type
+        return this.$store.state.editEngineGroupBoxData.isShow
       },
       set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+        this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
+          isShow: newValue
+        })
+      }
+    },
+    type: {
+      get() {
+        return this.$store.state.editEngineGroupBoxData.type
+      },
+      set(newValue) {
+        this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
           type: newValue
         })
       }
     },
-    websiteForContextmenu: {
+    engineGroupForContextmenu: {
       get() {
-        return this.$store.state.editWebsiteBoxData.info
+        return this.$store.state.editEngineGroupBoxData.info
       },
       set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+        this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
           info: newValue
-        })
-      }
-    },
-    isShow: {
-      get() {
-        return this.$store.state.editWebsiteBoxData.isShow
-      },
-      set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
-          isShow: newValue
         })
       }
     },
     dialogTitle() {
       if (this.type === 'add') {
-        return '新增网址'
+        return '新增引擎分组'
       } else if (this.type === 'edit') {
-        return '编辑网址'
+        return '编辑引擎分组'
       } else {
-        return '新增网址'
+        return '新增引擎分组'
       }
     }
   },
   methods: {
     // 新建
-    handleConfirm() {
+    handleConfirm(e) {
+      e.preventDefault()
       switch (this.type) {
         case 'add':
-          this.websiteAdd()
+          this.engineGroupAdd()
           break
         case 'edit':
-          this.websiteUpdate()
+          this.engineGroupUpdate()
           break
 
         default:
           break
       }
     },
-    websiteAdd() {
+    engineGroupAdd() {
       const data = { ...this.form }
-      data.groupId = this.$store.state.editWebsiteBoxData.groupId
+      // data.groupId = this.$store.state.contextmenu?.prama?.targetItem?.group_id
 
       const loading = this.$loading({
         lock: true,
@@ -132,7 +122,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'transparent'
       })
-      serverWebsiteAdd(data).then(async (res) => {
+      serverEngineGroupAdd(data).then(async (res) => {
         const { code, data } = res
         loading.close()
         if (code === 0) {
@@ -150,9 +140,10 @@ export default {
         }
       })
     },
-    websiteUpdate() {
+    engineGroupUpdate() {
       const data = { ...this.form }
-      data.id = this.websiteForContextmenu.id
+      // data.groupId = this.$store.state.contextmenu?.prama?.targetItem?.group_id
+      data.id = this.engineGroupForContextmenu.id
 
       const loading = this.$loading({
         lock: true,
@@ -160,7 +151,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'transparent'
       })
-      serverWebsiteUpdate(data).then(async (res) => {
+      serverEngineGroupUpdate(data).then(async (res) => {
         const { code, data } = res
         loading.close()
         if (code === 0) {
@@ -178,9 +169,32 @@ export default {
         }
       })
     },
+    engineGroupDelete() {
+      const loading = this.$loading({
+        lock: true,
+        text: '正在删除...',
+        spinner: 'el-icon-loading',
+        // background: 'rgba(0, 0, 0, 0.7)'
+        background: 'transparent'
+      })
+      serverEngineGroupDelete({ id: this.engineGroupForContextmenu.id }).then(
+        async (res) => {
+          const { code, data } = res
+          loading.close()
+          if (code === 0) {
+            await getHomeData.call(this)
+          } else {
+            this.$message({
+              message: data.msg,
+              type: 'error'
+            })
+          }
+        }
+      )
+    },
     // 关闭面板
     hideBox() {
-      this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+      this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
         isShow: false
       })
     }
@@ -192,7 +206,7 @@ export default {
 :deep(.el-dialog) {
   width: 350px;
 }
-.new_website_box {
+.edit_engine_group_box {
   .el-form {
     .el-form-item {
       :deep(.el-form-item__content) {

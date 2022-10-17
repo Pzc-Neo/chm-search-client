@@ -18,6 +18,10 @@
     <EditWebsiteBox />
     <!-- 新增、编辑网址分组 -->
     <EditWebsiteGroupBox />
+    <!-- 新增、编辑引擎 -->
+    <EditEngineBox />
+    <!-- 新增、编辑引擎分组 -->
+    <EditEngineGroupBox />
   </div>
 </template>
 
@@ -27,13 +31,17 @@ import WebsiteGroup from './components/WebsiteGroup'
 import SearchPanel from './components/SearchPanel'
 import EditWebsiteBox from './components/EditWebsiteBox'
 import EditWebsiteGroupBox from './components/EditWebsiteGroupBox'
+import EditEngineBox from './components/EditEngineBox'
+import EditEngineGroupBox from './components/EditEngineGroupBox'
 export default {
   name: 'MainBox',
   components: {
     WebsiteGroup,
     SearchPanel,
     EditWebsiteBox,
-    EditWebsiteGroupBox
+    EditWebsiteGroupBox,
+    EditEngineBox,
+    EditEngineGroupBox
   },
   data() {
     return {}

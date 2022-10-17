@@ -1,13 +1,13 @@
-import { group, groupBar } from './group'
+import { engine, engineGroup } from './engine'
 import { website, websiteGroup } from './website'
 import { tab, tabBar } from './tab'
 
 export const menuListFactory = function (type) {
   switch (type) {
-    case 'group':
-      return group.call(this)
-    case 'groupBar':
-      return groupBar.call(this)
+    case 'engine':
+      return engine.call(this)
+    case 'engineGroup':
+      return engineGroup.call(this)
     case 'websiteGroup':
       return websiteGroup.call(this)
     case 'website':

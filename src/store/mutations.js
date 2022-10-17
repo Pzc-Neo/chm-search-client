@@ -60,5 +60,30 @@ export default {
     if (info !== undefined) {
       state.editWebsiteGroupBoxData.info = info
     }
+  },
+  SET_EDIT_ENGINE_BOX_DATA(state, { isShow, type, groupId, info }) {
+    if (isShow !== undefined) {
+      state.editEngineBoxData.isShow = isShow
+    }
+    if (type !== undefined) {
+      state.editEngineBoxData.type = type
+    }
+    if (groupId !== undefined) {
+      state.editEngineBoxData.groupId = groupId
+    }
+    if (info !== undefined) {
+      state.editEngineBoxData.info = info
+    }
+  },
+  SET_EDIT_ENGINE_GROUP_BOX_DATA(state, { isShow, type, info }) {
+    if (isShow !== undefined) {
+      state.editEngineGroupBoxData.isShow = isShow
+    }
+    if (type !== undefined) {
+      state.editEngineGroupBoxData.type = type
+    }
+    if (info !== undefined) {
+      state.editEngineGroupBoxData.info = info
+    }
   }
 }
