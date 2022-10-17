@@ -5,7 +5,7 @@
       v-model="websiteList"
       v-bind="dragOptions"
       @start="drag = true"
-      @end="drag = false"
+      @end="handleDragEnd"
     >
       <transition-group
         type="transition"
@@ -37,6 +37,7 @@
 <script>
 import { menuListFactory } from '@/views/home/menuList'
 import draggable from 'vuedraggable'
+import { serverWebsiteUpdateOrder } from '@/api/website'
 export default {
   name: 'WebsiteBox',
   display: 'Transitions',
@@ -76,6 +77,38 @@ export default {
         menuList: menuListFactory.call(this, 'website')
       }
       this.$store.commit('SHOW_CONTEXTMENU', param)
+    },
+    handleDragEnd() {
+      this.drag = false
+      // 要更新的数据
+      const updates = []
+      this.websiteList.map((website, index) => {
+        updates[index] = {
+          id: website.id,
+          order: index
+        }
+        return (website.order = index)
+      })
+      const dataForServer = {
+        groupId: this.websiteList[0].group_id,
+        updates
+      }
+      serverWebsiteUpdateOrder(dataForServer).then((res) => {
+        const { code, data } = res
+        if (code === 0) {
+          this.$message({
+            message: data.msg,
+            type: 'success',
+            duration: 1000
+          })
+        } else {
+          this.$message({
+            message: data.msg,
+            type: 'error',
+            duration: 1000
+          })
+        }
+      })
     }
   },
   created() {

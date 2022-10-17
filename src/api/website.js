@@ -27,6 +27,15 @@ export const serverWebsiteDelete = async function (data) {
   return await apiWebsitePost(dataForServe)
 }
 
+// 更新
+export const serverWebsiteUpdateOrder = async function (data) {
+  const dataForServe = {
+    type: 'updateOrder',
+    data
+  }
+  return await apiWebsitePost(dataForServe)
+}
+
 // 添加网址分组
 export const serverWebsiteGroupAdd = async function (data) {
   const dataForServe = {
