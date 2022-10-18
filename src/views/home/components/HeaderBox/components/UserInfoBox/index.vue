@@ -10,7 +10,9 @@
       <el-avatar class="avatar" :size="80" :src="userInfo && userInfo.avatar">
         <i class="el-icon-user-solid"></i>
       </el-avatar>
-      <div class="name">{{ (userInfo && userInfo.name) || '未登陆' }}</div>
+      <div class="name">
+        {{ (userInfo && `${userInfo.name} (ID: ${userInfo.id})`) || '未登陆' }}
+      </div>
       <div class="command_btns" v-if="!userInfo">
         <el-button @click="showRegisterBox">注册</el-button>
         <el-button @click="showLoginBox">登录</el-button>

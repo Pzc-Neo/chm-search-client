@@ -26,7 +26,7 @@
             {{ website.title }}
           </div>
           <div class="description">
-            {{ website.description }}
+            {{ website.description || website.url }}
           </div>
         </a>
       </transition-group>

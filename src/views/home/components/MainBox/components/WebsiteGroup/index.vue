@@ -5,6 +5,7 @@
     @contextmenu.prevent="showContextmenu($event)"
   >
     <div class="title">
+      <i class="el-icon-s-data" />
       {{ websiteGroup.title }}
     </div>
 

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'SearchPanel',
@@ -42,32 +42,35 @@ export default {
       engineList: (state) => state.engineList,
       defaultSearchEngine: (state) => state.defaultSearchEngine
     }),
+    ...mapGetters({
+      searchValueEncoded: 'searchValueEncoded'
+    }),
     engineUrl1() {
       if (this.searchEngine?.engineId1) {
         const engine = this.engineList[this.searchEngine.engineId1]
         if (engine) {
-          return engine.url + this.searchValue
+          return engine.url + this.searchValueEncoded
         }
       }
-      return this.defaultSearchEngine.url + this.searchValue
+      return this.defaultSearchEngine.url + this.searchValueEncoded
     },
     engineUrl2() {
       if (this.searchEngine?.engineId2) {
         const engine = this.engineList[this.searchEngine.engineId2]
         if (engine) {
-          return engine.url + this.searchValue
+          return engine.url + this.searchValueEncoded
         }
       }
-      return this.defaultSearchEngine.url + this.searchValue
+      return this.defaultSearchEngine.url + this.searchValueEncoded
     },
     engineUrl3() {
       if (this.searchEngine?.engineId3) {
         const engine = this.engineList[this.searchEngine.engineId3]
         if (engine) {
-          return engine.url + this.searchValue
+          return engine.url + this.searchValueEncoded
         }
       }
-      return this.defaultSearchEngine.url + this.searchValue
+      return this.defaultSearchEngine.url + this.searchValueEncoded
     }
   }
 }

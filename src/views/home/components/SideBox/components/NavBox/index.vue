@@ -19,7 +19,7 @@
               showEngineGroupContextmenu($event, engineGroup)
             "
           >
-            <i class="el-icon-location"></i>
+            <i class="el-icon-ship"></i>
             <span slot="title">{{ engineGroup.title }}</span>
           </div>
         </template>
@@ -128,7 +128,8 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  a {
+  a,
+  i {
     color: $color-side-title;
   }
   .nav_bar {
@@ -150,6 +151,8 @@ export default {
     .el-submenu {
       :deep(.el-submenu__title) {
         padding-left: 10px !important;
+        height: 40px;
+        line-height: 40px;
       }
       .el-menu-item {
         min-width: 50px;
@@ -157,6 +160,8 @@ export default {
         color: $color-side-title;
         background-color: $color-side-bg-dark;
         padding-left: 30px !important;
+        height: 43px;
+        line-height: 43px;
         &:hover {
           background-color: $color-side-bg-darker;
         }
