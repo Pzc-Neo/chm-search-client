@@ -101,7 +101,7 @@ export default {
   flex-direction: column;
   a,
   i {
-    color: $color-side-title;
+    color: $color-side-title-group;
   }
   .nav_bar {
     flex: 1;
@@ -144,7 +144,7 @@ export default {
     }
     :deep(.el-submenu__title) {
       text-align: left;
-      color: $color-side-title;
+      color: $color-side-title-group;
       &:hover {
         background-color: $color-side-bg-dark1;
       }

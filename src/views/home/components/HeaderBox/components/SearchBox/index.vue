@@ -161,6 +161,16 @@ export default {
   .el-dropdown,
   .search_engine_selector {
     margin-left: 3px;
+    :deep(.el-button--primary) {
+      color: $color-main;
+      background-color: $color-side-title-group;
+      border-color: $color-side-title-group;
+    }
   }
 }
+:deep(.el-dropdown-menu__item:not(.is-disabled)):hover {
+  color: $color-main m !important;
+  background-color: $color-side-title-group !important;
+}
+
 </style>

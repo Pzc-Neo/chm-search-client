@@ -45,7 +45,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $color-side-title;
+    color: $color-logo;
     .logo {
       display: flex;
       align-items: baseline;
