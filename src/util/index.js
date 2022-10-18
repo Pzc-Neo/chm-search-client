@@ -10,10 +10,12 @@ export const getHomeData = function () {
       const { code, data } = res
       if (code === 0) {
         const { websiteGroups, engineGroups } = data
+        // 所有搜索引擎
         const allEngineObj = {}
         const engineGroupsConvert = []
         engineGroups.forEach((engineGroup) => {
           const engineObj = {}
+          engineGroup.engineList = engineGroup.engines
           engineGroup.engines.forEach((engine) => {
             engineObj[engine.id] = engine
             allEngineObj[engine.id] = engine
