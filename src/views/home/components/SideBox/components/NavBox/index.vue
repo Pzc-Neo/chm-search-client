@@ -23,19 +23,7 @@
             <span slot="title">{{ engineGroup.title }}</span>
           </div>
         </template>
-        <el-menu-item
-          v-for="engine in engineGroup.engines"
-          :index="engine.id + ''"
-          :key="engine.id"
-        >
-          <div
-            :href="engine.url"
-            @click.prevent="handleWebsiteClick(engine)"
-            @contextmenu.prevent.stop="showEngineContextmenu($event, engine)"
-          >
-            {{ engine.title }}
-          </div>
-        </el-menu-item>
+        <SubMenuBox :engine-group="engineGroup" />
       </el-submenu>
     </el-menu>
   </div>
@@ -44,9 +32,13 @@
 <script>
 import { menuListFactory } from '@/views/home/menuList'
 import { mapState } from 'vuex'
+import SubMenuBox from './components/SubMenuBox'
 
 export default {
   name: 'NavBox',
+  components: {
+    SubMenuBox
+  },
   props: {
     isCollapse: {
       type: Boolean,
@@ -54,11 +46,15 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      drag: false,
+      engineListLocal: []
+    }
   },
   computed: {
     ...mapState({
-      engineGroups: (state) => state.engineGroups
+      engineGroups: (state) => state.engineGroups,
+      engineList: (state) => state.engineList
     }),
     engineGroupIds() {
       const result = []
@@ -88,36 +84,11 @@ export default {
       }
       this.$store.commit('SHOW_CONTEXTMENU', param)
     },
-    // 显示右键菜单
-    showEngineContextmenu(event, engine) {
-      this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
-        groupId: engine.group_id,
-        info: engine
-      })
-
-      const param = {
-        event,
-        targetItem: engine,
-        menuList: menuListFactory.call(this, 'engine')
-      }
-      this.$store.commit('SHOW_CONTEXTMENU', param)
-    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath)
-    },
-    handleWebsiteClick(engine) {
-      // 搜索模式
-      this.$store.commit('SET_MODE', 'search')
-      // 设置单搜
-      this.$store.commit('SET_SEARCH_TYPE', this.$store.state.searchTypeList[0])
-      // 设置搜索引擎
-      this.$store.commit('SET_SEARCH_ENGINE', {
-        engineKey: 'engineId1',
-        engineId: engine.id
-      })
     }
   }
 }
@@ -134,6 +105,7 @@ export default {
   .nav_bar {
     flex: 1;
     width: 100%;
+    user-select: none;
     &:not(.el-menu--collapse) {
       width: 180px;
       min-height: 400px;

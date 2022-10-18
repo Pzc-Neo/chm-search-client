@@ -151,6 +151,7 @@ export default {
       border: 1px solid $color-label-border;
       background-color: $color-label-bg;
       transition: all 0.3s ease-in-out;
+      box-shadow: $box-shadow-main-small;
       &:hover {
         top: -5px;
         box-shadow: $box-shadow-main;
