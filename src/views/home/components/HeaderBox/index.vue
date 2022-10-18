@@ -12,6 +12,15 @@
         @click="isSideBoxCollapse = !isSideBoxCollapse"
       ></i>
       <SearchBox />
+      <iframe
+        class="wether"
+        allowtransparency="true"
+        frameborder="0"
+        width="180"
+        height="36"
+        scrolling="no"
+        src="//tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=0&v=0&d=3&bd=0&k=&f=c0c0c0&ltf=c0c0c0&htf=c0c0c0&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"
+      ></iframe>
     </div>
     <UserInfoBox />
   </div>
@@ -63,6 +72,9 @@ export default {
     }
     .search_box {
       margin-left: 5px;
+    }
+    .wether {
+      margin-left: 3px;
     }
   }
 }
