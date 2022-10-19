@@ -56,8 +56,4 @@ a {
   color: $color-title;
   text-decoration: none;
 }
-.el-dropdown-menu__item:not(.is-disabled):hover {
-  color: $color-main  !important;
-  background-color: $color-side-title-group !important;
-}
 </style>

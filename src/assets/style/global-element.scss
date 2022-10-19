@@ -1,0 +1,41 @@
+// element-ui 的全局样式
+
+.el-dropdown-menu__item:not(.is-disabled):hover {
+  color: $color-main !important;
+  background-color: $color-side-title-group !important;
+}
+
+.el-button--primary {
+  color: $color-main !important;
+  background-color: $color-side-title-group !important;
+  border-color: $color-side-title-group;
+}
+
+.el-button--primary:hover {
+  // outline:1px solid $color-side-title-group !important;
+  border-color: $color-side-title-group;
+}
+
+.el-button--default {
+  color: $color-side-title-group !important;
+  background-color: $color-main !important;
+  border-color: $color-side-border !important;
+}
+
+.el-button--default:hover {
+  background-color: #f1fbf7 !important;
+}
+
+.el-input__inner:hover {
+  outline: 1px solid $color-side-title-group;
+  border-color: $color-side-title-group !important;
+}
+
+.el-input__inner:focus {
+  outline: 0;
+  border-color: $color-side-title-group !important;
+}
+
+.el-select-dropdown__item.selected {
+  color: $color-side-title-group;
+}
