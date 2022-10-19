@@ -4,9 +4,19 @@
     ref="websiteGroup"
     @contextmenu.prevent="showContextmenu($event)"
   >
-    <div class="title">
-      <i class="el-icon-s-data" />
-      {{ websiteGroup.title }}
+    <div class="title_container">
+      <div class="title">
+        <i class="el-icon-s-data" />
+        {{ websiteGroup.title }}
+      </div>
+      <div class="edit_tools">
+        <div class="tool up" @click="handleGroupOrder(websiteGroup, 'up')">
+          <i class="el-icon-caret-top"></i>
+        </div>
+        <div class="tool down" @click="handleGroupOrder(websiteGroup, 'down')">
+          <i class="el-icon-caret-bottom"></i>
+        </div>
+      </div>
     </div>
 
     <WebsiteList :websites="websiteGroup.websites"></WebsiteList>
@@ -16,6 +26,8 @@
 <script>
 import { menuListFactory } from '@/views/home/menuList'
 import WebsiteList from '../WebsiteList'
+import { serverWebsiteGroupUpdateOrder } from '@/api/website'
+import { getHomeData } from '@/util'
 export default {
   name: 'WebsiteGroup',
   components: {
@@ -29,6 +41,16 @@ export default {
           title: '默认标题'
         }
       }
+    },
+    websiteGroups: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    index: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -56,6 +78,58 @@ export default {
         menuList: this.menuList
       }
       this.$store.commit('SHOW_CONTEXTMENU', param)
+    },
+    // 网址分组排序
+    handleGroupOrder(websiteGroup, type) {
+      let targetGroup = 0
+      if (type === 'up') {
+        if (this.index <= 0) {
+          this.$message({
+            message: '不能再往上',
+            type: 'error'
+          })
+          return
+        }
+        targetGroup = this.websiteGroups[this.index - 1]
+      } else {
+        if (this.index >= this.websiteGroups.length - 1) {
+          this.$message({
+            message: '不能再往下',
+            type: 'error'
+          })
+          return
+        }
+        targetGroup = this.websiteGroups[this.index + 1]
+      }
+      // 交换一下当前分组与目标分组的order值
+      const dataForServer = {
+        updates: {
+          [targetGroup.id]: websiteGroup.order,
+          [websiteGroup.id]: targetGroup.order
+        }
+      }
+      const loading = this.$loading({
+        lock: true,
+        text: '正在排序...',
+        spinner: 'el-icon-loading',
+        background: 'transparent'
+      })
+      serverWebsiteGroupUpdateOrder(dataForServer).then((res) => {
+        loading.close()
+        const { code, data } = res
+        if (code === 0) {
+          this.$message({
+            message: data.msg,
+            type: 'success'
+          })
+          getHomeData.call(this)
+        } else {
+          this.$message({
+            message: data.msg,
+            type: 'error'
+          })
+        }
+      })
     }
   }
 }
@@ -67,9 +141,29 @@ export default {
   flex-direction: column;
   padding: 20px;
   padding-bottom: 0;
-  .title {
+  .title_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-left: 6px;
+    margin-right: 11px;
     cursor: default;
+    .edit_tools {
+      display: none;
+      .tool {
+        margin-left: 6px;
+      }
+      .tool:hover {
+        border-radius: 100%;
+        color: $color-bg-main;
+        background-color: $color-side-title-group;
+      }
+    }
+    &:hover {
+      .edit_tools {
+        display: flex;
+      }
+    }
   }
 }
 </style>

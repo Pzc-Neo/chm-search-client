@@ -62,3 +62,12 @@ export const serverWebsiteGroupDelete = async function (data) {
   }
   return await apiWebsiteGroupPost(dataForServe)
 }
+
+// 更新网址分组排序
+export const serverWebsiteGroupUpdateOrder = async function (data) {
+  const dataForServe = {
+    type: 'updateOrder',
+    data
+  }
+  return await apiWebsiteGroupPost(dataForServe)
+}

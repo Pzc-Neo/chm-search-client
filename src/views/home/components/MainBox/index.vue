@@ -5,8 +5,10 @@
       <el-empty v-if="!websiteGroups" description="没有网址"></el-empty>
       <WebsiteGroup
         v-else
-        v-for="websiteGroup in websiteGroups"
+        v-for="(websiteGroup, index) in websiteGroups"
         :websiteGroup="websiteGroup"
+        :websiteGroups="websiteGroups"
+        :index="index"
         :key="websiteGroup.id"
       />
     </div>
