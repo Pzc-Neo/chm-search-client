@@ -13,7 +13,8 @@ export default {
       // 隐藏右键菜单
       this.$store.commit('HIDE_CONTEXTMENU', false)
     })
-  }
+  },
+  methods: {}
 }
 </script>
 

@@ -20,10 +20,12 @@
       >
         <div
           :href="engine.url"
+          :class="['engine', 'engine-' + engine.id]"
           @click.prevent="handleWebsiteClick(engine)"
           @contextmenu.prevent.stop="showEngineContextmenu($event, engine)"
         >
-          {{ engine.title }}
+          <div class="title">{{ engine.title }}</div>
+          <div class="hotkey" v-if="engine.hotkey">{{ engine.hotkey }}</div>
         </div>
       </el-menu-item>
     </transition-group>
@@ -152,6 +154,15 @@ export default {
     }
     &.is-active {
       background-color: $color-side-bg-darker;
+    }
+    .engine {
+      display: flex;
+      align-items: baseline;
+      .hotkey {
+        font-size: 0.5em;
+        margin-left: 3px;
+        color: $color-side-subtitle;
+      }
     }
   }
 }

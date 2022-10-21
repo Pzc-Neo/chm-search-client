@@ -9,10 +9,12 @@
         <el-footer><FooterBox /></el-footer>
       </el-container>
     </el-container>
+    <HotKeyInputBox />
   </div>
 </template>
 <script>
 import ContextMenuBar from '@/components/ContextMenuBar'
+import HotKeyInputBox from '@/components/HotKeyInputBox'
 import SideBox from './components/SideBox'
 import HeaderBox from './components/HeaderBox'
 import FooterBox from './components/FooterBox'
@@ -26,7 +28,8 @@ export default {
     HeaderBox,
     FooterBox,
     MainBox,
-    ContextMenuBar
+    ContextMenuBar,
+    HotKeyInputBox
   },
   data() {
     return {}

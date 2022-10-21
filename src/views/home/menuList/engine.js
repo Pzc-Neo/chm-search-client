@@ -184,6 +184,22 @@ export const engine = function () {
           }
         }
       }
+    },
+    {
+      type: 'item',
+      menuItem: {
+        id: 'hotkey',
+        title: '编辑热键',
+        icon: 'el-icon-edit',
+        func: (targetItem) => {
+          this.$store.commit('SET_HOT_KEY_INPUT_BOX_DATA', {
+            isShow: true,
+            target: targetItem,
+            type: 'engine',
+            hotkey: targetItem?.hotkey ? [targetItem?.hotkey] : []
+          })
+        }
+      }
     }
   ]
 }
