@@ -1,5 +1,6 @@
 import { apiEnginePost, apiEngineGroupPost } from './request/api'
 
+// ------------引擎----------------
 // 添加引擎
 export const serverEngineAdd = async function (data) {
   const dataForServe = {
@@ -35,6 +36,16 @@ export const serverEngineUpdateOrder = async function (data) {
   }
   return await apiEnginePost(dataForServe)
 }
+
+export const serverEngineGroupUpdateHotkey = async function (data) {
+  const dataForServe = {
+    type: 'updateHotkey',
+    data
+  }
+  return await apiEnginePost(dataForServe)
+}
+
+// ------------引擎分组----------------
 
 // 添加引擎分组
 export const serverEngineGroupAdd = async function (data) {

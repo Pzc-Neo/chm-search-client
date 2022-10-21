@@ -80,5 +80,12 @@ export default {
     isShow: false, // 是否显示
     type: 'add', // 模式：add：新建  edit: 编辑
     info: null // 引擎分组信息
+  },
+  hotKeyInputBoxData: {
+    isShow: false, // 是否显示输入快捷键的面板
+    hotkey: [], // 快捷键
+    info: [], // 快捷键详细信息
+    type: 'engine', // 要添加快捷键的目标类型： engine：引擎  website：网址
+    target: null // 要添加快捷键的元素
   }
 }

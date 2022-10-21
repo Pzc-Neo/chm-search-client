@@ -85,5 +85,22 @@ export default {
     if (info !== undefined) {
       state.editEngineGroupBoxData.info = info
     }
+  },
+  SET_HOT_KEY_INPUT_BOX_DATA(state, { isShow, type, hotkey, info, target }) {
+    if (isShow !== undefined) {
+      state.hotKeyInputBoxData.isShow = isShow
+    }
+    if (type !== undefined) {
+      state.hotKeyInputBoxData.type = type
+    }
+    if (hotkey !== undefined) {
+      state.hotKeyInputBoxData.hotkey = hotkey
+    }
+    if (info !== undefined) {
+      state.hotKeyInputBoxData.info = info
+    }
+    if (target !== undefined) {
+      state.hotKeyInputBoxData.target = target
+    }
   }
 }
