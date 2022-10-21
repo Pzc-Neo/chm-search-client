@@ -82,13 +82,22 @@ export default {
       this.drag = false
       // 要更新的数据
       const updates = []
-      this.websiteList.map((website, index) => {
-        updates[index] = {
-          id: website.id,
-          order: index
+      this.websiteList.forEach((website, index) => {
+        if (website.order !== index) {
+          const update = {
+            id: website.id,
+            order: index
+          }
+          updates.push(update)
         }
-        return (website.order = index)
       })
+      if (updates.length === 0) {
+        this.$message({
+          message: '排序没有改变',
+          type: 'info'
+        })
+        return
+      }
       const dataForServer = {
         groupId: this.websiteList[0].group_id,
         updates
