@@ -172,5 +172,4 @@ export default {
   color: $color-main m !important;
   background-color: $color-side-title-group !important;
 }
-
 </style>

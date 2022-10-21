@@ -283,7 +283,7 @@ export default {
       console.log(this.list, this.targetItem)
       const dataForServe = {
         id: this.targetItem.id,
-        hotkey: this.list[0].text
+        hotkey: this.list[0]?.text
       }
 
       serverEngineGroupUpdateHotkey(dataForServe).then((res) => {

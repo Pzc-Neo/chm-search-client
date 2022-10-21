@@ -6,7 +6,7 @@
       size="small"
       trigger="click"
     >
-      <el-button type="primary" size="small" plain>
+      <el-button type="default" size="small" plain>
         {{ currentEngine.title
         }}<i class="el-icon-arrow-down el-icon--right"></i>
       </el-button>

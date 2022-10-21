@@ -61,7 +61,7 @@ export default {
 
   text-align: left;
   height: $height-header;
-  color: $color-side-title;
+  color: $color-logo;
   background-color: $color-side-bg;
   .left {
     display: flex;

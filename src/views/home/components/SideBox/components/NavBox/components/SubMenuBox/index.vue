@@ -10,8 +10,8 @@
     <transition-group
       type="transition"
       :name="!drag ? 'flip-websites' : null"
-      class="website_group"
-      ref="websiteGroup"
+      class="engine"
+      ref="engine"
     >
       <el-menu-item
         v-for="engine in engineList"
@@ -118,7 +118,6 @@ export default {
         groupId: this.engineList[0].group_id,
         updates
       }
-      console.log(dataForServer)
       serverEngineUpdateOrder(dataForServer).then((res) => {
         const { code, data } = res
         if (code === 0) {
@@ -148,7 +147,9 @@ export default {
     text-align: left;
     color: $color-side-title;
     background-color: $color-side-bg-dark;
-    padding-left: 30px !important;
+    padding-left: 20px !important;
+    height: 40px;
+    line-height: 40px;
     &:hover {
       background-color: $color-side-bg-darker;
     }
@@ -160,7 +161,7 @@ export default {
       align-items: baseline;
       .hotkey {
         font-size: 0.5em;
-        margin-left: 3px;
+        margin-left: 5px;
         color: $color-side-subtitle;
       }
     }

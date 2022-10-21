@@ -14,6 +14,7 @@
 .el-button--primary:hover {
   // outline:1px solid $color-side-title-group !important;
   border-color: $color-side-title-group;
+  background-color: $color-side-title-group-darker !important;
 }
 
 .el-button--default {
