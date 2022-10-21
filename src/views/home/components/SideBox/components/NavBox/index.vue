@@ -1,6 +1,7 @@
 <template>
   <div class="nav_box">
     <el-menu
+      ref="navBar"
       default-active="0"
       :default-openeds="engineGroupIds"
       class="nav_bar"
@@ -67,7 +68,8 @@ export default {
   computed: {
     ...mapState({
       engineGroups: (state) => state.engineGroups,
-      engineList: (state) => state.engineList
+      engineList: (state) => state.engineList,
+      isSideBoxCollapse: (state) => state.isSideBoxCollapse
     }),
     engineGroupIds() {
       const result = []
@@ -77,6 +79,13 @@ export default {
         })
       }
       return result
+    }
+  },
+  watch: {
+    isSideBoxCollapse() {
+      this.engineGroups.forEach((engineGroup) => {
+        this.$refs.navBar.open(engineGroup.id + '')
+      })
     }
   },
   methods: {
@@ -132,6 +141,7 @@ export default {
     }
   }
   .el-menu {
+    transition: all 20ms;
     border-right: 0;
     color: $color-side-title;
     background-color: $color-side-bg;
