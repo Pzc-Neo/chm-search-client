@@ -25,7 +25,7 @@
 
 <script>
 import { menuListFactory } from '@/views/home/menuList'
-import WebsiteList from '../WebsiteList'
+import WebsiteList from './components/WebsiteList'
 import { serverWebsiteGroupUpdateOrder } from '@/api/website'
 import { getHomeData } from '@/util'
 export default {
@@ -103,10 +103,10 @@ export default {
       }
       // 交换一下当前分组与目标分组的order值
       const dataForServer = {
-        updates: {
-          [targetGroup.id]: websiteGroup.order,
-          [websiteGroup.id]: targetGroup.order
-        }
+        updates: [
+          { id: targetGroup.id, order: websiteGroup.order },
+          { id: websiteGroup.id, order: targetGroup.order }
+        ]
       }
       const loading = this.$loading({
         lock: true,
