@@ -8,7 +8,20 @@
       @close="handleClose"
       :collapse="isCollapse"
     >
+      <el-menu-item
+        v-if="!engineGroups || engineGroups.length === 0"
+        index="-1"
+      >
+        <template slot="title">
+          <div>
+            <el-button type="primary" @click="addEngineGroup"
+              >添加分组</el-button
+            >
+          </div>
+        </template>
+      </el-menu-item>
       <el-submenu
+        v-else
         v-for="engineGroup in engineGroups"
         :index="engineGroup.id + ''"
         :key="engineGroup.id"
@@ -89,6 +102,12 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath)
+    },
+    addEngineGroup() {
+      this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
+        isShow: true,
+        type: 'add'
+      })
     }
   }
 }
@@ -119,6 +138,20 @@ export default {
     .el-menu-item-group {
       color: $color-side-title;
       background-color: $color-side-bg-dark;
+    }
+    .el-menu-item {
+      min-width: 50px;
+      text-align: left;
+      color: $color-side-title;
+      padding-left: 30px !important;
+      height: 43px;
+      line-height: 43px;
+      &:hover {
+        background-color: $color-side-bg;
+      }
+      &.is-active {
+        background-color: $color-side-bg-darker;
+      }
     }
     .el-submenu {
       :deep(.el-submenu__title) {
