@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { menuListFactory } from '@/views/home/menuList'
 import { serverEngineGroupUpdateOrder } from '@/api/engine'
 import draggable from 'vuedraggable'
 import MenuItemList from '../MenuItemList'
@@ -84,6 +85,23 @@ export default {
     }
   },
   methods: {
+    // 显示右键菜单
+    showEngineGroupContextmenu(event, engineGroup) {
+      this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
+        groupId: engineGroup.id
+      })
+
+      this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
+        info: engineGroup
+      })
+
+      const param = {
+        event,
+        targetItem: engineGroup,
+        menuList: menuListFactory.call(this, 'engineGroup')
+      }
+      this.$store.commit('SHOW_CONTEXTMENU', param)
+    },
     addEngineGroup() {
       this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
         isShow: true,

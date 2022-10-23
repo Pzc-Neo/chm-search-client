@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { menuListFactory } from '@/views/home/menuList'
 import { mapState } from 'vuex'
 import SubMenuList from './components/SubMenuList'
 
@@ -60,23 +59,6 @@ export default {
     }
   },
   methods: {
-    // 显示右键菜单
-    showEngineGroupContextmenu(event, engineGroup) {
-      this.$store.commit('SET_EDIT_ENGINE_BOX_DATA', {
-        groupId: engineGroup.id
-      })
-
-      this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
-        info: engineGroup
-      })
-
-      const param = {
-        event,
-        targetItem: engineGroup,
-        menuList: menuListFactory.call(this, 'engineGroup')
-      }
-      this.$store.commit('SHOW_CONTEXTMENU', param)
-    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath)
     },
