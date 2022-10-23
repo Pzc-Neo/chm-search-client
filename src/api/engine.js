@@ -73,3 +73,12 @@ export const serverEngineGroupDelete = async function (data) {
   }
   return await apiEngineGroupPost(dataForServe)
 }
+
+// 更新引擎分组排序
+export const serverEngineGroupUpdateOrder = async function (data) {
+  const dataForServe = {
+    type: 'updateOrder',
+    data
+  }
+  return await apiEngineGroupPost(dataForServe)
+}

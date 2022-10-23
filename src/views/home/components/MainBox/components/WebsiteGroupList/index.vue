@@ -115,6 +115,7 @@ export default {
 .website_group_list {
   width: 100%;
   height: 100%;
+  overflow: auto;
   .el-empty {
     height: 100%;
   }
