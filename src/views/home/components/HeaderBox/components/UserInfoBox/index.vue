@@ -31,6 +31,7 @@
         ref="registerBox"
         v-if="registerFormVisible"
         :is-show.sync="registerFormVisible"
+        :show-login="showLoginBox"
       />
       <LoginBox
         ref="loginBox"

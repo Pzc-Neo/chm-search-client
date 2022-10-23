@@ -1,4 +1,7 @@
-import { post } from './request'
+import { get, post } from './request'
+
+export const apiPublicGet = (params) => get('/public', params)
+export const apiPublicPost = (params) => post('/public', params)
 
 export const apiLogin = (params) => post('/login', params)
 export const apiRegister = (params) => post('/register', params)

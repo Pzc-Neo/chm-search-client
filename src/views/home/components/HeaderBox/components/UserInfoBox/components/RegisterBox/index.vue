@@ -35,6 +35,17 @@
       <el-form-item label="邮箱" :label-width="formLabelWidth">
         <el-input v-model="form.email" autocomplete="off"></el-input>
       </el-form-item>
+      <el-form-item
+        label="验证码"
+        :label-width="formLabelWidth"
+        class="verify_code"
+      >
+        <el-input v-model="form.verifyCode" autocomplete="off"></el-input>
+        <el-button v-if="timeVerifyCode <= 0" @click="sendVerifyCode"
+          >发送验证码</el-button
+        >
+        <el-button disabled v-else>剩余时间({{ timeVerifyCode }})</el-button>
+      </el-form-item>
       <el-form-item label="性别" :label-width="formLabelWidth">
         <el-select v-model="form.sex" placeholder="请选择活动区域">
           <el-option label="男" :value="1"></el-option>
@@ -51,6 +62,7 @@
 
 <script>
 import { serverUserRegister } from '@/api/user'
+import { serverPublicSendVerifyCode } from '@/api/public'
 
 export default {
   name: 'RegisterBox',
@@ -62,12 +74,47 @@ export default {
         password: '',
         passwordConfirm: '', // 密码确认
         sex: 1,
-        email: ''
+        email: '',
+        verifyCode: ''
       },
-      formLabelWidth: '70px'
+      formLabelWidth: '70px',
+      timeVerifyCode: 0 // 可再次发送验证码的剩余时间(单位：秒)
+    }
+  },
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false
+    },
+    showLogin: {
+      type: Function,
+      default: () => {}
     }
   },
   methods: {
+    /**
+     * 发送验证码
+     */
+    sendVerifyCode() {
+      serverPublicSendVerifyCode(this.form.email).then((res) => {
+        const { code, data } = res
+        if (code === 0) {
+          console.log(data)
+        } else {
+          this.$message({
+            message: data?.msg,
+            type: 'error'
+          })
+        }
+      })
+      this.timeVerifyCode = 2
+      const intervalTemp = setInterval(() => {
+        this.timeVerifyCode -= 1
+        if (this.timeVerifyCode <= 0) {
+          clearInterval(intervalTemp)
+        }
+      }, 1000)
+    },
     // 注册
     handleRegister() {
       serverUserRegister({ data: this.form }).then((res) => {
@@ -77,6 +124,8 @@ export default {
             message: data?.msg,
             type: 'success'
           })
+          this.$emit('update:is-show', false)
+          this.showLogin()
         } else {
           this.$message({
             message: data?.msg,
@@ -99,6 +148,11 @@ export default {
     .el-form-item {
       :deep(.el-form-item__content) {
         width: 200px;
+      }
+    }
+    .el-form-item.verify_code {
+      :deep(.el-form-item__content) {
+        display: flex;
       }
     }
   }
