@@ -9,36 +9,7 @@
       @close="handleClose"
       :collapse="isCollapse"
     >
-      <el-menu-item
-        v-if="!engineGroups || engineGroups.length === 0"
-        index="-1"
-      >
-        <template slot="title">
-          <div>
-            <el-button type="primary" @click="addEngineGroup"
-              >添加分组</el-button
-            >
-          </div>
-        </template>
-      </el-menu-item>
-      <el-submenu
-        v-else
-        v-for="engineGroup in engineGroups"
-        :index="engineGroup.id + ''"
-        :key="engineGroup.id"
-      >
-        <template slot="title">
-          <div
-            @contextmenu.prevent="
-              showEngineGroupContextmenu($event, engineGroup)
-            "
-          >
-            <i class="el-icon-ship"></i>
-            <span slot="title">{{ engineGroup.title }}</span>
-          </div>
-        </template>
-        <SubMenuBox :engine-group="engineGroup" />
-      </el-submenu>
+      <SubMenuList :engine-groups="engineGroups" />
     </el-menu>
   </div>
 </template>
@@ -46,12 +17,12 @@
 <script>
 import { menuListFactory } from '@/views/home/menuList'
 import { mapState } from 'vuex'
-import SubMenuBox from './components/SubMenuBox'
+import SubMenuList from './components/SubMenuList'
 
 export default {
   name: 'NavBox',
   components: {
-    SubMenuBox
+    SubMenuList
   },
   props: {
     isCollapse: {
@@ -111,12 +82,6 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath)
-    },
-    addEngineGroup() {
-      this.$store.commit('SET_EDIT_ENGINE_GROUP_BOX_DATA', {
-        isShow: true,
-        type: 'add'
-      })
     }
   }
 }
@@ -127,6 +92,8 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto;
   a,
   i {
     color: $color-side-title-group;
@@ -149,49 +116,7 @@ export default {
       color: $color-side-title;
       background-color: $color-side-bg-dark;
     }
-    .el-menu-item {
-      min-width: 50px;
-      text-align: left;
-      color: $color-side-title;
-      padding-left: 30px !important;
-      height: 43px;
-      line-height: 43px;
-      &:hover {
-        background-color: $color-side-bg;
-      }
-      &.is-active {
-        background-color: $color-side-bg-darker;
-      }
-    }
-    .el-submenu {
-      :deep(.el-submenu__title) {
-        padding-left: 10px !important;
-        height: 40px;
-        line-height: 40px;
-      }
-      .el-menu-item {
-        min-width: 50px;
-        text-align: left;
-        color: $color-side-title;
-        background-color: $color-side-bg-dark;
-        padding-left: 30px !important;
-        height: 43px;
-        line-height: 43px;
-        &:hover {
-          background-color: $color-side-bg-darker;
-        }
-        &.is-active {
-          background-color: $color-side-bg-darker;
-        }
-      }
-    }
-    :deep(.el-submenu__title) {
-      text-align: left;
-      color: $color-side-title-group;
-      &:hover {
-        background-color: $color-side-bg-dark1;
-      }
-    }
+
   }
 }
 </style>
