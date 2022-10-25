@@ -1,6 +1,17 @@
 <template>
   <div class="website_group_list">
-    <el-empty v-if="!websiteGroups" description="没有网址"></el-empty>
+    <div
+      class="no_website_group"
+      v-if="!websiteGroups || (websiteGroups && websiteGroups.length) === 0"
+      description="没有网址"
+    >
+      <el-button type="primary" @click="addWebsiteGroup"
+        >添加网址分组</el-button
+      >
+      <!-- <el-button type="primary" @click="copyDefaultWebsiteData"
+        >拷贝默认数据</el-button
+      > -->
+    </div>
     <draggable
       v-else
       tag="div"
@@ -64,6 +75,15 @@ export default {
     }
   },
   methods: {
+    addWebsiteGroup() {
+      this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+        isShow: true,
+        type: 'add'
+      })
+    },
+    // copyDefaultWebsiteData() {
+
+    // },
     handleDragEnd() {
       this.drag = false
 
@@ -118,6 +138,9 @@ export default {
   overflow: auto;
   .el-empty {
     height: 100%;
+  }
+  .no_website_group {
+    padding: 25px;
   }
 }
 </style>
