@@ -37,9 +37,10 @@
 <script>
 import { menuListFactory } from '@/views/home/menuList'
 import draggable from 'vuedraggable'
-import { serverWebsiteUpdateOrder } from '@/api/website'
+import { serverWebsiteGroupId, serverWebsiteUpdateOrder } from '@/api/website'
+import { getDiffs } from '@/util'
 export default {
-  name: 'WebsiteBox',
+  name: 'WebsiteList',
   display: 'Transitions',
   order: 7,
   components: {
@@ -55,6 +56,10 @@ export default {
       default() {
         return []
       }
+    },
+    websiteGroupId: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -99,7 +104,7 @@ export default {
         return
       }
       const dataForServer = {
-        groupId: this.websiteList[0].group_id,
+        groupId: this.websiteList[0]?.group_id,
         updates
       }
       serverWebsiteUpdateOrder(dataForServer).then((res) => {
@@ -126,6 +131,48 @@ export default {
   watch: {
     websites(newValue) {
       this.websiteList = newValue
+    },
+    // 跨分组拖拽
+    websiteList(newList, oldList) {
+      if (oldList.length === 0) {
+        return
+      }
+      // 新列表的长度大于旧列表的长度，说明有其他分组的网址被拖拽进来，或者分组有新添加的项目
+      if (newList.length > oldList.length) {
+        // 重设order字段
+        newList = newList.map((item, index) => {
+          item.order = index
+          return item
+        })
+
+        // 找出新添加的网址
+        const newWebsites = getDiffs(newList, oldList)
+        if (newWebsites.length === 0) {
+          return
+        }
+        // 新拖拽进来的网址
+        const website = newWebsites[0]
+        const dataForServer = {
+          id: website?.id,
+          groupId: this.websiteGroupId,
+          order: website?.order
+        }
+        // 更新网址分组id和排序
+        serverWebsiteGroupId(dataForServer).then((res) => {
+          const { code, data } = res
+          if (code === 0) {
+            this.$message({
+              type: 'success',
+              message: data?.msg
+            })
+          } else {
+            this.$message({
+              type: 'error',
+              message: data?.msg
+            })
+          }
+        })
+      }
     }
   },
   computed: {

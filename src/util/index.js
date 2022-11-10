@@ -68,3 +68,23 @@ export const registerKeymap = function (keymapList) {
     })
   })
 }
+
+/**
+ * 获取两个对象列表之间的差异对象
+ * @param {Array} newList 新列表
+ * @param {Array} oldList 旧列表
+ * @returns itemList
+ */
+export const getDiffs = function (newList, oldList) {
+  const idMap = {}
+  const newItems = []
+  oldList.forEach((item) => {
+    idMap[item.id] = 1
+  })
+  newList.forEach((item) => {
+    if (!idMap[item.id]) {
+      newItems.push(item)
+    }
+  })
+  return newItems
+}

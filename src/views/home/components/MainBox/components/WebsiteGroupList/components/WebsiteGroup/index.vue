@@ -19,7 +19,10 @@
       </div>
     </div>
 
-    <WebsiteList :websites="websiteGroup.websites"></WebsiteList>
+    <WebsiteList
+      :websites="websiteGroup.websites"
+      :website-group-id="websiteGroup.id"
+    ></WebsiteList>
   </div>
 </template>
 

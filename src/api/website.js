@@ -18,6 +18,15 @@ export const serverWebsiteUpdate = async function (data) {
   return await apiWebsitePost(dataForServe)
 }
 
+// 设置网址的分组id
+export const serverWebsiteGroupId = async function (data) {
+  const dataForServe = {
+    type: 'setGroupId',
+    data
+  }
+  return await apiWebsitePost(dataForServe)
+}
+
 // 删除网址
 export const serverWebsiteDelete = async function (data) {
   const dataForServe = {
