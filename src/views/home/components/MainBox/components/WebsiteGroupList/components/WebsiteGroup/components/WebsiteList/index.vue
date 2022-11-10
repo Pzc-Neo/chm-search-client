@@ -133,10 +133,8 @@ export default {
       this.websiteList = newValue
     },
     // 跨分组拖拽
-    websiteList(newList, oldList) {
-      if (oldList.length === 0) {
-        return
-      }
+    websiteList(newList) {
+      const oldList = this.websites
       // 新列表的长度大于旧列表的长度，说明有其他分组的网址被拖拽进来，或者分组有新添加的项目
       if (newList.length > oldList.length) {
         // 重设order字段
