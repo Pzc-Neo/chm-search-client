@@ -37,6 +37,15 @@ export const serverEngineUpdateOrder = async function (data) {
   return await apiEnginePost(dataForServe)
 }
 
+// 设置引擎的分组id
+export const serverSetEngineGroupId = async function (data) {
+  const dataForServe = {
+    type: 'setGroupId',
+    data
+  }
+  return await apiEnginePost(dataForServe)
+}
+
 export const serverEngineGroupUpdateHotkey = async function (data) {
   const dataForServe = {
     type: 'updateHotkey',

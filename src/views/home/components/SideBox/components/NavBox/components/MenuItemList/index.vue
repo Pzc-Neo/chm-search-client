@@ -1,41 +1,44 @@
 <template>
-  <draggable
-    class="sub_menu_box"
-    tag="div"
-    v-model="engineList"
-    v-bind="dragOptions"
-    @start="drag = true"
-    @end="handleDragEnd"
-  >
-    <transition-group
-      type="transition"
-      :name="!drag ? 'flip-websites' : null"
-      class="engine"
-      ref="engine"
+  <div class="sub_menu_box">
+    <draggable
+      tag="div"
+      class="drag_section"
+      v-model="engineList"
+      v-bind="dragOptions"
+      @start="drag = true"
+      @end="handleDragEnd"
     >
-      <el-menu-item
-        v-for="engine in engineList"
-        :index="engine.id + ''"
-        :key="engine.id"
+      <transition-group
+        type="transition"
+        :name="!drag ? 'flip-websites' : null"
+        class="engine"
+        ref="engine"
       >
-        <div
-          :href="engine.url"
-          :class="['engine', 'engine-' + engine.id]"
-          @click.prevent="handleWebsiteClick(engine)"
-          @contextmenu.prevent.stop="showEngineContextmenu($event, engine)"
+        <el-menu-item
+          v-for="engine in engineList"
+          :index="engine.id + ''"
+          :key="engine.id"
         >
-          <div class="title">{{ engine.title }}</div>
-          <div class="hotkey" v-if="engine.hotkey">{{ engine.hotkey }}</div>
-        </div>
-      </el-menu-item>
-    </transition-group>
-  </draggable>
+          <div
+            :href="engine.url"
+            :class="['engine', 'engine-' + engine.id]"
+            @click.prevent="handleWebsiteClick(engine)"
+            @contextmenu.prevent.stop="showEngineContextmenu($event, engine)"
+          >
+            <div class="title">{{ engine.title }}</div>
+            <div class="hotkey" v-if="engine.hotkey">{{ engine.hotkey }}</div>
+          </div>
+        </el-menu-item>
+      </transition-group>
+    </draggable>
+  </div>
 </template>
 
 <script>
-import { serverEngineUpdateOrder } from '@/api/engine'
+import { serverEngineUpdateOrder, serverSetEngineGroupId } from '@/api/engine'
 import draggable from 'vuedraggable'
 import { menuListFactory } from '@/views/home/menuList'
+import { getDiffs } from '@/util'
 
 export default {
   name: 'SubMenuBox',
@@ -62,6 +65,45 @@ export default {
   watch: {
     engineGroup() {
       this.setEngineList()
+    },
+    engineList(newList) {
+      const oldList = this.engineGroup?.engineList
+      // 新列表的长度大于旧列表的长度，说明有其他分组的引擎被拖拽进来，或者分组有新添加的项目
+      if (newList.length > oldList.length) {
+        // 重设order字段
+        newList = newList.map((item, index) => {
+          item.order = index
+          return item
+        })
+
+        // 找出新添加的引擎
+        const newEngines = getDiffs(newList, oldList)
+        if (newEngines.length === 0) {
+          return
+        }
+        // 新拖拽进来的引擎
+        const engine = newEngines[0]
+        const dataForServer = {
+          id: engine?.id,
+          groupId: this.engineGroup?.id,
+          order: engine?.order
+        }
+        // 更新引擎分组id和排序
+        serverSetEngineGroupId(dataForServer).then((res) => {
+          const { code, data } = res
+          if (code === 0) {
+            this.$message({
+              type: 'success',
+              message: data?.msg
+            })
+          } else {
+            this.$message({
+              type: 'error',
+              message: data?.msg
+            })
+          }
+        })
+      }
     }
   },
   computed: {
@@ -107,13 +149,22 @@ export default {
       this.drag = false
       // 要更新的数据
       const updates = []
-      this.engineList.map((engine, index) => {
-        updates[index] = {
-          id: engine.id,
-          order: index
+      this.engineList.forEach((engine, index) => {
+        if (engine.order !== index) {
+          const update = {
+            id: engine.id,
+            order: index
+          }
+          updates.push(update)
         }
-        return (engine.order = index)
       })
+      if (updates.length === 0) {
+        this.$message({
+          message: '排序没有改变',
+          type: 'info'
+        })
+        return
+      }
       const dataForServer = {
         groupId: this.engineList[0].group_id,
         updates
@@ -142,6 +193,11 @@ export default {
 <style lang="scss" scoped>
 .sub_menu_box {
   background-color: $color-side-bg-dark;
+  .drag_section {
+    min-height: 20px;
+    background-color: $color-side-bg;
+  }
+
   .el-menu-item {
     min-width: 50px;
     text-align: left;
