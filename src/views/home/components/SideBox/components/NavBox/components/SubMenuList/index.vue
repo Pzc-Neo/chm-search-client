@@ -47,6 +47,7 @@ import { menuListFactory } from '@/views/home/menuList'
 import { serverEngineGroupUpdateOrder } from '@/api/engine'
 import draggable from 'vuedraggable'
 import MenuItemList from '../MenuItemList'
+import { getHomeData } from '@/util'
 export default {
   name: 'SubMenuList',
   components: {
@@ -136,6 +137,7 @@ export default {
       serverEngineGroupUpdateOrder(dataForServer).then((res) => {
         const { code, data } = res
         if (code === 0) {
+          getHomeData.call(this)
           this.$message({
             message: data.msg,
             type: 'success',

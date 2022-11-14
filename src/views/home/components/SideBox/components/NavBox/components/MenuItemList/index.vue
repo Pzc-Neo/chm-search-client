@@ -39,7 +39,7 @@
 import { serverEngineUpdateOrder, serverSetEngineGroupId } from '@/api/engine'
 import draggable from 'vuedraggable'
 import { menuListFactory } from '@/views/home/menuList'
-import { getDiffs } from '@/util'
+import { getDiffs, getHomeData } from '@/util'
 
 export default {
   name: 'SubMenuBox',
@@ -93,6 +93,7 @@ export default {
         serverSetEngineGroupId(dataForServer).then((res) => {
           const { code, data } = res
           if (code === 0) {
+            getHomeData.call(this)
             this.$message({
               type: 'success',
               message: data?.msg
@@ -173,6 +174,7 @@ export default {
       serverEngineUpdateOrder(dataForServer).then((res) => {
         const { code, data } = res
         if (code === 0) {
+          getHomeData.call(this)
           this.$message({
             message: data.msg,
             type: 'success',

@@ -39,7 +39,7 @@
 import { menuListFactory } from '@/views/home/menuList'
 import draggable from 'vuedraggable'
 import { serverWebsiteGroupId, serverWebsiteUpdateOrder } from '@/api/website'
-import { getDiffs } from '@/util'
+import { getDiffs, getHomeData } from '@/util'
 export default {
   name: 'WebsiteList',
   display: 'Transitions',
@@ -111,6 +111,7 @@ export default {
       serverWebsiteUpdateOrder(dataForServer).then((res) => {
         const { code, data } = res
         if (code === 0) {
+          getHomeData.call(this)
           this.$message({
             message: data.msg,
             type: 'success',
@@ -160,6 +161,7 @@ export default {
         serverWebsiteGroupId(dataForServer).then((res) => {
           const { code, data } = res
           if (code === 0) {
+            getHomeData.call(this)
             this.$message({
               type: 'success',
               message: data?.msg

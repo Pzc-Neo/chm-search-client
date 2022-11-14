@@ -42,6 +42,7 @@
 import draggable from 'vuedraggable'
 import WebsiteGroup from './components/WebsiteGroup'
 import { serverWebsiteGroupUpdateOrder } from '@/api/website'
+import { getHomeData } from '@/util'
 export default {
   name: 'WebsiteGroupList',
   components: {
@@ -113,6 +114,7 @@ export default {
       serverWebsiteGroupUpdateOrder(dataForServer).then((res) => {
         const { code, data } = res
         if (code === 0) {
+          getHomeData.call(this)
           this.$message({
             message: data.msg,
             type: 'success',
