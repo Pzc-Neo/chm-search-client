@@ -6,17 +6,18 @@
   >
     <div class="title_container">
       <div class="title">
-        <i class="el-icon-s-data" />
-        {{ websiteGroup.title }}
+        <i class="el-icon-menu" />
+        <span> {{ websiteGroup.title }} </span>
+        <span class="website_count">({{ websiteGroup.websites.length }})</span>
       </div>
-      <div class="edit_tools">
+      <!-- <div class="edit_tools">
         <div class="tool up" @click="handleGroupOrder(websiteGroup, 'up')">
           <i class="el-icon-caret-top"></i>
         </div>
         <div class="tool down" @click="handleGroupOrder(websiteGroup, 'down')">
           <i class="el-icon-caret-bottom"></i>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <WebsiteList
@@ -139,11 +140,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width: 820px) {
+  .website_group {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 820px) and (max-width: 1200px) {
+  .website_group {
+    width: 48%;
+  }
+}
+@media screen and (min-width: 1200px) and (max-width: 1920px) {
+  .website_group {
+    width: 30%;
+  }
+}
 .website_group {
+  max-height: 300px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
   padding-bottom: 0;
+  background-color: $color-label-group-bg;
+  margin: 6px;
+  border-radius: 8px;
+  box-shadow: #adc3b842 0px 2px 2px 1px;
+  overflow: hidden;
+  // position: relative;
+  // top: 0;
+  // transition: all 0.3s ease-in-out;
+  // &:hover {
+  //   top:-3px;
+  //   box-shadow: #adc3b842 0px 3px 3px 3px;
+  // }
   .title_container {
     display: flex;
     justify-content: space-between;
@@ -151,6 +179,12 @@ export default {
     margin-left: 6px;
     margin-right: 11px;
     cursor: default;
+    padding: 13px;
+    border-bottom: 1px solid $color-label-group-border;
+    .website_count {
+      color: $color-label-subtitle;
+      font-size: 0.7em;
+    }
     .edit_tools {
       display: none;
       .tool {

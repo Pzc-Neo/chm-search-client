@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="dialogTitle" :visible.sync="isShow" :append-to-body="true">
+  <el-dialog :title="dialogTitle" :visible.sync="isShow" :append-to-body="true" :close-on-click-modal="false" :close-on-press-escape="false">
     <div class="new_website_box">
       <el-form :model="form">
         <el-form-item label="标题" :label-width="formLabelWidth">

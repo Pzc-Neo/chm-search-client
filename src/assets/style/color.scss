@@ -1,26 +1,14 @@
 $color-main: white;
-// $color-bg-main: #e1e4e7;
 $color-title: #2c3e50;
 $color-logo: #a5afab;
-
-// $color-side-title: #9fb1c5;
-// $color-side-bg: #304156;
-// $color-side-bg-dark: #1f2d3d;
-// $color-side-bg-dark1: #263445;
-// $color-side-bg-darker: #172331;
-// $color-side-border: #456e98;
-// $color-side-bg-transparent: #304156e5;
-
-// $color-label-title: #70abe8;
-// $color-label-subtitle: #8a8a8a;
-// $color-label-bg: #ffffffb0;
-// $color-label-border: #c0d5e2;
 
 $color-bg-main: #dce0df;
 $color-label-title: #0cbe83;
 $color-label-subtitle: #8a8a8a;
 $color-label-bg: #f1f3f2;
 $color-label-border: #c0e2d7;
+$color-label-group-border: #dedede;
+$color-label-group-bg: #ffffffa3;
 
 $color-side-title: #8c948a;
 $color-side-subtitle: #5f5f5f;
@@ -31,15 +19,15 @@ $color-side-bg-dark: #2c2c2a;
 $color-side-bg-dark1: #2f302d;
 $color-side-bg-darker: #181916;
 $color-side-border: #bfe7d9;
-// $color-side-border: #bfe7d9;
 $color-side-bg-transparent: #21221fe5;
 
-$color-scroll-track: #555;
+$color-scroll-track: #1ab37d;
 $color-scroll-track-hover: #1e936a;
 
 $height-header: 50px;
 $height-footer: 36px;
 
 $main-shadow: #0000001a 0px 2px 12px 0px;
-$box-shadow-main: 0px 5px 15px #c1dbcf;
+// $box-shadow-main: 0px 5px 15px #c1dbcf;
+$box-shadow-main: 0px 3px 7px #c1dbcfe0;
 $box-shadow-main-small: 0px 2px 4px #c0e2d1bb;

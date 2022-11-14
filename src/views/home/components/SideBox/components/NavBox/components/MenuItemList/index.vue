@@ -25,6 +25,7 @@
             @click.prevent="handleWebsiteClick(engine)"
             @contextmenu.prevent.stop="showEngineContextmenu($event, engine)"
           >
+            <!-- <img :src="engine.url_home + '/favicon.ico'" /> -->
             <div class="title">{{ engine.title }}</div>
             <div class="hotkey" v-if="engine.hotkey">{{ engine.hotkey }}</div>
           </div>
@@ -213,8 +214,13 @@ export default {
       background-color: $color-side-bg-darker;
     }
     .engine {
+      height: 100%;
       display: flex;
-      align-items: baseline;
+      align-items: center;
+      img {
+        height: 45%;
+        margin-right: 6px;
+      }
       .hotkey {
         font-size: 0.5em;
         margin-left: 5px;

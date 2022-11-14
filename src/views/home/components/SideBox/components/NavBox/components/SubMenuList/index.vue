@@ -198,6 +198,9 @@ export default {
     &:hover {
       background-color: $color-side-bg-dark1;
     }
+    i {
+      color: $color-side-title-group;
+    }
   }
 }
 </style>

@@ -23,7 +23,7 @@
       <transition-group
         type="transition"
         :name="!drag ? 'flip-websites' : null"
-        class="website_group"
+        class="website_group_wrapper"
         ref="websiteGroup"
       >
         <WebsiteGroup
@@ -135,7 +135,11 @@ export default {
 .website_group_list {
   width: 100%;
   height: 100%;
-  overflow: auto;
+  .website_group_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+  }
   .el-empty {
     height: 100%;
   }

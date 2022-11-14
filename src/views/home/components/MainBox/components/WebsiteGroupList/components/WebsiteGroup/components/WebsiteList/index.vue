@@ -20,12 +20,13 @@
           v-for="website in websiteList"
           :href="website.url"
           :key="website.id"
+          :title="website.description || website.url"
           @contextmenu.prevent.stop="showContextmenu($event, website)"
         >
           <div class="title">
             {{ website.title }}
           </div>
-          <div class="description">
+          <div class="description" v-if="true">
             {{ website.description || website.url }}
           </div>
         </a>
@@ -188,26 +189,24 @@ export default {
 
 <style lang="scss" scoped>
 .website_list {
+  overflow: hidden;
+  overflow-y: auto;
+  margin-bottom: 5px;
   .website_group {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 8px;
+    padding: 6px 7px;
     .website {
       position: relative;
       top: 0px;
-      width: 200px;
+      width: 166px;
       border-radius: 5px;
-      margin: 8px 5px;
-      margin-bottom: 0;
       padding: 12px;
       padding-bottom: 9px;
-      border: 1px solid $color-label-border;
-      background-color: $color-label-bg;
       transition: all 0.3s ease-in-out;
-      box-shadow: $box-shadow-main-small;
       &:hover {
-        top: -5px;
+        top: -3px;
         box-shadow: $box-shadow-main;
       }
       .title {
