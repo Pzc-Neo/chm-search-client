@@ -68,6 +68,11 @@ export default {
   },
   created() {
     this.setSearchType()
+    // 左侧搜索引擎栏的引擎被点击时，设置全局的搜索值
+    // 不然按快捷键使用搜索引擎的时候，搜索内容可能会是空的
+    this.$bus.$on('engine-click', () => {
+      this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
+    })
   },
   computed: {
     ...mapState({
@@ -133,7 +138,6 @@ export default {
       }
 
       const searchType = this.searchTypeList[command]
-      console.log(command, searchType)
       if (searchType) {
         this.$store.commit('SET_SEARCH_TYPE', searchType)
       }

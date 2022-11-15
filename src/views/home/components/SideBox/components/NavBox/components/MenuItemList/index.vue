@@ -120,6 +120,7 @@ export default {
   },
   methods: {
     handleWebsiteClick(engine) {
+      this.$bus.$emit('engine-click')
       // 搜索模式
       this.$store.commit('SET_MODE', 'search')
       // 设置单搜
