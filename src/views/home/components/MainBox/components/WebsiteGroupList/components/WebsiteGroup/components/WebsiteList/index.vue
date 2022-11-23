@@ -20,14 +20,19 @@
           v-for="website in websiteList"
           :href="website.url"
           :key="website.id"
-          :title="website.description || website.url"
+          :title="`标题：${website.title}\n描述：${website.description}\n链接：${website.url}`"
           @contextmenu.prevent.stop="showContextmenu($event, website)"
         >
-          <div class="title">
-            {{ website.title }}
+          <div class="icon">
+            <NeoImage :src="website.url" />
           </div>
-          <div class="description" v-if="true">
-            {{ website.description || website.url }}
+          <div class="container">
+            <div class="title">
+              {{ website.title }}
+            </div>
+            <div class="description" v-if="false">
+              {{ website.description || website.url }}
+            </div>
           </div>
         </a>
       </transition-group>
@@ -40,12 +45,14 @@ import { menuListFactory } from '@/views/home/menuList'
 import draggable from 'vuedraggable'
 import { serverWebsiteGroupId, serverWebsiteUpdateOrder } from '@/api/website'
 import { getDiffs, getHomeData } from '@/util'
+import NeoImage from '@/components/NeoImage'
 export default {
   name: 'WebsiteList',
   display: 'Transitions',
   order: 7,
   components: {
-    draggable
+    draggable,
+    NeoImage
   },
   model: {
     prop: 'websites',
@@ -200,21 +207,44 @@ export default {
     flex-wrap: wrap;
     padding: 6px 7px;
     .website {
+      max-width: 190px;
       position: relative;
       top: 0px;
-      width: 166px;
-      border-radius: 5px;
-      padding: 12px;
+      border-radius: 15px;
+      padding: 10px;
       padding-bottom: 9px;
-      transition: all 0.3s ease-in-out;
+      transition: all 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      border: 1px solid #e4f1ed;
+      background-color: #f1f3f2;
+      color: #0cbe83;
+      margin: 3px;
+      box-shadow: 1px 1px 1px #a3d3c2;
       &:hover {
         top: -3px;
         box-shadow: $box-shadow-main;
       }
+      .icon {
+        width: 15px;
+        height: 15px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .container {
+        margin-left: 5px;
+        display: flex;
+        flex-direction: column;
+      }
       .title {
         font-size: 13px;
-        font-weight: 700;
-        color: $color-label-title;
+        // font-weight: 700;
+        // 文字溢出隐藏
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .description {
         padding-top: 6px;

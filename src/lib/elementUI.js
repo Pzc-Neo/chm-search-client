@@ -29,7 +29,9 @@ import {
   Dialog,
   Option,
   Empty,
-  Tree
+  Tree,
+  Row,
+  Col
 } from 'element-ui'
 ;[
   Button,
@@ -57,7 +59,9 @@ import {
   Dialog,
   Option,
   Empty,
-  Tree
+  Tree,
+  Row,
+  Col
 ].forEach((item) => {
   Vue.component(item.name, item)
 })

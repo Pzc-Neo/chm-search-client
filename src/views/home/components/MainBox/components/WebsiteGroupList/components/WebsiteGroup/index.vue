@@ -1,16 +1,26 @@
 <template>
-  <div
+  <el-col
+    :xs="24"
+    :sm="12"
+    :md="12"
+    :lg="8"
+    :xl="8"
     class="website_group"
     ref="websiteGroup"
-    @contextmenu.prevent="showContextmenu($event)"
   >
-    <div class="title_container">
-      <div class="title">
-        <i class="el-icon-menu" />
-        <span> {{ websiteGroup.title }} </span>
-        <span class="website_count">({{ websiteGroup.websites.length }})</span>
-      </div>
-      <!-- <div class="edit_tools">
+    <div
+      class="website_group_wrapper"
+      @contextmenu.prevent="showContextmenu($event)"
+    >
+      <div class="title_container">
+        <div class="title">
+          <i class="el-icon-menu" />
+          <span> {{ websiteGroup.title }} </span>
+          <span class="website_count"
+            >({{ websiteGroup.websites.length }})</span
+          >
+        </div>
+        <!-- <div class="edit_tools">
         <div class="tool up" @click="handleGroupOrder(websiteGroup, 'up')">
           <i class="el-icon-caret-top"></i>
         </div>
@@ -18,13 +28,14 @@
           <i class="el-icon-caret-bottom"></i>
         </div>
       </div> -->
-    </div>
+      </div>
 
-    <WebsiteList
-      :websites="websiteGroup.websites"
-      :website-group-id="websiteGroup.id"
-    ></WebsiteList>
-  </div>
+      <WebsiteList
+        :websites="websiteGroup.websites"
+        :website-group-id="websiteGroup.id"
+      ></WebsiteList>
+    </div>
+  </el-col>
 </template>
 
 <script>
@@ -140,31 +151,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 820px) {
-  .website_group {
-    width: 100%;
-  }
-}
-@media screen and (min-width: 820px) and (max-width: 1200px) {
-  .website_group {
-    width: 48%;
-  }
-}
-@media screen and (min-width: 1200px) and (max-width: 1920px) {
-  .website_group {
-    width: 30%;
-  }
-}
+// @media screen and (max-width: 820px) {
+//   .website_group {
+//     width: 100%;
+//   }
+// }
+// @media screen and (min-width: 820px) and (max-width: 1200px) {
+//   .website_group {
+//     width: 48%;
+//   }
+// }
+// @media screen and (min-width: 1200px) and (max-width: 1920px) {
+//   .website_group {
+//     width: 30%;
+//   }
+// }
 .website_group {
   max-height: 300px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+.website_group_wrapper {
+  height: 100%;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   padding-bottom: 0;
   background-color: $color-label-group-bg;
-  margin: 6px;
+  // margin: 6px;
   border-radius: 8px;
   box-shadow: #adc3b842 0px 2px 2px 1px;
-  overflow: hidden;
   // position: relative;
   // top: 0;
   // transition: all 0.3s ease-in-out;

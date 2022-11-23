@@ -34,8 +34,8 @@ export default {
   }
 
   ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 3px;
+    height: 3px;
     // background-color: #f5f5f5;
   }
 

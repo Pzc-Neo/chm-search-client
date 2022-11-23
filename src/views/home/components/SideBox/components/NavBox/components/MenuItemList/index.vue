@@ -25,7 +25,7 @@
             @click.prevent="handleWebsiteClick(engine)"
             @contextmenu.prevent.stop="showEngineContextmenu($event, engine)"
           >
-            <!-- <img :src="engine.url_home + '/favicon.ico'" /> -->
+            <NeoImage :src="engine.url" />
             <div class="title">{{ engine.title }}</div>
             <div class="hotkey" v-if="engine.hotkey">{{ engine.hotkey }}</div>
           </div>
@@ -41,6 +41,7 @@ import draggable from 'vuedraggable'
 import { menuListFactory } from '@/views/home/menuList'
 import { getDiffs, getHomeData } from '@/util'
 
+import NeoImage from '@/components/NeoImage'
 export default {
   name: 'SubMenuBox',
   props: {
@@ -52,7 +53,8 @@ export default {
     }
   },
   components: {
-    draggable
+    draggable,
+    NeoImage
   },
   data() {
     return {
@@ -221,7 +223,7 @@ export default {
       display: flex;
       align-items: center;
       img {
-        height: 45%;
+        height: 35%;
         margin-right: 6px;
       }
       .hotkey {

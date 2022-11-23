@@ -88,3 +88,14 @@ export const getDiffs = function (newList, oldList) {
   })
   return newItems
 }
+
+/**
+ * 获取网站的图标
+ * @param {String} url 网站链接
+ * @returns
+ */
+export const getFavicon = function (url) {
+  const aDom = document.createElement('a')
+  aDom.href = url
+  return `http://${aDom.hostname}/favicon.ico`
+}
