@@ -112,7 +112,7 @@ export default {
         return
       }
       const dataForServer = {
-        groupId: this.websiteList[0]?.group_id,
+        groupId: this.websiteGroupId,
         updates
       }
       serverWebsiteUpdateOrder(dataForServer).then((res) => {

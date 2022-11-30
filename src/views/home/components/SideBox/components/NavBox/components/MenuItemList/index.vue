@@ -171,7 +171,7 @@ export default {
         return
       }
       const dataForServer = {
-        groupId: this.engineList[0].group_id,
+        groupId: this.engineGroup?.id,
         updates
       }
       serverEngineUpdateOrder(dataForServer).then((res) => {
