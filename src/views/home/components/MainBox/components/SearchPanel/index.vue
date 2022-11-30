@@ -1,18 +1,18 @@
 <template>
   <div class="search_panel">
     <div class="engine">
-      <iframe
-        :src="engineUrl1"
+      <NeoFrame
+        :url="engineUrl1"
         v-if="
           !searchType || (searchType && [1, 2, 3].includes(searchType.command))
         "
       />
-      <iframe
-        :src="engineUrl2"
+      <NeoFrame
+        :url="engineUrl2"
         v-if="searchType && [2, 3].includes(searchType.command)"
       />
-      <iframe
-        :src="engineUrl3"
+      <NeoFrame
+        :url="engineUrl3"
         v-if="searchType && [3].includes(searchType.command)"
       />
     </div>
@@ -21,9 +21,13 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import NeoFrame from '@/components/NeoFrame'
 
 export default {
   name: 'SearchPanel',
+  components: {
+    NeoFrame
+  },
   props: {
     // 1: 单搜  2： 双搜  3：三搜
     type: {

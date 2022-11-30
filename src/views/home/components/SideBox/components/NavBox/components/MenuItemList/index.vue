@@ -227,7 +227,7 @@ export default {
         margin-right: 6px;
       }
       .hotkey {
-        font-size: 0.5em;
+        font-size: 0.8em;
         margin-left: 5px;
         color: $color-side-subtitle;
       }
