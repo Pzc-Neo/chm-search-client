@@ -124,7 +124,8 @@ export default {
     },
     websiteAdd() {
       const data = { ...this.form }
-      data.groupId = this.$store.state.editWebsiteBoxData.groupId
+      data.groupId = this.$store.state.editWebsiteBoxData.info.id
+      data.tagId = this.$store.state.editWebsiteBoxData.info.active_tag_id
 
       const loading = this.$loading({
         lock: true,

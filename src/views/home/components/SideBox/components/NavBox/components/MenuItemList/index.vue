@@ -26,7 +26,12 @@
             @contextmenu.prevent.stop="showEngineContextmenu($event, engine)"
           >
             <NeoImage :src="engine.url" />
-            <div class="title">{{ engine.title }}</div>
+            <div
+              class="title"
+              :title="`标题：${engine.title}\n描述：${engine.description}\n链接：${engine.url} `"
+            >
+              {{ engine.title }}
+            </div>
             <div class="hotkey" v-if="engine.hotkey">{{ engine.hotkey }}</div>
           </div>
         </el-menu-item>

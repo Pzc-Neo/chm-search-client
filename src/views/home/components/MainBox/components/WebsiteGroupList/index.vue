@@ -1,5 +1,5 @@
 <template>
-  <el-row class="website_group_list" :gutter="15">
+  <el-row class="website_group_list" :gutter="10">
     <div
       class="no_website_group"
       v-if="!websiteGroups || (websiteGroups && websiteGroups.length) === 0"

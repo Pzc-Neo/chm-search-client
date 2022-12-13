@@ -14,6 +14,8 @@
     <EditEngineBox />
     <!-- 新增、编辑引擎分组 -->
     <EditEngineGroupBox />
+    <!-- 新增、编辑标签 -->
+    <EditTagBox />
   </div>
 </template>
 
@@ -24,6 +26,7 @@ import EditWebsiteBox from './components/EditWebsiteBox'
 import EditWebsiteGroupBox from './components/EditWebsiteGroupBox'
 import EditEngineBox from './components/EditEngineBox'
 import EditEngineGroupBox from './components/EditEngineGroupBox'
+import EditTagBox from './components/EditTagBox'
 export default {
   name: 'MainBox',
   components: {
@@ -32,7 +35,8 @@ export default {
     EditWebsiteBox,
     EditWebsiteGroupBox,
     EditEngineBox,
-    EditEngineGroupBox
+    EditEngineGroupBox,
+    EditTagBox
   },
   data() {
     return {}

@@ -31,7 +31,10 @@ import {
   Empty,
   Tree,
   Row,
-  Col
+  Col,
+  Tabs,
+  TabPane,
+  ColorPicker
 } from 'element-ui'
 ;[
   Button,
@@ -61,7 +64,10 @@ import {
   Empty,
   Tree,
   Row,
-  Col
+  Col,
+  Tabs,
+  TabPane,
+  ColorPicker
 ].forEach((item) => {
   Vue.component(item.name, item)
 })

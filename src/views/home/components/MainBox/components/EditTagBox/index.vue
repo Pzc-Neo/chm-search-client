@@ -6,7 +6,7 @@
     :close-on-click-modal="false"
     :close-on-press-escape="false"
   >
-    <div class="edit_website_group_box">
+    <div class="edit_tag_box">
       <el-form :model="form" @submit.native.prevent>
         <el-form-item label="标题" :label-width="formLabelWidth">
           <el-input
@@ -16,7 +16,7 @@
             @keyup.enter.native="handleConfirm"
           ></el-input>
         </el-form-item>
-        <el-form-item label="背景" :label-width="formLabelWidth">
+        <!-- <el-form-item label="背景" :label-width="formLabelWidth">
           <el-color-picker v-model="form.bgColor"></el-color-picker>
         </el-form-item>
         <el-form-item label="文字" :label-width="formLabelWidth">
@@ -29,7 +29,7 @@
             </div>
             <el-button size="small" @click="setDefaultStyle">默认</el-button>
           </div>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog_footer">
         <el-button @click="hideBox">取 消</el-button>
@@ -40,26 +40,18 @@
 </template>
 
 <script>
-import {
-  serverWebsiteGroupAdd,
-  serverWebsiteGroupDelete,
-  serverWebsiteGroupUpdate
-} from '@/api/website'
+import { serverTagAdd, serverTagDelete, serverTagUpdate } from '@/api/tag'
 import { getHomeData } from '@/util'
 
 export default {
-  name: 'EditWebsiteGroupBox',
+  name: 'EditTagBox',
   data() {
     return {
       form: {
-        title: '',
-        color: '',
-        bgColor: ''
+        title: ''
       },
       formDefault: {
-        title: '',
-        color: 'white',
-        bgColor: '#0cbe83'
+        title: ''
       },
       formLabelWidth: '70px'
     }
@@ -68,10 +60,10 @@ export default {
     isShow() {
       if (this.type === 'edit') {
         this.form = {
-          id: this.websiteGroupForContextmenu.id || '',
-          title: this.websiteGroupForContextmenu.title || '',
-          color: this.websiteGroupForContextmenu.color || this.form.color,
-          bgColor: this.websiteGroupForContextmenu.bg_color || this.form.bgColor
+          id: this.tagForContextmenu.id || '',
+          title: this.tagForContextmenu.title || ''
+          // color: this.tagForContextmenu.color || this.form.color,
+          // bgColor: this.tagForContextmenu.bg_color || this.form.bgColor
         }
       } else {
         this.form = { ...this.formDefault }
@@ -84,41 +76,41 @@ export default {
   computed: {
     isShow: {
       get() {
-        return this.$store.state.editWebsiteGroupBoxData.isShow
+        return this.$store.state.editTagBoxData.isShow
       },
       set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+        this.$store.commit('SET_EDIT_TAG_BOX_DATA', {
           isShow: newValue
         })
       }
     },
     type: {
       get() {
-        return this.$store.state.editWebsiteGroupBoxData.type
+        return this.$store.state.editTagBoxData.type
       },
       set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+        this.$store.commit('SET_EDIT_TAG_BOX_DATA', {
           type: newValue
         })
       }
     },
-    websiteGroupForContextmenu: {
+    tagForContextmenu: {
       get() {
-        return this.$store.state.editWebsiteGroupBoxData.info
+        return this.$store.state.editTagBoxData.info
       },
       set(newValue) {
-        this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+        this.$store.commit('SET_EDIT_TAG_BOX_DATA', {
           info: newValue
         })
       }
     },
     dialogTitle() {
       if (this.type === 'add') {
-        return '新增网址分组'
+        return '新增标签'
       } else if (this.type === 'edit') {
-        return '编辑网址分组'
+        return '编辑标签'
       } else {
-        return '新增网址分组'
+        return '新增标签'
       }
     },
     stylePreview() {
@@ -139,19 +131,20 @@ export default {
       e.preventDefault()
       switch (this.type) {
         case 'add':
-          this.websiteGroupAdd()
+          this.tagAdd()
           break
         case 'edit':
-          this.websiteGroupUpdate()
+          this.tagUpdate()
           break
 
         default:
           break
       }
     },
-    websiteGroupAdd() {
+    tagAdd() {
       const data = { ...this.form }
-      // data.groupId = this.$store.state.contextmenu?.prama?.targetItem?.group_id
+      console.log(this.tagForContextmenu)
+      data.groupId = this.tagForContextmenu?.group_id
 
       const loading = this.$loading({
         lock: true,
@@ -159,7 +152,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'transparent'
       })
-      serverWebsiteGroupAdd(data).then(async (res) => {
+      serverTagAdd(data).then(async (res) => {
         const { code, data } = res
         loading.close()
         if (code === 0) {
@@ -177,10 +170,10 @@ export default {
         }
       })
     },
-    websiteGroupUpdate() {
+    tagUpdate() {
       const data = { ...this.form }
       // data.groupId = this.$store.state.contextmenu?.prama?.targetItem?.group_id
-      data.id = this.websiteGroupForContextmenu.id
+      data.id = this.tagForContextmenu.id
 
       const loading = this.$loading({
         lock: true,
@@ -188,7 +181,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'transparent'
       })
-      serverWebsiteGroupUpdate(data).then(async (res) => {
+      serverTagUpdate(data).then(async (res) => {
         const { code, data } = res
         loading.close()
         if (code === 0) {
@@ -206,7 +199,7 @@ export default {
         }
       })
     },
-    websiteGroupDelete() {
+    tagGroupDelete() {
       const loading = this.$loading({
         lock: true,
         text: '正在删除...',
@@ -214,24 +207,22 @@ export default {
         // background: 'rgba(0, 0, 0, 0.7)'
         background: 'transparent'
       })
-      serverWebsiteGroupDelete({ id: this.websiteGroupForContextmenu.id }).then(
-        async (res) => {
-          const { code, data } = res
-          loading.close()
-          if (code === 0) {
-            await getHomeData.call(this)
-          } else {
-            this.$message({
-              message: data.msg,
-              type: 'error'
-            })
-          }
+      serverTagDelete({ id: this.tagForContextmenu.id }).then(async (res) => {
+        const { code, data } = res
+        loading.close()
+        if (code === 0) {
+          await getHomeData.call(this)
+        } else {
+          this.$message({
+            message: data.msg,
+            type: 'error'
+          })
         }
-      )
+      })
     },
     // 关闭面板
     hideBox() {
-      this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
+      this.$store.commit('SET_EDIT_TAG_BOX_DATA', {
         isShow: false
       })
     }
@@ -243,7 +234,7 @@ export default {
 :deep(.el-dialog) {
   width: 350px;
 }
-.edit_website_group_box {
+.edit_tag_box {
   position: relative;
   .preview_container {
     // position: absolute;

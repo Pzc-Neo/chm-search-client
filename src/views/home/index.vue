@@ -50,7 +50,14 @@ export default {
         }
       })
     }
+    const loading = this.$loading({
+      lock: true,
+      text: '加载中...',
+      spinner: 'el-icon-loading',
+      background: 'transparent'
+    })
     await getHomeData.call(this)
+    loading.close()
   }
 }
 </script>

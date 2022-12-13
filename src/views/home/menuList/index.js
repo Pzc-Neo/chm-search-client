@@ -1,6 +1,7 @@
 import { engine, engineGroup } from './engine'
 import { website, websiteGroup } from './website'
 import { tab, tabBar } from './tab'
+import { tag } from './tag'
 
 export const menuListFactory = function (type) {
   switch (type) {
@@ -16,6 +17,8 @@ export const menuListFactory = function (type) {
       return tab.call(this)
     case 'tabBar':
       return tabBar.call(this)
+    case 'tag':
+      return tag.call(this)
     default:
       break
   }

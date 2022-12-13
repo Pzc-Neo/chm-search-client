@@ -15,3 +15,5 @@ export const apiWebsiteGroupPost = (params) => post('/websitegroup', params)
 
 export const apiEnginePost = (params) => post('/engine', params)
 export const apiEngineGroupPost = (params) => post('/enginegroup', params)
+
+export const apiTagPost = (params) => post('/tag', params)

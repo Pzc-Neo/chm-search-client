@@ -53,7 +53,9 @@ export default {
   }
 }
 .menu_item:hover {
-  background-color: #cde3fd;
+  // background-color: #cde3fd;
+  background-color: #0cbe83;
+  color: white;
 }
 .menu_item.disable {
   color: #9c9c9c;

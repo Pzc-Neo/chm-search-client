@@ -28,6 +28,7 @@ export default {
 <style lang="scss" scoped>
 .neo_image{
   height: 100%;
+  border-radius: 3px;
 }
 
-</style>>
+</style>

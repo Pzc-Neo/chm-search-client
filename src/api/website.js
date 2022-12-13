@@ -63,6 +63,15 @@ export const serverWebsiteGroupUpdate = async function (data) {
   return await apiWebsiteGroupPost(dataForServe)
 }
 
+// 设置标签id
+export const serverWebsiteGroupSetTagId = async function (data) {
+  const dataForServe = {
+    type: 'setTagId',
+    data
+  }
+  return await apiWebsiteGroupPost(dataForServe)
+}
+
 // 删除网址分组
 export const serverWebsiteGroupDelete = async function (data) {
   const dataForServe = {

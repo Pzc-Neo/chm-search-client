@@ -7,7 +7,7 @@
     v-model="_isShowUserInfoBox"
   >
     <div class="user_info_box">
-      <el-avatar class="avatar" :size="80" :src="userInfo && userInfo.avatar">
+      <el-avatar class="avatar" :size="50" :src="userInfo && userInfo.avatar">
         <i class="el-icon-user-solid"></i>
       </el-avatar>
       <div class="name">
@@ -132,6 +132,9 @@ export default {
   cursor: pointer;
 }
 .el-avatar {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
   background-color: $color-side-title;
 }
 :deep(.el-dialog) {

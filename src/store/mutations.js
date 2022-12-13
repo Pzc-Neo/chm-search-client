@@ -86,6 +86,25 @@ export default {
       state.editEngineGroupBoxData.info = info
     }
   },
+  SET_EDIT_TAG_BOX_DATA(state, { isShow, type, info }) {
+    if (isShow !== undefined) {
+      state.editTagBoxData.isShow = isShow
+    }
+    if (type !== undefined) {
+      state.editTagBoxData.type = type
+    }
+    if (info !== undefined) {
+      state.editTagBoxData.info = info
+    }
+  },
+  SET_ITEM_FOR_TAG(state, { type, info }) {
+    if (type !== undefined) {
+      state.dataForTag.type = type
+    }
+    if (info !== undefined) {
+      state.dataForTag.info = info
+    }
+  },
   SET_HOT_KEY_INPUT_BOX_DATA(state, { isShow, type, hotkey, info, target }) {
     if (isShow !== undefined) {
       state.hotKeyInputBoxData.isShow = isShow

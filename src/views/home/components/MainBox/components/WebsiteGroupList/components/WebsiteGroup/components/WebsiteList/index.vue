@@ -1,7 +1,13 @@
 <template>
   <div class="website_list">
+    <!-- <div class="sub_group">
+      <div class="item">分组01</div>
+      <div class="item">分组02</div>
+      <div class="item">分组03</div>
+    </div> -->
     <draggable
       tag="div"
+      class="website_container"
       v-model="websiteList"
       v-bind="dragOptions"
       @start="drag = true"
@@ -22,6 +28,7 @@
           :key="website.id"
           :title="`标题：${website.title}\n描述：${website.description}\n链接：${website.url}`"
           @contextmenu.prevent.stop="showContextmenu($event, website)"
+          @dragstart="handleDrag($event, website)"
         >
           <div class="icon">
             <NeoImage :src="website.url" />
@@ -68,6 +75,10 @@ export default {
     websiteGroupId: {
       type: Number,
       default: 0
+    },
+    activeTagId: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -77,6 +88,12 @@ export default {
     }
   },
   methods: {
+    handleDrag(e, website) {
+      this.$store.commit('SET_ITEM_FOR_TAG', {
+        type: 'website',
+        info: website
+      })
+    },
     // 显示右键菜单
     showContextmenu(event, website) {
       this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
@@ -105,10 +122,10 @@ export default {
         }
       })
       if (updates.length === 0) {
-        this.$message({
-          message: '排序没有改变',
-          type: 'info'
-        })
+        // this.$message({
+        //   message: '排序没有改变',
+        //   type: 'info'
+        // })
         return
       }
       const dataForServer = {
@@ -162,6 +179,7 @@ export default {
         const dataForServer = {
           id: website?.id,
           groupId: this.websiteGroupId,
+          activeTagId: this.activeTagId,
           order: website?.order
         }
         // 更新网址分组id和排序
@@ -201,7 +219,22 @@ export default {
   overflow: hidden;
   overflow-y: auto;
   margin-bottom: 5px;
+  display: flex;
+  .sub_group {
+    padding: 6px;
+    width: 60px;
+    overflow: hidden;
+    overflow-y: auto;
+    .item {
+      padding: 5px;
+      white-space: nowrap;
+    }
+  }
+  .website_container {
+    flex: 1;
+  }
   .website_group {
+    width: 100%;
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -210,15 +243,17 @@ export default {
       max-width: 190px;
       position: relative;
       top: 0px;
-      border-radius: 15px;
-      padding: 10px;
-      padding-bottom: 9px;
+      border-radius: 8px;
+      padding: 5px 10px;
+      // padding-bottom: 9px;
       transition: all 0.2s ease-in-out;
       display: flex;
       align-items: center;
       border: 1px solid #e4f1ed;
-      background-color: #f1f3f2;
+      // background-color: #f1f3f2;
+      background-color: #f9f9f9;
       color: #0cbe83;
+      // color: #3f9b7e;
       margin: 3px;
       box-shadow: 1px 1px 1px #a3d3c2;
       &:hover {
@@ -234,9 +269,13 @@ export default {
         }
       }
       .container {
+        flex: 1;
         margin-left: 5px;
         display: flex;
         flex-direction: column;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       }
       .title {
         font-size: 13px;
