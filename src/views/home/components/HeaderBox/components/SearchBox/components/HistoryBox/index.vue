@@ -11,7 +11,7 @@
         class="history"
         v-for="(history, index) in historyList"
         :key="index"
-        @click="handleSearch(history)"
+        @click="handleSearch(history, index)"
       >
         <span class="word">
           {{ history }}
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'HistoryBox',
   props: {
@@ -68,6 +69,14 @@ export default {
         this.historyList = JSON.parse(historyList) || []
       }
     },
+    //
+    moveToFirst(index) {
+      const targetWord = this.historyList.splice(index, 1)
+      if (targetWord.length === 1) {
+        this.historyList.unshift(targetWord[0])
+      }
+      this.updateHistoryList()
+    },
     addToHistoryList(word) {
       if (!word && word.trim() === '') {
         return
@@ -78,11 +87,7 @@ export default {
         return history === word
       })
       if (index !== -1) {
-        const targetWord = this.historyList.splice(index, 1)
-        if (targetWord.length === 1) {
-          this.historyList.unshift(targetWord[0])
-        }
-        this.updateHistoryList()
+        this.moveToFirst(index)
         return
       }
 
@@ -107,11 +112,12 @@ export default {
       this.historyList = []
       this.updateHistoryList()
     },
-    handleSearch(word) {
+    handleSearch(word, index) {
       this.$emit('update:searchValueLocal', word)
       this.$store.commit('SET_MODE', 'search')
       this.$store.commit('SET_SEARCH_VALUE', word)
       this.isShow = false
+      this.moveToFirst(index)
     }
   }
 }
