@@ -211,12 +211,13 @@ export default {
 
   .el-menu-item {
     min-width: 50px;
+    font-size: 13px;
     text-align: left;
     color: $color-side-title;
     background-color: $color-side-bg-dark;
-    padding-left: 20px !important;
-    height: 40px;
-    line-height: 40px;
+    padding-left: 16px !important;
+    height: 34px;
+    line-height: 34px;
     &:hover {
       background-color: $color-side-bg-darker;
     }
@@ -228,7 +229,7 @@ export default {
       display: flex;
       align-items: center;
       img {
-        height: 35%;
+        height: 39%;
         margin-right: 6px;
       }
       .hotkey {

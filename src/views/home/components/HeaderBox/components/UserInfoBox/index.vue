@@ -48,6 +48,9 @@
       <el-avatar :src="(userInfo && userInfo.avatar) || null"
         ><i class="el-icon-user-solid"></i
       ></el-avatar>
+      <span class="nickname">
+        {{ (userInfo && `${userInfo.nickname}`) || '未登陆' }}
+      </span>
     </div>
   </el-popover>
 </template>
@@ -129,7 +132,13 @@ export default {
 
 <style lang="scss" scoped>
 .avatar_area {
+  display: flex;
+  align-items: center;
   cursor: pointer;
+  .nickname {
+    margin-left: 5px;
+    font-size: 14px;
+  }
 }
 .el-avatar {
   width: 30px;

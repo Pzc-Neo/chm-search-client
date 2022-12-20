@@ -200,6 +200,17 @@ export const engine = function () {
           })
         }
       }
+    },
+    {
+      type: 'item',
+      menuItem: {
+        id: 'open',
+        title: '新标签打开',
+        icon: 'el-icon-top-right',
+        func: (targetItem) => {
+          window.open(targetItem.url)
+        }
+      }
     }
   ]
 }

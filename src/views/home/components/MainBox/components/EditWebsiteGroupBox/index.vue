@@ -30,6 +30,19 @@
             <el-button size="small" @click="setDefaultStyle">默认</el-button>
           </div>
         </el-form-item>
+        <el-form-item label="预设" :label-width="formLabelWidth">
+          <div class="color_list">
+            <div
+              class="color_item"
+              v-for="(colorItem, index) in colorList"
+              :style="colorItem"
+              :key="index"
+              @click="setColor(colorItem)"
+            >
+              字
+            </div>
+          </div>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog_footer">
         <el-button @click="hideBox">取 消</el-button>
@@ -58,10 +71,25 @@ export default {
       },
       formDefault: {
         title: '',
-        color: 'white',
+        color: '#FFFFFF',
         bgColor: '#0cbe83'
       },
-      formLabelWidth: '70px'
+      formLabelWidth: '70px',
+      // 颜色列表
+      colorList: [
+        { backgroundColor: '#5D6F72', color: '#FFFFFF' },
+        { backgroundColor: '#678388', color: '#FFFFFF' },
+        { backgroundColor: '#889392', color: '#FFFFFF' },
+        { backgroundColor: '#327eb5', color: '#FFFFFF' },
+        { backgroundColor: '#538fc3', color: '#FFFFFF' },
+        { backgroundColor: '#00A7C0', color: '#FFFFFF' },
+        { backgroundColor: '#32c3b6', color: '#FFFFFF' },
+        { backgroundColor: '#66b58b', color: '#FFFFFF' },
+        { backgroundColor: '#E56665', color: '#FFFFFF' },
+        { backgroundColor: '#F37D43', color: '#FFFFFF' },
+        { backgroundColor: '#AE70AE', color: '#FFFFFF' },
+        { backgroundColor: '#8688c1', color: '#FFFFFF' }
+      ]
     }
   },
   watch: {
@@ -129,8 +157,12 @@ export default {
     }
   },
   methods: {
+    setColor(colorItem) {
+      this.form.color = colorItem.color
+      this.form.bgColor = colorItem.backgroundColor
+    },
     setDefaultStyle() {
-      this.form.color = 'white'
+      this.form.color = '#FFFFFF'
       this.form.bgColor = '#0cbe83'
       this.$forceUpdate()
     },
@@ -263,6 +295,25 @@ export default {
     .el-form-item {
       :deep(.el-form-item__content) {
         width: 200px;
+      }
+      .color_list {
+        display: flex;
+        flex-wrap: wrap;
+        .color_item {
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 3px;
+          margin-bottom: 3px;
+          border-radius: 100%;
+          cursor: pointer;
+          // transition: all 0.2s ease-in-out;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
       }
     }
   }

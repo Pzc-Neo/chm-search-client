@@ -21,12 +21,16 @@ axios.interceptors.request.use(
 )
 
 // 响应拦截器
-axios.interceptors.request.use(
+axios.interceptors.response.use(
   (response) => {
     if (response.status === 200) {
+      const { code } = response?.data || {}
+      if (code === 110) {
+        localStorage.removeItem('token')
+      }
       return Promise.resolve(response)
     } else {
-      return Promise.resolve(response)
+      return Promise.reject(response)
     }
   },
   (error) => {

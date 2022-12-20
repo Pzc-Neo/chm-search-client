@@ -1,9 +1,9 @@
 <template>
   <div class="main_box">
     <!-- 网址列表 -->
-    <WebsiteGroupList v-if="mode === 'website'" />
+    <WebsiteGroupList v-show="mode === 'website'" />
     <!-- 搜索 -->
-    <div class="wrapper" v-if="mode === 'search'">
+    <div class="wrapper" v-show="mode === 'search'">
       <SearchPanel />
     </div>
     <!-- 新增、编辑网址 -->

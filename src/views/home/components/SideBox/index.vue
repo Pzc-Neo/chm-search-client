@@ -1,14 +1,12 @@
 <template>
   <div class="side_box">
-    <a href="/" class="logo_container">
-      <div class="logo" v-if="!isCollapse">
-        <div class="name">城墨聚搜</div>
-        <div class="version">v1.0</div>
-      </div>
-      <div class="logo collapse" v-else>
-        <div class="name">城墨</div>
-      </div>
-    </a>
+    <div class="logo_container">
+      <a href="/" class="name">{{ isCollapse ? '城墨' : '城墨聚搜' }}</a>
+      <i
+        :class="[isSideBoxCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
+        @click="isSideBoxCollapse = !isSideBoxCollapse"
+      ></i>
+    </div>
     <NavBox :isCollapse="isCollapse"></NavBox>
   </div>
 </template>
@@ -26,6 +24,14 @@ export default {
   computed: {
     isCollapse() {
       return this.$store.state.isSideBoxCollapse
+    },
+    isSideBoxCollapse: {
+      get() {
+        return this.$store.state.isSideBoxCollapse
+      },
+      set(newValue) {
+        this.$store.commit('SET_IS_SIDE_BOX_COLLAPSE', newValue)
+      }
     }
   },
   methods: {}
@@ -45,17 +51,16 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
     color: $color-logo;
-    .logo {
-      display: flex;
-      align-items: baseline;
-      .name {
-        font-size: 25px;
-        font-weight: 700;
-      }
-      .version {
-        margin-left: 5px;
-      }
+    a {
+      color: $color-logo;
+    }
+    i {
+      margin-left: 5px;
+      font-size: 28px;
+      cursor: pointer;
     }
   }
   .site {

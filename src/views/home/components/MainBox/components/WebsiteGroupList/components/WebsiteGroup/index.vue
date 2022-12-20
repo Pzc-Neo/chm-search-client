@@ -247,7 +247,7 @@ export default {
 //   }
 // }
 .website_group {
-  max-height: 300px;
+  max-height: 174px;
   // overflow: hidden;
   margin-bottom: 10px;
 }

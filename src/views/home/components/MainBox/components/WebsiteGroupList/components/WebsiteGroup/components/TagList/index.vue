@@ -22,9 +22,9 @@
           ref="tagList"
         >
           <div
-            v-for="(tag, index) in tags"
+            v-for="tag in tags"
             :class="['tag', tag.id === activeTagId ? 'active' : '']"
-            :key="index"
+            :key="tag.id"
             @click.stop="switchTag(tag)"
             @contextmenu.prevent.stop="showContextmenu($event, tag)"
             @drop="handleDrop($event, tag)"
@@ -39,6 +39,7 @@
     <div
       :class="['tag', 'disable', -2 === activeTagId ? 'active' : '']"
       @click="switchTag({ id: -2, title: '未分类' })"
+      @drop="handleDrop($event, { id: -1, title: '未分类' })"
     >
       <a> 未分类 </a>
     </div>
@@ -102,6 +103,11 @@ export default {
   methods: {
     handleDrop(e, tag) {
       const website = this.$store.state?.dataForTag?.info
+      // 拖拽标签的时候，不往下执行
+      // 只有网址拖拽到标签的时候才往下执行
+      if (!website) {
+        return
+      }
       const dataForServer = {
         id: website?.id,
         tagId: tag?.id

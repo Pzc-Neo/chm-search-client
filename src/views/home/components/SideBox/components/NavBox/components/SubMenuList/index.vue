@@ -198,7 +198,7 @@ export default {
     text-align: left;
     color: $color-side-title-group;
     &:hover {
-      background-color: $color-side-bg-dark1;
+      background-color: $color-side-bg-darker;
     }
     i {
       color: $color-side-title-group;

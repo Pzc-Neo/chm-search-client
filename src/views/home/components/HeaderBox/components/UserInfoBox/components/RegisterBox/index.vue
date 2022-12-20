@@ -107,7 +107,7 @@ export default {
           })
         }
       })
-      this.timeVerifyCode = 2
+      this.timeVerifyCode = 30
       const intervalTemp = setInterval(() => {
         this.timeVerifyCode -= 1
         if (this.timeVerifyCode <= 0) {

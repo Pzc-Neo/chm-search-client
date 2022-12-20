@@ -8,10 +8,16 @@
       :fetch-suggestions="querySearch"
       placeholder="请输入内容"
       :trigger-on-focus="false"
-      @select="handleSelect"
+      ref="inputBox"
       @change="handleSearch"
       @keyup.enter.native="handleSearch"
-    ></el-autocomplete>
+      @blur="handleBlur"
+    >
+      <template slot="append">
+        <HistoryBox :searchValueLocal.sync="searchValueLocal" />
+      </template>
+    </el-autocomplete>
+    <!-- @select="handleSelect" -->
     <!-- 选择搜索类型 -->
     <el-dropdown
       split-button
@@ -54,6 +60,7 @@
 <script>
 import { mapState } from 'vuex'
 import SearchEngineSelector from './components/SearchEngineSelector'
+import HistoryBox from './components/HistoryBox'
 export default {
   data() {
     return {
@@ -64,7 +71,8 @@ export default {
     }
   },
   components: {
-    SearchEngineSelector
+    SearchEngineSelector,
+    HistoryBox
   },
   created() {
     this.setSearchType()
@@ -94,12 +102,23 @@ export default {
   },
   methods: {
     querySearch(queryString, cb) {
-      const restaurants = this.restaurants
-      const results = queryString
-        ? restaurants.filter(this.createFilter(queryString))
-        : restaurants
-      // 调用 callback 返回建议列表的数据
-      cb(results)
+      // jsonp回掉函数
+      window.suggestionCb = function (res) {
+        let resultList = res.s || []
+        resultList = resultList.map((word) => {
+          return { value: word }
+        })
+        cb(resultList || [])
+      }
+      // 通过jsonp获取搜索建议
+      // 获取搜索建议的链接(用百度的api)
+      const url = `http://suggestion.baidu.com/su?wd=${queryString}&cb=window.suggestionCb`
+      // this.$jsonp(url, {})
+      const script = document.createElement('script')
+      script.src = url
+      // 将创建的新节点添加到BOM树上
+      document.getElementsByTagName('body')[0].appendChild(script)
+      script.remove()
     },
     createFilter(queryString) {
       return (restaurant) => {
@@ -108,29 +127,6 @@ export default {
           0
         )
       }
-    },
-    loadAll() {
-      return [
-        { value: '三全鲜食（北新泾店）', address: '长宁区新渔路144号' },
-        {
-          value: 'Hot honey 首尔炸鸡（仙霞路）',
-          address: '上海市长宁区淞虹路661号'
-        },
-        {
-          value: '新旺角茶餐厅',
-          address: '上海市普陀区真北路988号创邑金沙谷6号楼113'
-        },
-        { value: '泷千家(天山西路店)', address: '天山西路438号' },
-        {
-          value: '胖仙女纸杯蛋糕（上海凌空店）',
-          address: '上海市长宁区金钟路968号1幢18号楼一层商铺18-101'
-        },
-        { value: '贡茶', address: '上海市长宁区金钟路633号' },
-        {
-          value: '豪大大香鸡排超级奶爸',
-          address: '上海市嘉定区曹安公路曹安路1685号'
-        }
-      ]
     },
     setSearchType(command) {
       if (!command) {
@@ -142,24 +138,31 @@ export default {
         this.$store.commit('SET_SEARCH_TYPE', searchType)
       }
     },
-    handleSelect(item) {
-      console.log(item)
-    },
+    // handleSelect(item) {
+    //   console.log(item)
+    // },
     handleSearch() {
+      this.$bus.$emit('search', this.searchValueLocal)
+      this.$refs.inputBox.activated = false
       this.$store.commit('SET_MODE', 'search')
       this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
+    },
+    handleBlur() {
+      // 隐藏搜索建议
+      this.$refs.inputBox.activated = false
     },
     handleMenuClick(command) {
       this.setSearchType(command - 1)
     }
-  },
-  mounted() {
-    this.restaurants = this.loadAll()
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.history_list {
+  display: flex;
+  flex-wrap: wrap;
+}
 .search_box {
   display: flex;
   .el-dropdown,
@@ -170,6 +173,16 @@ export default {
       background-color: $color-side-title-group;
       border-color: $color-side-title-group;
     }
+  }
+  .history_btn {
+    border: 0;
+  }
+}
+:deep(.el-input-group__append) {
+  padding: 0px 8px;
+  .el-button {
+    margin: -10px -26px;
+    padding: 9px 10px;
   }
 }
 :deep(.el-dropdown-menu__item:not(.is-disabled)):hover {

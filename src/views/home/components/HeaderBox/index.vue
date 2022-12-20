@@ -1,16 +1,10 @@
 <template>
   <div class="header_box">
     <div class="left">
-      <i
-        class="el-icon-s-fold"
-        v-if="!isSideBoxCollapse"
-        @click="isSideBoxCollapse = !isSideBoxCollapse"
-      ></i>
-      <i
-        class="el-icon-s-unfold"
-        v-else
-        @click="isSideBoxCollapse = !isSideBoxCollapse"
-      ></i>
+      <div class="switch_panel_btn">
+        <i class="el-icon-search" v-show="mode === 'search'" @click="mode='website'"/>
+        <i class="el-icon-menu" v-show="mode === 'website'" @click="mode='search'"/>
+      </div>
       <SearchBox />
       <el-col :xs="0" :sm="1" :md="1" :lg="1" :xl="1">
         <iframe
@@ -42,12 +36,12 @@ export default {
     return {}
   },
   computed: {
-    isSideBoxCollapse: {
+    mode: {
       get() {
-        return this.$store.state.isSideBoxCollapse
+        return this.$store.state.mode
       },
       set(newValue) {
-        this.$store.commit('SET_IS_SIDE_BOX_COLLAPSE', newValue)
+        this.$store.commit('SET_MODE', newValue)
       }
     }
   }
@@ -69,7 +63,7 @@ export default {
     display: flex;
     align-items: center;
     i {
-      font-size: 35px;
+      font-size: 28px;
       cursor: pointer;
     }
     .search_box {

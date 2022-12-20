@@ -16,7 +16,7 @@
       <transition-group
         type="transition"
         :name="!drag ? 'flip-websites' : null"
-        class="website_group"
+        class="website_list_container"
         ref="websiteGroup"
       >
         <a
@@ -233,12 +233,12 @@ export default {
   .website_container {
     flex: 1;
   }
-  .website_group {
+  .website_list_container {
     width: 100%;
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    padding: 6px 7px;
+    padding: 4px 7px;
     .website {
       max-width: 190px;
       position: relative;
