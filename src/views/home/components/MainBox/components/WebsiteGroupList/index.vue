@@ -32,6 +32,7 @@
           :websiteGroups="websiteGroupList"
           :index="index"
           :key="websiteGroup.id"
+          @update="updateWebsiteGroup"
         />
       </transition-group>
     </draggable>
@@ -128,6 +129,9 @@ export default {
           })
         }
       })
+    },
+    updateWebsiteGroup(websiteGroup, key, value) {
+      websiteGroup[key] = value
     }
   }
 }

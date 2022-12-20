@@ -77,6 +77,12 @@ export default {
     index: {
       type: Number,
       default: 0
+    },
+    update: {
+      type: Function,
+      default() {
+        return () => {}
+      }
     }
   },
   data() {
@@ -209,7 +215,12 @@ export default {
         id: this.websiteGroup.id,
         activeTagId: this.activeTagId
       }
-      serverWebsiteGroupSetTagId(dataForServer)
+      serverWebsiteGroupSetTagId(dataForServer).then((res) => {
+        const { code } = res
+        if (code === 0) {
+          this.update(this.websiteGroup, 'active_tag_id', this.activeTagId)
+        }
+      })
       //   serverWebsiteGroupSetTagId(dataForServer).then((res) => {
       //     const { code, data } = res
       //     if (code === 0) {
