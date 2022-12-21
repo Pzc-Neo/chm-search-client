@@ -11,7 +11,7 @@
       ref="inputBox"
       @change="handleSearch"
       @keyup.enter.native="handleSearch"
-      @blur="handleBlur"
+      @blur="hideSuggestionBox"
     >
       <template slot="append">
         <HistoryBox :searchValueLocal.sync="searchValueLocal" />
@@ -81,6 +81,9 @@ export default {
     this.$bus.$on('engine-click', () => {
       this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
     })
+    this.$bus.$on('hotkey-press', () => {
+      this.hideSuggestionBox()
+    })
   },
   computed: {
     ...mapState({
@@ -147,9 +150,11 @@ export default {
       this.$store.commit('SET_MODE', 'search')
       this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
     },
-    handleBlur() {
-      // 隐藏搜索建议
-      this.$refs.inputBox.activated = false
+    hideSuggestionBox() {
+      if (this.$refs.inputBox) {
+        // 隐藏搜索建议
+        this.$refs.inputBox.activated = false
+      }
     },
     handleMenuClick(command) {
       this.setSearchType(command - 1)

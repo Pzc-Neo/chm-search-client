@@ -34,7 +34,7 @@ export const getHomeData = function () {
           engineGroupsConvert.push(engineGroup)
         })
         // 绑定快捷键
-        registerKeymap(keymapList)
+        registerKeymap.call(this, keymapList)
 
         this.$store.commit('SET_WEBSITE_GROUPS', websiteGroups)
         this.$store.commit('SET_ENGINE_GROUPS', engineGroupsConvert)
@@ -59,11 +59,12 @@ export const registerKeymap = function (keymapList) {
     hotkeys.filter = function (event) {
       return true
     }
-    hotkeys(hotkey.hotkey, function (event, handler) {
+    hotkeys(hotkey.hotkey, (event, handler) => {
       event.preventDefault()
       const hotkeyTarget = document.querySelector(hotkey.selector)
       if (hotkeyTarget) {
         hotkeyTarget.click()
+        this.$bus.$emit('hotkey-press')
       }
     })
   })
