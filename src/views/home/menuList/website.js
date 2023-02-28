@@ -34,23 +34,6 @@ export const websiteGroup = function () {
       }
     },
     {
-      type: 'tag',
-      menuItem: {
-        id: 'newTag',
-        title: '新增标签',
-        icon: 'el-icon-document-add',
-        func: (targetItem) => {
-          // this.editWebsiteBoxType = 'add'
-          console.log(targetItem, 'new tag')
-          // this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
-          //   isShow: true,
-          //   type: 'add'
-          // })
-          // this.isShowDialog = true
-        }
-      }
-    },
-    {
       type: 'item',
       menuItem: {
         id: 'delect',
@@ -115,7 +98,8 @@ export const websiteGroup = function () {
           // this.editWebsiteBoxType = 'add'
           this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
             isShow: true,
-            type: 'add'
+            type: 'add',
+            info: targetItem
           })
           // this.isShowDialog = true
         }
@@ -150,7 +134,8 @@ export const website = function () {
         func: (targetWebsite) => {
           this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
             isShow: true,
-            type: 'add'
+            type: 'add',
+            info: targetWebsite
           })
         }
       }
@@ -164,7 +149,8 @@ export const website = function () {
         func: (targetWebsite) => {
           this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
             isShow: true,
-            type: 'edit'
+            type: 'edit',
+            info: targetWebsite
           })
         }
       }

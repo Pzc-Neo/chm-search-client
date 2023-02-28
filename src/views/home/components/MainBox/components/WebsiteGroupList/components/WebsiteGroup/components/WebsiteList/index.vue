@@ -1,5 +1,6 @@
 <template>
-  <div class="website_list">
+  <!-- <div class="website_list"> -->
+  <el-row class="website_list">
     <!-- <div class="sub_group">
       <div class="item">分组01</div>
       <div class="item">分组02</div>
@@ -19,32 +20,41 @@
         class="website_list_container"
         ref="websiteGroup"
       >
-        <a
-          class="website"
-          ref="website"
-          target="_blank"
+        <el-col
+          :xs="12"
+          :sm="12"
+          :md="12"
+          :lg="8"
+          :xl="8"
           v-for="website in websiteList"
-          :href="website.url"
+          @dragstart.native="handleDrag($event, website)"
           :key="website.id"
-          :title="`标题：${website.title}\n描述：${website.description}\n链接：${website.url}`"
-          @contextmenu.prevent.stop="showContextmenu($event, website)"
-          @dragstart="handleDrag($event, website)"
         >
-          <div class="icon">
-            <NeoImage :src="website.url" />
-          </div>
-          <div class="container">
-            <div class="title">
-              {{ website.title }}
+          <a
+            class="website"
+            ref="website"
+            target="_blank"
+            :href="website.url"
+            @contextmenu.prevent.stop="showContextmenu($event, website)"
+            :title="`标题：${website.title}\n描述：${website.description}\n链接：${website.url}`"
+          >
+            <div class="icon">
+              <NeoImage :src="website.url" />
             </div>
-            <div class="description" v-if="false">
-              {{ website.description || website.url }}
+            <div class="container">
+              <div class="title">
+                {{ website.title }}
+              </div>
+              <div class="description" v-if="false">
+                {{ website.description || website.url }}
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </el-col>
       </transition-group>
     </draggable>
-  </div>
+  </el-row>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -96,10 +106,10 @@ export default {
     },
     // 显示右键菜单
     showContextmenu(event, website) {
-      this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
-        groupId: website.group_id,
-        info: website
-      })
+      // this.$store.commit('SET_EDIT_WEBSITE_BOX_DATA', {
+      //   groupId: website.group_id,
+      //   info: website
+      // })
 
       const param = {
         event,
@@ -238,9 +248,10 @@ export default {
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    padding: 4px 7px;
+    padding: 6px 12px;
     .website {
-      max-width: 190px;
+      /* max-width: 190px; */
+      /* width: 32%; */
       position: relative;
       top: 0px;
       border-radius: 8px;
@@ -249,16 +260,16 @@ export default {
       transition: all 0.2s ease-in-out;
       display: flex;
       align-items: center;
-      border: 1px solid #e4f1ed;
+      border: 1px solid #cce5dd;
       // background-color: #f1f3f2;
       background-color: #f9f9f9;
       color: #0cbe83;
       // color: #3f9b7e;
-      margin: 3px;
-      box-shadow: 1px 1px 1px #a3d3c2;
+      margin: 2px;
+      /* box-shadow: 1px 2px 3px #a3d3c247; */
       &:hover {
-        top: -3px;
-        box-shadow: $box-shadow-main;
+        top: -2px;
+        box-shadow: 0px 3px 4px rgb(193 219 207 / 56%);
       }
       .icon {
         width: 15px;

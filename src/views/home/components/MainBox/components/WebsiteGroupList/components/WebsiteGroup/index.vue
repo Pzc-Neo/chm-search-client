@@ -290,7 +290,7 @@ export default {
     border-bottom: 1px solid $color-label-group-border;
     .title {
       background-color: #0cbe83;
-      padding: 7px;
+      padding: 8px;
       color: white;
       font-size: 0.8em;
       border-radius: 0px 5px 0px 8px;

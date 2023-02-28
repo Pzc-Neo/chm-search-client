@@ -1,5 +1,11 @@
 <template>
-  <el-dialog :title="dialogTitle" :visible.sync="isShow" :append-to-body="true" :close-on-click-modal="false" :close-on-press-escape="false">
+  <el-dialog
+    :title="dialogTitle"
+    :visible.sync="isShow"
+    :append-to-body="true"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+  >
     <div class="new_website_box">
       <el-form :model="form">
         <el-form-item label="标题" :label-width="formLabelWidth">
@@ -124,8 +130,9 @@ export default {
     },
     websiteAdd() {
       const data = { ...this.form }
-      data.groupId = this.$store.state.editWebsiteBoxData.info.id
-      data.tagId = this.$store.state.editWebsiteBoxData.info.active_tag_id
+      const targetInfo = this.$store.state.editWebsiteBoxData.info
+      data.groupId = targetInfo?.group_id || targetInfo?.id
+      data.tagId = targetInfo?.active_tag_id || targetInfo?.tag_id
 
       const loading = this.$loading({
         lock: true,

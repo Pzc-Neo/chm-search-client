@@ -213,7 +213,8 @@ export default {
     color: #0cbe83;
     background-color: #f1f3f2;
     border-right: 1px solid #a6d1b5;
-    padding: 4px;
+    padding: 6px;
+    padding-top: 8px;
     white-space: nowrap;
     &:last-child {
       border-right: 1px solid #e4f1ed;

@@ -47,6 +47,7 @@ export default {
             message: data?.msg,
             type: 'error'
           })
+          window.location.reload()
         }
       })
     }
