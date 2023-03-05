@@ -115,7 +115,7 @@ export default {
       }
       // 通过jsonp获取搜索建议
       // 获取搜索建议的链接(用百度的api)
-      const url = `http://suggestion.baidu.com/su?wd=${queryString}&cb=window.suggestionCb`
+      const url = `https://suggestion.baidu.com/su?wd=${encodeURIComponent(queryString)}&cb=window.suggestionCb`
       // this.$jsonp(url, {})
       const script = document.createElement('script')
       script.src = url
