@@ -10,6 +10,7 @@ export default {
     // 隐藏用户信息面板
     document.getElementById('app').addEventListener('click', () => {
       this.$store.commit('SET_IS_SHOW_USER_INFO_BOX', false)
+      this.$store.commit('SET_IS_SHOW_SETTING_BOX', false)
       // 隐藏右键菜单
       this.$store.commit('HIDE_CONTEXTMENU', false)
     })
@@ -27,6 +28,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  /* background-image: url(https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wHfK?ver=1d1c); */
   background-color: $color-bg-main;
   .content {
     width: 100%;

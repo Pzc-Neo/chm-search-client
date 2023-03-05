@@ -22,6 +22,7 @@
       ref="engineGroup"
     >
       <el-submenu
+        class="sub_menu"
         v-for="engineGroup in engineGroupList"
         :index="engineGroup.id + ''"
         :key="engineGroup.id"
@@ -173,6 +174,9 @@ export default {
     }
   }
   .el-submenu {
+    :deep(.el-menu) {
+      background: transparent !important;
+    }
     :deep(.el-submenu__title) {
       padding-left: 10px !important;
       height: 40px;
@@ -182,7 +186,7 @@ export default {
       min-width: 50px;
       text-align: left;
       color: $color-side-title;
-      background-color: $color-side-bg-dark;
+      background-color: transparent;
       padding-left: 30px !important;
       height: 43px;
       line-height: 43px;

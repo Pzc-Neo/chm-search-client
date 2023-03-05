@@ -2,8 +2,16 @@
   <div class="header_box">
     <div class="left">
       <div class="switch_panel_btn">
-        <i class="el-icon-search" v-show="mode === 'search'" @click="mode='website'"/>
-        <i class="el-icon-menu" v-show="mode === 'website'" @click="mode='search'"/>
+        <i
+          class="el-icon-search"
+          v-show="mode === 'search'"
+          @click="mode = 'website'"
+        />
+        <i
+          class="el-icon-menu"
+          v-show="mode === 'website'"
+          @click="mode = 'search'"
+        />
       </div>
       <SearchBox />
       <el-col :xs="0" :sm="1" :md="1" :lg="1" :xl="1">
@@ -18,19 +26,24 @@
         ></iframe>
       </el-col>
     </div>
-    <UserInfoBox />
+    <div class="right">
+      <SettingBox />
+      <UserInfoBox />
+    </div>
   </div>
 </template>
 
 <script>
 import SearchBox from './components/SearchBox'
 import UserInfoBox from './components/UserInfoBox'
+import SettingBox from './components/SettingBox'
 
 export default {
   name: 'HeaderBox',
   components: {
     SearchBox,
-    UserInfoBox
+    UserInfoBox,
+    SettingBox
   },
   data() {
     return {}
@@ -72,6 +85,10 @@ export default {
     .wether {
       margin-left: 3px;
     }
+  }
+  .right {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

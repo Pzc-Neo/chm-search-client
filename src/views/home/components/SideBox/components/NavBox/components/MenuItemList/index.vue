@@ -203,21 +203,21 @@ export default {
 
 <style lang="scss" scoped>
 .sub_menu_box {
-  background-color: $color-side-bg-dark;
+  background-color: transparent;
   .drag_section {
     min-height: 20px;
-    background-color: $color-side-bg;
+    background-color: transparent;
   }
 
   .el-menu-item {
     min-width: 50px;
     font-size: 13px;
     text-align: left;
-    color: $color-side-title;
-    background-color: $color-side-bg-dark;
+    color: #8c948a;
+    background-color: transparent;
     padding-left: 16px !important;
-    height: 34px;
-    line-height: 34px;
+    height: 30px;
+    line-height: 30px;
     &:hover {
       background-color: $color-side-bg-darker;
     }
@@ -229,7 +229,7 @@ export default {
       display: flex;
       align-items: center;
       img {
-        height: 39%;
+        height: 45%;
         margin-right: 6px;
       }
       .hotkey {

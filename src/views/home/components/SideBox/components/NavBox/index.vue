@@ -93,12 +93,11 @@ export default {
     transition: all 20ms;
     border-right: 0;
     color: $color-side-title;
-    background-color: $color-side-bg;
+    background-color: transparent;
     .el-menu-item-group {
       color: $color-side-title;
-      background-color: $color-side-bg-dark;
+      background-color: transparent;
     }
-
   }
 }
 </style>

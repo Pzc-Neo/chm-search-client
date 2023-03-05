@@ -208,11 +208,11 @@ export default {
   }
   .tag {
     a {
-      color: #0cbe83;
+      color: #426e51;
     }
-    color: #0cbe83;
+    color: #426e51;
     background-color: #f1f3f2;
-    border-right: 1px solid #a6d1b5;
+    border-right: 1px solid #dedede;
     padding: 6px;
     padding-top: 8px;
     white-space: nowrap;
@@ -221,6 +221,9 @@ export default {
     }
     &.active {
       // border-radius: 4px 4px 0px 0px;
+      a {
+        color: #0cbe83;
+      }
       border-bottom: 2px solid #0cbe83;
     }
     &.disable a {

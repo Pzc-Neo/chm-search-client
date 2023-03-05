@@ -16,6 +16,15 @@ export default {
   },
   SET_IS_SHOW_USER_INFO_BOX(state, value) {
     state.isShowUserInfoBox = value
+    if (value) {
+      state.isShowSettingBox = false
+    }
+  },
+  SET_IS_SHOW_SETTING_BOX(state, value) {
+    state.isShowSettingBox = value
+    if (value) {
+      state.isShowUserInfoBox = false
+    }
   },
   SET_WEBSITE_GROUPS(state, value) {
     state.websiteGroups = value

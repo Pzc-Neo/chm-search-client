@@ -68,6 +68,7 @@ export default {
   .el-container {
     width: 100%;
     height: 100%;
+    background: $color-side-bg;
   }
 
   .el-header {
@@ -79,6 +80,9 @@ export default {
   .el-main {
     width: 100%;
     overflow: hidden;
+    border-radius: 6px;
+    overflow: hidden;
+    background: $color-bg-main;
   }
   .el-side,
   .el-header,

@@ -46,6 +46,7 @@ export default {
     engineId3: 3
   },
   isShowUserInfoBox: false, // 是否显示用户信息框
+  isShowSettingBox: false, // 是否显示设置信息框
   userInfo: null, // 用户信息
   engineGroups: null, // 搜索引擎资料
   websiteGroups: null, // 网站资料

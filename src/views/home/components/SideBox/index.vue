@@ -59,7 +59,7 @@ export default {
     }
     i {
       margin-left: 5px;
-      font-size: 28px;
+      font-size: 32px;
       cursor: pointer;
     }
   }

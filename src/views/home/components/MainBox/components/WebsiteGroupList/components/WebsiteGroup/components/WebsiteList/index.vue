@@ -38,7 +38,7 @@
             @contextmenu.prevent.stop="showContextmenu($event, website)"
             :title="`标题：${website.title}\n描述：${website.description}\n链接：${website.url}`"
           >
-            <div class="icon">
+            <div class="icon" >
               <NeoImage :src="website.url" />
             </div>
             <div class="container">
@@ -255,14 +255,14 @@ export default {
       position: relative;
       top: 0px;
       border-radius: 8px;
-      padding: 5px 10px;
+      padding: 5px 6px;
       // padding-bottom: 9px;
       transition: all 0.2s ease-in-out;
       display: flex;
       align-items: center;
-      border: 1px solid #cce5dd;
+      /* border: 1px solid #cce5dd; */
       // background-color: #f1f3f2;
-      background-color: #f9f9f9;
+      /* background-color: #f9f9f9; */
       color: #0cbe83;
       // color: #3f9b7e;
       margin: 2px;
