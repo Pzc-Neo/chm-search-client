@@ -9,10 +9,11 @@
       placeholder="请输入内容"
       :trigger-on-focus="false"
       ref="inputBox"
-      @change="handleSearch"
       @keyup.enter.native="handleSearch"
-      @blur="hideSuggestionBox"
+      @select="handleSelect"
     >
+      <!-- @change="handleSearch" -->
+      <!-- @blur="hideSuggestionBox" -->
       <template slot="append">
         <HistoryBox :searchValueLocal.sync="searchValueLocal" />
       </template>
@@ -141,9 +142,10 @@ export default {
         this.$store.commit('SET_SEARCH_TYPE', searchType)
       }
     },
-    // handleSelect(item) {
-    //   console.log(item)
-    // },
+    handleSelect(item) {
+      this.searchValueLocal = item.value
+      this.handleSearch()
+    },
     handleSearch() {
       this.$bus.$emit('search', this.searchValueLocal)
       this.$refs.inputBox.activated = false
