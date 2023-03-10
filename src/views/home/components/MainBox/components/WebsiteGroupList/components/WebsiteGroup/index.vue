@@ -91,7 +91,7 @@ export default {
       editWebsiteGroupBoxType: 'add', // 网址框的模式：add：新建  edit: 编辑
       websiteGroupForContextmenu: null, // 点击右键菜单时，鼠标所指向的网址
       menuList: menuListFactory.call(this, 'websiteGroup'),
-      activeTagId: -1
+      activeTagId: this.websiteGroup.activeTagId
     }
   },
   computed: {

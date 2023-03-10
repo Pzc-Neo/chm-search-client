@@ -32,7 +32,7 @@
           :websiteGroups="websiteGroupList"
           :index="index"
           :key="websiteGroup.id"
-          @update="updateWebsiteGroup"
+          :update="updateWebsiteGroup"
         />
       </transition-group>
     </draggable>
@@ -132,6 +132,12 @@ export default {
     },
     updateWebsiteGroup(websiteGroup, key, value) {
       websiteGroup[key] = value
+      const index = this.websiteGroupList.findIndex((_websiteGroup) => {
+        return _websiteGroup.id === websiteGroup.id
+      })
+      if (index !== -1) {
+        this.$set(this.websiteGroupList[index], key, value)
+      }
     }
   }
 }
