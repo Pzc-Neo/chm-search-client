@@ -11,6 +11,7 @@ export default {
     document.getElementById('app').addEventListener('click', () => {
       this.$store.commit('SET_IS_SHOW_USER_INFO_BOX', false)
       this.$store.commit('SET_IS_SHOW_SETTING_BOX', false)
+      this.$store.commit('SET_IS_SHOW_SHARE_BOX', false)
       // 隐藏右键菜单
       this.$store.commit('HIDE_CONTEXTMENU', false)
     })

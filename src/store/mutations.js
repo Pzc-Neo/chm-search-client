@@ -1,4 +1,7 @@
 export default {
+  SET_URL_ID(state, value) {
+    state.urlId = value
+  },
   SET_SEARCH_TYPE(state, value) {
     state.searchType = value
   },
@@ -14,16 +17,25 @@ export default {
   SET_USER_INFO(state, value) {
     state.userInfo = value
   },
+  SET_IS_SHOW_SHARE_BOX(state, value) {
+    state.isShowShareBox = value
+    if (value) {
+      state.isShowUserInfoBox = false
+      state.isShowSettingBox = false
+    }
+  },
   SET_IS_SHOW_USER_INFO_BOX(state, value) {
     state.isShowUserInfoBox = value
     if (value) {
       state.isShowSettingBox = false
+      state.isShowShareBox = false
     }
   },
   SET_IS_SHOW_SETTING_BOX(state, value) {
     state.isShowSettingBox = value
     if (value) {
       state.isShowUserInfoBox = false
+      state.isShowShareBox = false
     }
   },
   SET_WEBSITE_GROUPS(state, value) {

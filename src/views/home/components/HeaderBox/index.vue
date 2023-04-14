@@ -27,7 +27,7 @@
       </el-col>
     </div>
     <div class="right">
-      <SettingBox />
+      <ShareBox />
       <UserInfoBox />
     </div>
   </div>
@@ -36,14 +36,14 @@
 <script>
 import SearchBox from './components/SearchBox'
 import UserInfoBox from './components/UserInfoBox'
-import SettingBox from './components/SettingBox'
+import ShareBox from './components/ShareBox'
 
 export default {
   name: 'HeaderBox',
   components: {
     SearchBox,
     UserInfoBox,
-    SettingBox
+    ShareBox
   },
   data() {
     return {}
@@ -89,6 +89,9 @@ export default {
   .right {
     display: flex;
     align-items: center;
+    .share_box {
+      margin-right: 7px;
+    }
   }
 }
 </style>

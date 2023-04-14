@@ -158,6 +158,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-menu-item:hover {
+  background-color: $color-side-bg !important;
+}
 .sub_menu_list {
   .el-menu-item {
     min-width: 50px;

@@ -96,6 +96,17 @@ export default {
      * 发送验证码
      */
     sendVerifyCode() {
+      serverPublicSendVerifyCode(this.form.email).then((res) => {
+        const { code, data } = res
+        if (code === 0) {
+          console.log(data)
+        } else {
+          this.$message({
+            message: data?.msg,
+            type: 'error'
+          })
+        }
+      })
       this.timeVerifyCode = 30
       const intervalTemp = setInterval(() => {
         this.timeVerifyCode -= 1
@@ -103,18 +114,6 @@ export default {
           clearInterval(intervalTemp)
         }
       }, 1000)
-      serverPublicSendVerifyCode(this.form.email).then((res) => {
-        const { code, data } = res
-        if (code === 0) {
-          console.log(data)
-        } else {
-          clearInterval(intervalTemp)
-          this.$message({
-            message: data?.msg,
-            type: 'error'
-          })
-        }
-      })
     },
     // 注册
     handleRegister() {

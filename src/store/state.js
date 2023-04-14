@@ -1,4 +1,5 @@
 export default {
+  urlId: 0,
   isSideBoxCollapse: false, // 侧栏是否折叠
   mode: 'website', // 中间面板模式=> website:导航; search: 搜索
   searchValue: '', // 搜索值
@@ -45,6 +46,8 @@ export default {
     engineId2: 2,
     engineId3: 3
   },
+  isShowShareBox: false, // 是否显示分享信息框
+  shareInfo: null, // 分享信息
   isShowUserInfoBox: false, // 是否显示用户信息框
   isShowSettingBox: false, // 是否显示设置信息框
   userInfo: null, // 用户信息

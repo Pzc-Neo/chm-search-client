@@ -40,3 +40,33 @@
 .el-select-dropdown__item.selected {
   color: $color-side-title-group;
 }
+
+.el-link {
+  &:hover {
+    color: $color-label-title !important;
+  }
+  &::after {
+    content: '';
+  }
+  .is-underline {
+    &:hover {
+      border-bottom: 0 !important;
+    }
+  }
+  .el-link--inner {
+    text-decoration: none !important;
+  }
+}
+// 链接下划线
+.el-link.is-underline:hover:after {
+  border-bottom: 0 !important;
+}
+
+.el-link.el-link--primary {
+  color: $color-label-title !important;
+}
+
+.el-switch.is-checked .el-switch__core {
+  border-color: $color-side-title-group !important;
+  background-color: $color-side-title-group !important;
+}

@@ -35,6 +35,8 @@ export default {
     return {}
   },
   async created() {
+    const { urlId } = this.$route.params
+    this.$store.commit('SET_URL_ID', urlId)
     // 有token的时候才获取用户信息
     const token = localStorage.getItem('token')
     if (token) {

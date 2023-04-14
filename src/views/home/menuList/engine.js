@@ -211,6 +211,18 @@ export const engine = function () {
           window.open(targetItem.url)
         }
       }
+    },
+    {
+      type: 'item',
+      menuItem: {
+        id: 'openHome',
+        title: '新标签打开首页',
+        icon: 'el-icon-top-right',
+        func: (targetItem) => {
+          const url = new URL(targetItem.url)
+          window.open(url.protocol + url.host)
+        }
+      }
     }
   ]
 }

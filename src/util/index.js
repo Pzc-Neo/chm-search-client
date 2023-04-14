@@ -6,8 +6,9 @@ import hotkeys from 'hotkeys-js'
  * @example getHomeData.call(this)
  */
 export const getHomeData = function () {
+  const urlId = this.$store.state.urlId
   return new Promise((resolve, reject) => {
-    serverHomeGetData().then((res) => {
+    serverHomeGetData({ urlId }).then((res) => {
       const { code, data } = res
       if (code === 0) {
         const { websiteGroups, engineGroups } = data

@@ -34,7 +34,9 @@ import {
   Col,
   Tabs,
   TabPane,
-  ColorPicker
+  ColorPicker,
+  Switch,
+  Link
 } from 'element-ui'
 ;[
   Button,
@@ -67,7 +69,9 @@ import {
   Col,
   Tabs,
   TabPane,
-  ColorPicker
+  ColorPicker,
+  Switch,
+  Link
 ].forEach((item) => {
   Vue.component(item.name, item)
 })

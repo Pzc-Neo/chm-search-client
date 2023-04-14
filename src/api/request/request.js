@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store'
 
 // 设置不同环境下的服务器url
 if (process.env.NODE_ENV === 'development') {
@@ -75,8 +76,9 @@ export function get(url, params) {
  */
 export function post(url, params) {
   const token = localStorage.getItem('token')
+  const urlId = store.state.urlId
   // 给每个请求添加token
-  params = { ...params, token }
+  params = { ...params, token, urlId: urlId || 0 }
   return new Promise((resolve, reject) => {
     axios
       .post(url, {

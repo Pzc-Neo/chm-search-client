@@ -18,3 +18,12 @@ export const serverUserGetInfo = async function (data) {
   }
   return await apiUserPost(dataForServer)
 }
+
+// 更新用户信息
+export const serverUserUpdateInfo = async function (data) {
+  const dataForServer = {
+    type: 'updateInfo',
+    data
+  }
+  return await apiUserPost(dataForServer)
+}
