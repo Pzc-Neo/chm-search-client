@@ -9,6 +9,7 @@
       placeholder="请输入内容"
       :trigger-on-focus="false"
       ref="inputBox"
+      :style="{ width: searchBoxWidth }"
       @keyup.enter.native="handleSearch"
       @select="handleSelect"
     >
@@ -94,6 +95,16 @@ export default {
       searchEngine: (state) => state.searchEngine,
       engineList: (state) => state.engineList
     }),
+    searchBoxWidth() {
+      // 汉字用两个字母代替
+      const letterCount = this.searchValueLocal.replace(
+        /[\u4e00-\u9fa5]/g,
+        'aa'
+      ).length
+      // 15是字体大小, 用以下公式能大概计算字符串的宽度
+      const width = (letterCount * 15) / 2 + 30
+      return (width < 180 ? 180 : width) + 'px'
+    },
     // 搜索值
     searchValue: {
       get() {
@@ -116,7 +127,9 @@ export default {
       }
       // 通过jsonp获取搜索建议
       // 获取搜索建议的链接(用百度的api)
-      const url = `https://suggestion.baidu.com/su?wd=${encodeURIComponent(queryString)}&cb=window.suggestionCb`
+      const url = `https://suggestion.baidu.com/su?wd=${encodeURIComponent(
+        queryString
+      )}&cb=window.suggestionCb`
       // this.$jsonp(url, {})
       const script = document.createElement('script')
       script.src = url
