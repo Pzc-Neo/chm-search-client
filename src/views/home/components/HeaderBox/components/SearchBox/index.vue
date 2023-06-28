@@ -11,12 +11,13 @@
       ref="inputBox"
       :style="{ width: searchBoxWidth }"
       @keyup.enter.native="handleSearch"
+      @blur="handleOnBlur"
       @select="handleSelect"
     >
       <!-- @change="handleSearch" -->
       <!-- @blur="hideSuggestionBox" -->
       <template slot="append">
-        <HistoryBox :searchValueLocal.sync="searchValueLocal" />
+        <HistoryBox ref="historyBox" :searchValueLocal.sync="searchValueLocal" />
       </template>
     </el-autocomplete>
     <!-- @select="handleSelect" -->
@@ -163,6 +164,11 @@ export default {
       this.$bus.$emit('search', this.searchValueLocal)
       this.$refs.inputBox.activated = false
       this.$store.commit('SET_MODE', 'search')
+      this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
+    },
+    handleOnBlur() {
+      // 添加搜索词到搜索列表
+      this.$refs.historyBox.addToHistoryList(this.searchValueLocal)
       this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
     },
     hideSuggestionBox() {
