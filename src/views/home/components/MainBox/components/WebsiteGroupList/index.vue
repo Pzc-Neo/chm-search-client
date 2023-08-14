@@ -32,7 +32,6 @@
           :websiteGroups="websiteGroupList"
           :index="index"
           :key="websiteGroup.id"
-          :update="updateWebsiteGroup"
         />
       </transition-group>
     </draggable>
@@ -52,7 +51,10 @@ export default {
   },
   data() {
     return {
-      drag: false
+      drag: false,
+      currentIndex: 0,
+      websiteGroupList: [],
+      intervalId: null
     }
   },
   computed: {
@@ -69,14 +71,39 @@ export default {
     }
   },
   created() {
-    this.websiteGroupList = this.websiteGroups
+    this.startRender()
   },
   watch: {
-    websiteGroups(newValue) {
-      this.websiteGroupList = newValue
+    websiteGroups(newList, oldList) {
+      if (oldList === null) {
+        this.startRender()
+      } else {
+        this.websiteGroupList = newList
+      }
     }
   },
   methods: {
+    startRender() {
+      clearInterval(this.intervalId)
+      this.websiteGroupList = []
+      this.currentIndex = 0
+      this.intervalId = setInterval(() => {
+        this.renderNextItem()
+      }, 0)
+    },
+    renderNextItem() {
+      const currentWebsiteGroups = this.websiteGroups // Save the current value
+      if (currentWebsiteGroups == null) {
+        return
+      }
+      if (this.currentIndex < currentWebsiteGroups.length) {
+        this.websiteGroupList.push(currentWebsiteGroups[this.currentIndex])
+        this.currentIndex++
+      } else {
+        clearInterval(this.intervalId)
+      }
+    },
+
     addWebsiteGroup() {
       this.$store.commit('SET_EDIT_WEBSITE_GROUP_BOX_DATA', {
         isShow: true,
@@ -129,15 +156,6 @@ export default {
           })
         }
       })
-    },
-    updateWebsiteGroup(websiteGroup, key, value) {
-      websiteGroup[key] = value
-      const index = this.websiteGroupList.findIndex((_websiteGroup) => {
-        return _websiteGroup.id === websiteGroup.id
-      })
-      if (index !== -1) {
-        this.$set(this.websiteGroupList[index], key, value)
-      }
     }
   }
 }
