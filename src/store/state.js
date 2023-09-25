@@ -20,12 +20,12 @@ export default {
   ],
   // 搜索引擎列表
   engineList: {
-    0: {
+    1: {
       id: 0,
       title: '百度',
       url: 'https://www.baidu.com/s?wd='
     },
-    1: {
+    0: {
       id: 1,
       title: '必应',
       url: 'https://cn.bing.com/search?q='

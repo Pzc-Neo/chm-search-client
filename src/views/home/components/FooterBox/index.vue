@@ -1,6 +1,11 @@
 <template>
   <div class="footer_box">
-    <div class="left">当前版本为bata版</div>
+    <div class="left">
+      <span title="不然百度谷歌搜索引擎之类的无法使用">需配合浏览器插件使用：</span>
+      <el-link href="http://114.132.72.197:56565/down/J8C7jBBaGLtH.crx"
+        >点击下载</el-link
+      >
+    </div>
     <div class="right">
       <div class="contact">
         <span class="label">联系我:</span>
@@ -29,12 +34,17 @@ export default {
 
   color: $color-side-title;
   background-color: $color-side-bg;
+  .el-link {
+    color: $color-side-title;
+  }
+  .left {
+    display: flex;
+  }
   .right {
     display: flex;
     .contact {
       display: flex;
       .email {
-        color: $color-side-title;
         margin-left: 3px;
       }
     }

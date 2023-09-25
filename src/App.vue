@@ -47,7 +47,9 @@ export default {
   ::-webkit-scrollbar-track {
     // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
+    margin: 4px 0;
+    background-color: transparent;
   }
 
   // 定义滑块
