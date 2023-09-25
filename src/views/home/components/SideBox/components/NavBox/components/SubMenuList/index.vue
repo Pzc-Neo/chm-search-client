@@ -163,7 +163,7 @@ export default {
 }
 .sub_menu_list {
   .el-menu-item {
-    min-width: 50px;
+    /* min-width: 50px; */
     text-align: left;
     color: $color-side-title;
     padding-left: 30px !important;
@@ -186,7 +186,7 @@ export default {
       line-height: 40px;
     }
     .el-menu-item {
-      min-width: 50px;
+      /* min-width: 50px; */
       text-align: left;
       color: $color-side-title;
       background-color: transparent;

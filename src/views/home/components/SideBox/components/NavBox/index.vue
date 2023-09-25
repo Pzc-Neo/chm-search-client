@@ -85,8 +85,8 @@ export default {
     width: 100%;
     user-select: none;
     &:not(.el-menu--collapse) {
-      width: 180px;
-      min-height: 400px;
+      /* min-width: 180px; */
+      /* min-height: 400px; */
     }
   }
   .el-menu {
