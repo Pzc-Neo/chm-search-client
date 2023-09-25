@@ -17,7 +17,10 @@
       <!-- @change="handleSearch" -->
       <!-- @blur="hideSuggestionBox" -->
       <template slot="append">
-        <HistoryBox ref="historyBox" :searchValueLocal.sync="searchValueLocal" />
+        <HistoryBox
+          ref="historyBox"
+          :searchValueLocal.sync="searchValueLocal"
+        />
       </template>
     </el-autocomplete>
     <!-- @select="handleSelect" -->
@@ -88,6 +91,14 @@ export default {
       this.hideSuggestionBox()
     })
   },
+  mounted() {
+    // 设置搜索关键词
+    if (this.$route.query.w) {
+      this.searchValueLocal = this.$route.query.w
+      this.handleSearch()
+      // this.$store.commit('SET_SEARCH_VALUE', this.$route.query.w)
+    }
+  },
   computed: {
     ...mapState({
       // 搜索类型
@@ -103,8 +114,9 @@ export default {
         'aa'
       ).length
       // 15是字体大小, 用以下公式能大概计算字符串的宽度
-      const width = (letterCount * 15) / 2 + 30
-      return (width < 180 ? 180 : width) + 'px'
+      let width = (letterCount * 15) / 2 + 30
+      width = Math.min(Math.max(width, 180), 500)
+      return width + 'px'
     },
     // 搜索值
     searchValue: {
