@@ -114,7 +114,7 @@ export default {
         'aa'
       ).length
       // 15是字体大小, 用以下公式能大概计算字符串的宽度
-      let width = (letterCount * 15) / 2 + 30
+      let width = (letterCount * 15) / 2 + 50
       width = Math.min(Math.max(width, 180), 500)
       return width + 'px'
     },

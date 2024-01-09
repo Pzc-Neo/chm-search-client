@@ -39,7 +39,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'HistoryBox',
   props: {
@@ -91,7 +90,7 @@ export default {
         return
       }
 
-      if (this.historyList.length > 10) {
+      if (this.historyList.length > 30) {
         this.historyList.pop()
       }
       this.historyList.unshift(word)

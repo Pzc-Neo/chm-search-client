@@ -2,7 +2,7 @@
   <div class="footer_box">
     <div class="left">
       <span title="不然百度谷歌搜索引擎之类的无法使用">需配合浏览器插件使用：</span>
-      <el-link href="http://114.132.72.197:56565/down/J8C7jBBaGLtH.crx"
+      <el-link href="https://hao-api.neoweb.top/download?name=extension"
         >点击下载</el-link
       >
     </div>
