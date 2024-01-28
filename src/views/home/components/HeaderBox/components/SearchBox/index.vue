@@ -212,6 +212,7 @@ export default {
       border-color: $color-side-title-group;
     }
   }
+
   .history_btn {
     border: 0;
   }
@@ -226,5 +227,10 @@ export default {
 :deep(.el-dropdown-menu__item:not(.is-disabled)):hover {
   color: $color-main m !important;
   background-color: $color-side-title-group !important;
+}
+:deep(.el-dropdown) {
+  .el-button-group {
+    display: flex !important;
+  }
 }
 </style>

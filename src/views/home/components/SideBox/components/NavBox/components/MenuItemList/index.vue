@@ -120,7 +120,7 @@ export default {
       return {
         animation: 200,
         group: 'description',
-        disabled: false,
+        disabled: !this.$store.state.isEditMode,
         ghostClass: 'ghost'
       }
     }

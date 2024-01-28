@@ -38,6 +38,23 @@ export default {
   data() {
     return {}
   },
+  methods: {
+    engineUrl(serialNumber) {
+      const engineId = 'engineId' + serialNumber
+      if (this.searchEngine[engineId]) {
+        const engine = this.engineList[this.searchEngine[engineId]]
+        if (engine) {
+          const pattern = /\{query\}/g
+          if (pattern.test(engine.url)) {
+            return engine.url.replace('{query}', this.searchValueEncoded)
+          } else {
+            return engine.url + this.searchValueEncoded
+          }
+        }
+      }
+      return this.defaultSearchEngine.url + this.searchValueEncoded
+    }
+  },
   computed: {
     ...mapState({
       searchType: (state) => state.searchType,
@@ -50,31 +67,13 @@ export default {
       searchValueEncoded: 'searchValueEncoded'
     }),
     engineUrl1() {
-      if (this.searchEngine?.engineId1) {
-        const engine = this.engineList[this.searchEngine.engineId1]
-        if (engine) {
-          return engine.url + this.searchValueEncoded
-        }
-      }
-      return this.defaultSearchEngine.url + this.searchValueEncoded
+      return this.engineUrl(1)
     },
     engineUrl2() {
-      if (this.searchEngine?.engineId2) {
-        const engine = this.engineList[this.searchEngine.engineId2]
-        if (engine) {
-          return engine.url + this.searchValueEncoded
-        }
-      }
-      return this.defaultSearchEngine.url + this.searchValueEncoded
+      return this.engineUrl(2)
     },
     engineUrl3() {
-      if (this.searchEngine?.engineId3) {
-        const engine = this.engineList[this.searchEngine.engineId3]
-        if (engine) {
-          return engine.url + this.searchValueEncoded
-        }
-      }
-      return this.defaultSearchEngine.url + this.searchValueEncoded
+      return this.engineUrl(3)
     }
   }
 }

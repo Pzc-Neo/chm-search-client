@@ -1,18 +1,20 @@
 <template>
-  <div class="side_box" :style="{ width: sideBarWidth }">
+  <div class="side_box" v-show="$store.state.isShowSideBox">
     <div
       class="drag_line"
       :style="{ left: dragLineLeft }"
       @mousedown="startDragResize"
     />
-    <div class="logo_container">
-      <a href="/" class="name">{{ isCollapse ? '城墨' : '城墨聚搜' }}</a>
+    <div class="logo_container" :style="{ width: sideBarWidth }">
+      <a href="/" class="name">{{
+        parseInt(sideBarWidth) < 150 ? '城墨' : '城墨聚搜'
+      }}</a>
       <i
         :class="[isSideBoxCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
         @click="isSideBoxCollapse = !isSideBoxCollapse"
       ></i>
     </div>
-    <NavBox :isCollapse="isCollapse"></NavBox>
+    <NavBox :isCollapse="isCollapse" :style="{ width: sideBarWidth }"></NavBox>
   </div>
 </template>
 

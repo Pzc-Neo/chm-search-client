@@ -1,6 +1,8 @@
 export default {
   urlId: 0,
   isSideBoxCollapse: false, // 侧栏是否折叠
+  isShowSideBox: true, // 侧栏是否显示
+  isEditMode: false, // 是否编辑模式
   mode: 'website', // 中间面板模式=> website:导航; search: 搜索
   searchValue: '', // 搜索值
   searchType: null, // 搜索类型 { title: '单搜', type: 1}

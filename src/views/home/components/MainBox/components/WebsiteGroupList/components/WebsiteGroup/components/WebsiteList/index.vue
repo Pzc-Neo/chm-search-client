@@ -38,7 +38,7 @@
             @contextmenu.prevent.stop="showContextmenu($event, website)"
             :title="`标题：${website.title}\n描述：${website.description}\n链接：${website.url}`"
           >
-            <div class="icon" >
+            <div class="icon">
               <NeoImage :src="website.url" />
             </div>
             <div class="container">
@@ -216,7 +216,7 @@ export default {
       return {
         animation: 200,
         group: 'description',
-        disabled: false,
+        disabled: !this.$store.state.isEditMode,
         ghostClass: 'ghost'
       }
     }

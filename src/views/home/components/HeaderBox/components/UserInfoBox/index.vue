@@ -145,6 +145,8 @@ export default {
   height: 30px;
   line-height: 30px;
   background-color: $color-side-title;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 :deep(.el-dialog) {
   width: 340px;

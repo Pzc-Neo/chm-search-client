@@ -4,7 +4,7 @@
     <el-container>
       <SideBox />
       <el-container>
-        <el-header><HeaderBox /></el-header>
+        <HeaderBox />
         <el-main><MainBox /></el-main>
         <el-footer><FooterBox /></el-footer>
       </el-container>
@@ -74,7 +74,7 @@ export default {
   }
 
   .el-header {
-    height: $height-header !important;
+    /* height: $height-header !important; */
   }
   .el-footer {
     height: $height-footer !important;

@@ -65,7 +65,7 @@ export default {
       return {
         animation: 200,
         group: 'website_group_list',
-        disabled: false,
+        disabled: !this.$store.state.isEditMode,
         ghostClass: 'ghost'
       }
     }

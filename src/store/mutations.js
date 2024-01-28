@@ -50,6 +50,12 @@ export default {
   SET_IS_SIDE_BOX_COLLAPSE(state, value) {
     state.isSideBoxCollapse = value
   },
+  SET_IS_SHOW_SIDE_BOX(state, value) {
+    state.isShowSideBox = value
+  },
+  SET_IS_EDIT_MODE(state, value) {
+    state.isEditMode = value
+  },
   SHOW_CONTEXTMENU(state, prama) {
     state.contextmenu.isShow = true
     state.contextmenu.prama = prama
