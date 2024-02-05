@@ -35,32 +35,6 @@ export default {
     width: 100%;
     height: 100%;
   }
-
-  ::-webkit-scrollbar {
-    width: 3px;
-    height: 3px;
-    // background-color: #f5f5f5;
-  }
-
-  // 定义滚动条轨道
-  // 内阴影+圆角
-  ::-webkit-scrollbar-track {
-    // -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    /* background-color: #f5f5f5; */
-    margin: 4px 0;
-    background-color: transparent;
-  }
-
-  // 定义滑块
-  // 内阴影+圆角
-  ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: $color-scroll-track;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: $color-scroll-track-hover;
-  }
 }
 .el-loading-mask {
   display: flex;
