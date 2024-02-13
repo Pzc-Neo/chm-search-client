@@ -7,6 +7,7 @@
       v-model="searchValueLocal"
       :fetch-suggestions="querySearch"
       placeholder="请输入内容"
+      :highlight-first-item="true"
       :trigger-on-focus="false"
       ref="inputBox"
       :style="{ width: searchBoxWidth }"
@@ -14,10 +15,24 @@
       @blur="handleOnBlur"
       @select="handleSelect"
     >
+      <i
+        class="icon_clear el-icon-delete el-input__icon"
+        slot="suffix"
+        @click="clearInputValue"
+      >
+      </i>
       <!-- @change="handleSearch" -->
       <!-- @blur="hideSuggestionBox" -->
-      <template slot="append">
+      <template slot="prepend">
         <HistoryBox
+          class="history_btn"
+          ref="historyBox"
+          :searchValueLocal.sync="searchValueLocal"
+        />
+      </template>
+      <template slot="append">
+        <AppendBox
+          class="history_btn"
           ref="historyBox"
           :searchValueLocal.sync="searchValueLocal"
         />
@@ -66,6 +81,7 @@
 <script>
 import { mapState } from 'vuex'
 import SearchEngineSelector from './components/SearchEngineSelector'
+import AppendBox from './components/AppendBox'
 import HistoryBox from './components/HistoryBox'
 export default {
   data() {
@@ -78,6 +94,7 @@ export default {
   },
   components: {
     SearchEngineSelector,
+    AppendBox,
     HistoryBox
   },
   created() {
@@ -114,7 +131,7 @@ export default {
         'aa'
       ).length
       // 15是字体大小, 用以下公式能大概计算字符串的宽度
-      let width = (letterCount * 15) / 2 + 50
+      let width = (letterCount * 15) / 2 + 50 + 50
       width = Math.min(Math.max(width, 180), 500)
       return width + 'px'
     },
@@ -172,11 +189,19 @@ export default {
       this.searchValueLocal = item.value
       this.handleSearch()
     },
+    setSearchValueLocal(value) {
+      this.searchValueLocal = value
+      this.$bus.$emit('search', value)
+      this.$store.commit('SET_SEARCH_VALUE', value)
+    },
     handleSearch() {
-      this.$bus.$emit('search', this.searchValueLocal)
+      this.setSearchValueLocal(this.searchValueLocal)
       this.$refs.inputBox.activated = false
       this.$store.commit('SET_MODE', 'search')
-      this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
+    },
+    clearInputValue() {
+      this.setSearchValueLocal('')
+      this.$refs.inputBox.focus()
     },
     handleOnBlur() {
       // 添加搜索词到搜索列表
@@ -212,9 +237,22 @@ export default {
       border-color: $color-side-title-group;
     }
   }
+  .input_box_append {
+    display: flex;
+  }
 
   .history_btn {
     border: 0;
+  }
+  .icon_clear {
+    margin-right: 14px;
+  }
+}
+:deep(.el-input-group__prepend) {
+  padding: 0px 8px;
+  .el-button {
+    margin: -10px -10px;
+    padding: 9px 10px;
   }
 }
 :deep(.el-input-group__append) {
