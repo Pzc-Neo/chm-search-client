@@ -49,6 +49,16 @@
           </el-switch>
           <span class="hint_text">编辑</span>
         </div>
+        <div class="command toggle_tools_box">
+          <el-switch
+            v-model="_isShowToolsBox"
+            size="small"
+            active-color="#13ce66"
+            inactive-color="#8C948A"
+          >
+          </el-switch>
+          <span class="hint_text">工具栏</span>
+        </div>
         <ShareBox />
         <UserInfoBox />
       </div>
@@ -86,6 +96,14 @@ export default {
       },
       set(value) {
         this.$store.commit('SET_IS_EDIT_MODE', value)
+      }
+    },
+    _isShowToolsBox: {
+      get() {
+        return this.$store.state.isShowToolsBox
+      },
+      set(value) {
+        this.$store.commit('SET_IS_SHOW_TOOLS_BOX', value)
       }
     },
     _isShowSideBox: {

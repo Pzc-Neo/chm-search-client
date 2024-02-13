@@ -7,7 +7,6 @@
       v-model="searchValueLocal"
       :fetch-suggestions="querySearch"
       placeholder="请输入内容"
-      :highlight-first-item="true"
       :trigger-on-focus="false"
       ref="inputBox"
       :style="{ width: searchBoxWidth }"
@@ -205,7 +204,9 @@ export default {
     },
     handleOnBlur() {
       // 添加搜索词到搜索列表
-      this.$refs.historyBox.addToHistoryList(this.searchValueLocal)
+      if (this.$refs?.historyBox?.addToHistoryList) {
+        this.$refs.historyBox.addToHistoryList(this.searchValueLocal)
+      }
       this.$store.commit('SET_SEARCH_VALUE', this.searchValueLocal)
     },
     hideSuggestionBox() {

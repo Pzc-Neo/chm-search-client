@@ -53,6 +53,9 @@ export default {
   SET_IS_SHOW_SIDE_BOX(state, value) {
     state.isShowSideBox = value
   },
+  SET_IS_SHOW_TOOLS_BOX(state, value) {
+    state.isShowToolsBox = value
+  },
   SET_IS_EDIT_MODE(state, value) {
     state.isEditMode = value
   },

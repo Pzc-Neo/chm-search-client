@@ -1,10 +1,15 @@
 <template>
   <div class="main_box">
-    <!-- 网址列表 -->
-    <WebsiteGroupList v-show="mode === 'website'" />
     <!-- 搜索 -->
-    <div class="wrapper" v-show="mode === 'search'">
-      <SearchPanel />
+    <div class="wrapper">
+      <div class="left">
+        <!-- 网址列表 -->
+        <WebsiteGroupList v-show="mode === 'website'" />
+        <SearchPanel v-show="mode === 'search'" />
+      </div>
+      <div class="right tools_box" v-show="$store.state.isShowToolsBox">
+        <ToolsBox />
+      </div>
     </div>
     <!-- 新增、编辑网址 -->
     <EditWebsiteBox />
@@ -22,6 +27,7 @@
 <script>
 import WebsiteGroupList from './components/WebsiteGroupList'
 import SearchPanel from './components/SearchPanel'
+import ToolsBox from './components/ToolsBox'
 import EditWebsiteBox from './components/EditWebsiteBox'
 import EditWebsiteGroupBox from './components/EditWebsiteGroupBox'
 import EditEngineBox from './components/EditEngineBox'
@@ -32,6 +38,7 @@ export default {
   components: {
     WebsiteGroupList,
     SearchPanel,
+    ToolsBox,
     EditWebsiteBox,
     EditWebsiteGroupBox,
     EditEngineBox,
@@ -55,10 +62,18 @@ export default {
   width: 100%;
   height: 100%;
   text-align: left;
-  overflow: auto;
   .wrapper {
     width: 100%;
     height: 100%;
+    display: flex;
+    .left {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+    }
+    .right {
+      /* width: 300px; */
+    }
   }
 }
 </style>
