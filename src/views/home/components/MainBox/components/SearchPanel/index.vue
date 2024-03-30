@@ -83,6 +83,7 @@ export default {
 .search_panel {
   width: 100%;
   height: 100%;
+  background: white;
   .engine,
   iframe {
     width: 100%;

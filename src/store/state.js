@@ -2,7 +2,7 @@ export default {
   urlId: 0,
   isSideBoxCollapse: false, // 侧栏是否折叠
   isShowSideBox: true, // 侧栏是否显示
-  isShowToolsBox: true, // 工具栏是否显示
+  isShowToolsBox: false, // 工具栏是否显示
   isEditMode: false, // 是否编辑模式
   mode: 'website', // 中间面板模式=> website:导航; search: 搜索
   searchValue: '', // 搜索值
