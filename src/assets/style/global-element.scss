@@ -71,7 +71,8 @@
   background-color: $color-side-title-group !important;
 }
 
-.el-dropdown-menu {
+.el-dropdown-menu,
+.el-popper[x-placement^='bottom'] {
   max-height: 90vh;
   overflow: auto;
 }
