@@ -20,5 +20,17 @@ module.exports = defineConfig({
       args[0].title = '城墨聚搜'
       return args
     })
+  },
+  devServer: {
+    // 配置跨域代理
+    proxy: {
+      '/api': {
+        target: 'http://hao-api.neoweb.top', // 修改为你的后端 API 地址
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   }
 })
