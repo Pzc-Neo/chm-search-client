@@ -24,15 +24,15 @@
       <!-- @blur="hideSuggestionBox" -->
       <template slot="prepend">
         <HistoryBox
-          class="history_btn"
+          class="search_box_btn"
           ref="historyBox"
           :searchValueLocal.sync="searchValueLocal"
         />
       </template>
       <template slot="append">
         <AppendBox
-          class="history_btn"
-          ref="historyBox"
+          class="search_box_btn"
+          ref="appendBox"
           :searchValueLocal.sync="searchValueLocal"
         />
       </template>
@@ -242,7 +242,7 @@ export default {
     display: flex;
   }
 
-  .history_btn {
+  .search_box_btn {
     border: 0;
   }
   .icon_clear {
